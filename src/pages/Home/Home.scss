@@ -1,0 +1,43 @@
+/****************HOME CSS****************/
+@import "./components/Carousel/Carousel.scss";
+@import "./components/Tabs/Tabs.scss";
+
+.swiper-button-prev {
+    background-color: #12121273;
+    width: 50px;
+    height: 70px;
+    padding: 20px 12px;
+    border-radius: 5px;
+    left: 0;
+    border: 1px solid #fff;
+    &::after {
+      color: #ffffff;
+      font-size: 30px;
+      font-weight: bolder;
+    }
+    &:hover {
+      &::after {
+        color: #f5c518;
+      }
+    }
+  }
+
+.swiper-button-next {
+    background-color: #12121273;
+    width: 50px;
+    height: 70px;
+    padding: 20px 12px;
+    border-radius: 5px;
+    right: 0;
+    border: 1px solid #fff;
+    &::after {
+      color: #ffffff;
+      font-size: 30px;
+      font-weight: bolder;
+    }
+    &:hover {
+      &::after {
+        color: #f5c518;
+      }
+    }
+  }

@@ -1,0 +1,43 @@
+.header{
+  position: sticky;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: auto;
+  z-index: 100;
+  padding: 10px 10%;
+  color: #FFFFFF;
+  background-color: #121212;
+
+  & .navbar__wrapper{
+    position: relative;
+    z-index: 1;
+    width: 100%;
+
+    & .nav__link{
+      font-size: 14px;
+      font-weight: 600;
+      color: #FFFFFF;
+      display: block;
+      padding: 10px 10px;
+      border-radius: 5px;
+      &:hover{
+        background-color: rgba(46,46,46,1);
+      }
+    }
+
+    & .btn{
+      padding: 10px 20px;
+      background-color: transparent;
+      border-radius: 5px;
+      letter-spacing: 1px;
+      border-style: solid;
+      border-color: #171c20;
+      font-weight: 600;
+      &:hover{
+        background-color: rgba(46,46,46,1) !important;
+        cursor: pointer;
+      }
+    }
+  }
+} 
