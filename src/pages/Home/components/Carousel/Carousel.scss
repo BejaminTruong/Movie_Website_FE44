@@ -11,7 +11,7 @@
       width: 67%;
       display: block;
       &:hover{
-        & button i {
+        & .btn-trailer i {
           border-color: #f5c518;
           background-color: #f5c518;
         }
@@ -54,7 +54,7 @@
     & .movie__trailer {
       position: relative;
       width: 15%;
-      & button {
+      & .btn-trailer {
         position: absolute;
         left: 10%;
         bottom: 15%;
@@ -116,7 +116,7 @@
           width: 75%;
           padding-left: 10px;
           color: #fff;
-          & button {
+          & .btn-trailer {
             padding: 0;
             background-color: transparent;
             border: 1px solid #fff;

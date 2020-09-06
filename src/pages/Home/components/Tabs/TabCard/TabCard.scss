@@ -1,15 +1,118 @@
-.card{
-    height: 100%;
-    background-color: #1a1a1a !important;
-    color: #fff !important;
-    & img{
-        display: block;
-        width: 100%;
-        height: 80%;
+.card {
+  background-color: #1a1a1a !important;
+  color: #fff !important;
+  overflow-x: hidden;
+  & .card__img {
+    position: relative;
+    width: 100%;
+    & .detail__movie {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transform: translatey(-100%);
+      background-image: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(0, 0, 0, 0.45) 25%,
+        rgba(0, 0, 0, 0.85) 75%
+      );
     }
+    & .btn-trailer {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      border-radius: 100%;
+      &:hover {
+        opacity: 0.8;
+      }
+      & i {
+        color: #111111;
+        background-color: #f5c518;
+        font-size: 70px;
+        border-radius: 100%;
+        display: block;
+        border: 3px solid #f5c518;
+      }
+    }
+    & img {
+      display: block;
+      width: 100%;
+      height: 400px;
+    }
+  }
+
+  & .card__info {
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+    padding: 0 10px;
+    & .card__title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      color: #fff;
+    }
+    & .card__rate {
+      display: flex;
+      flex-direction: row;
+      & p {
+        font-size: 16px;
+        margin:0;
+      }
+    }
+    & .link__booking {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-100%);
+      & .btn__link__booking {
+        width: 100%;
+        height: 100%;
+        background: #f5c518;
+        color: #121212;
+        visibility: visible;
+        font-weight: 600;
+        font-size: 20px;
+
+        &:hover {
+          opacity: 0.85;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    & .detail__movie {
+      transform: translate(0, 0);
+      opacity: 1;
+      transition: all linear 0.5s;
+    }
+
+    & .link__booking {
+      transform: translate(0);
+      transition: all linear 0.5s;
+    }
+
+    & .card__info {
+      visibility: hidden;
+    }
+  }
 }
 
-.ant-card-body{
-    padding: 10px !important;
-    height: 100%;
+.ant-card-body {
+  padding: 0 !important;
 }
