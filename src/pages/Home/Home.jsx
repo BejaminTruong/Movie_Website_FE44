@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { quanLyPhimService } from "../../services/QuanLyPhimService";
 import {groupID_carousel} from "../../configs/setting"
-import Carousel from "./components/Carousel/Carousel";
-import Tab from "./components/Tabs/Tab";
-import loading from "../../Loading.gif"
+import {Carousel} from "./components/Carousel/Carousel";
+import {Tab} from "./components/Tabs/Tab";
+import loading from "../../Loading.gif";
+import "swiper/swiper-bundle.css";
 import "./Home.scss";
 
 export default function Home() {

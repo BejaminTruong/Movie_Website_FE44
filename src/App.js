@@ -2,7 +2,6 @@ import React from 'react';
 import {BrowserRouter} from 'react-router-dom'
 import { HomeTemplate } from "./templates/HomeTemplate/HomeTemplate"
 import Home from "./pages/Home/Home"
-import "swiper/swiper-bundle.css";
 import 'antd/dist/antd.css'
 import "./App.css"
 

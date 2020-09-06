@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import SwiperCore, { Navigation, Autoplay, Lazy } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import moment from 'moment'
-import Trailer from "../../../../components/Trailer/Trailer";
-import "swiper/swiper-bundle.css";
+import {Trailer} from "../../../../components/Trailer/Trailer";
+
 SwiperCore.use([Navigation, Autoplay, Lazy]);
 
-const Carousel = (props) => {
+export const Carousel = (props) => {
   let {DSPhim} = props;
 
   const DSPhimTopRanking = (DSPhim) => {
@@ -95,4 +95,3 @@ const Carousel = (props) => {
   );
 };
 
-export default Carousel;

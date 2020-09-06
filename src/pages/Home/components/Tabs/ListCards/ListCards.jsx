@@ -1,11 +1,11 @@
 import React from "react";
 import SwiperCore, { Navigation, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import TabCard from "../TabCard/TabCard"
+import {TabCard} from "../TabCard/TabCard"
 
 SwiperCore.use([Navigation, Autoplay]);
 
-const ListCards = (props) => {
+export const ListCards = (props) => {
   const { DSPhim } = props;
   return (
     <>
@@ -32,5 +32,3 @@ const ListCards = (props) => {
     </>
   );
 };
-
-export default ListCards

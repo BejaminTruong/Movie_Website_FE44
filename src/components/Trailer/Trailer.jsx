@@ -1,25 +1,21 @@
-import React, { Component } from "react";
-import { Modal, Button } from "antd";
+import React, { useState } from "react";
+import { Modal } from "antd";
 import "./Trailer.scss";
 
-export default class Trailer extends Component {
-  state = { visible: false };
+export const Trailer = (props) => {
 
-  showModal = () => {
-    this.setState({
-      visible: true,
-    });
+  let [visible,setVisible] = useState(false)
+
+  const showModal = () => {
+    setVisible(true)
   };
 
-  handleCancel = (e) => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-    this.stopVideo();
+  const handleCancel = (e) => {
+    setVisible(false)
+    stopVideo();
   };
 
-  stopVideo = () => {
+  const stopVideo = () => {
     let iframes = document.querySelectorAll("iframe");
     Array.prototype.forEach.call(iframes, (iframe) => {
       if (iframe.tagName.toLowerCase() === "iframe") {
@@ -28,21 +24,20 @@ export default class Trailer extends Component {
       }
     });
   };
-  render() {
-    return (
-      <>
-        <button onClick={this.showModal}>
-          <i className="fas fa-play-circle"></i>
-        </button>
-        <Modal
-          visible={this.state.visible}
-          onCancel={this.handleCancel}
-          width="80%"
-          footer={null}
-        >
-          <iframe frameBorder="0" allowFullScreen src={this.props.trailer} />
-        </Modal>
-      </>
-    );
-  }
+
+  return (
+    <>
+      <button onClick={showModal}>
+        <i className="fas fa-play-circle"></i>
+      </button>
+      <Modal
+        visible={visible}
+        onCancel={handleCancel}
+        width="80%"
+        footer={null}
+      >
+        <iframe frameBorder="0" allowFullScreen src={props.trailer} />
+      </Modal>
+    </>
+  );
 }

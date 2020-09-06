@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "antd";
 import moment from "moment";
 
-const TabCard = (props) => {
+export const TabCard = (props) => {
   const { phim } = props;
 
   return (
@@ -19,5 +19,3 @@ const TabCard = (props) => {
     </>
   );
 };
-
-export default TabCard;

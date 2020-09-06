@@ -2,28 +2,32 @@ import React, { useState, useEffect } from "react";
 import { Tabs } from "antd";
 import { quanLyPhimService } from "../../../../services/QuanLyPhimService";
 import { groupID_defaultTab, groupID_Tab2, groupID_Tab3 } from "../../../../configs/setting";
-import ListCards from "./ListCards/ListCards";
+import {ListCards} from "./ListCards/ListCards";
 
-const Tab = (props) => {
-  let [DSPhimSapChieu, setDSPhimSapChieu] = useState([]);
-  let [DSPhimDangChieu, setDSPhimDangChieu] = useState([]);
-  let [DSPhimHot, setDSPhimHot] = useState([]);
+export const Tab = (props) => {
+  let [DSPhim, setDSPhim] = useState([]);
 
   useEffect(() => {
     quanLyPhimService.layDanhSachPhim(groupID_defaultTab).then((res) => {
-      setDSPhimSapChieu(res.data);
+      setDSPhim(res.data);
     });
   }, []);
 
+  const handleLoadingTab1 = () =>{
+    quanLyPhimService.layDanhSachPhim(groupID_defaultTab).then((res) => {
+      setDSPhim(res.data);
+    });
+  }
+
   const handleLoadingTab2 = () => {
     quanLyPhimService.layDanhSachPhim(groupID_Tab2).then((res) => {
-      setDSPhimDangChieu(res.data);
+      setDSPhim(res.data);
     });
   };
 
   const handleLoadingTab3 = () => {
     quanLyPhimService.layDanhSachPhim(groupID_Tab3).then((res) => {
-      setDSPhimHot(res.data);
+      setDSPhim(res.data);
     });
   };
 
@@ -38,21 +42,25 @@ const Tab = (props) => {
           tabBarStyle={{ fontWeight: 700, padding: "10px 0" }}
           tabBarGutter={10}
           onTabClick={(key) => {
-            if (key === "2") {
+            if(key === "1"){
+              handleLoadingTab1();
+            }
+            else if (key === "2") {
               handleLoadingTab2();
-            }else{
+            }
+            else{
               handleLoadingTab3();
             }
           }}
         >
           <Tabs.TabPane tab="Phim Sắp Chiếu" key="1" animated>
-            <ListCards DSPhim={DSPhimSapChieu} />
+            <ListCards DSPhim={DSPhim} />
           </Tabs.TabPane>
           <Tabs.TabPane tab="Phim Đang Chiếu" key="2" animated>
-            <ListCards DSPhim={DSPhimDangChieu} />
+            <ListCards DSPhim={DSPhim} />
           </Tabs.TabPane>
           <Tabs.TabPane tab="Phim Hot Nhất" key="3" animated>
-            <ListCards DSPhim={DSPhimHot} />
+            <ListCards DSPhim={DSPhim} />
           </Tabs.TabPane>
         </Tabs>
       </section>
@@ -60,4 +68,3 @@ const Tab = (props) => {
   );
 };
 
-export default Tab;
