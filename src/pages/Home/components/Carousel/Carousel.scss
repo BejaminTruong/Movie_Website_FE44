@@ -1,7 +1,7 @@
 /************ Carousel**************/
 .carousel {
+    margin-top: 20px;
     height: 600px;
-    padding: 20px 10%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -84,15 +84,15 @@
     }
   
     & .swiper-container {
-      height: 100%;
+      width: 100%;
+      height: 90%;
       & .swiper-wrapper {
         height: 100% !important;
-        margin-block-start: 0;
-        margin-block-end: 0;
-        padding-inline-start: 0;
-        & .swiper-slide {
-          height: auto !important;
+        width: 100% !important;
+        & .slide_movieTop {
+          padding: 5px 10px;
         }
+
       }
     }
   
@@ -107,10 +107,10 @@
       }
   
       & .movieTop__content {
+        height: 100%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        padding: 10px 10px;
   
         & .movie__trailer2 {
           width: 75%;
@@ -148,12 +148,14 @@
           & p {
             font-size: 14px;
             color: #ffffffb3;
+            margin: 0;
+            text-transform: uppercase;
           }
         }
         & .slider2__img {
           display: block;
           width: 30%;
-          height: 160px;
+          height: 100%;
         }
       }
     }

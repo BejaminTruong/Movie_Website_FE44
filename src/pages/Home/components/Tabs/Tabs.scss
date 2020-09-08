@@ -1,9 +1,6 @@
 /**************** TABS ********************/
-@import "./TabCard/TabCard.scss";
-@import "./ListCards/ListCards.scss";
 
 .tabs {
-  width: 80%;
   margin: 0 auto;
   padding: 50px 20px;
   background-color: #121212;
@@ -15,14 +12,22 @@
     &:hover {
       color: #121212;
       opacity: 0.8;
-      transition: all linear 0.4s;
+      transition: all linear 0.5s;
+    }
+
+    &:active {
+      opacity: 1;
     }
   }
 
   & .ant-tabs-tab-active {
+    color: #121212 !important;
     & .ant-tabs-tab-btn {
       color: #121212 !important;
       font-weight: 600 !important;
     }
+  }
+  & .ant-tabs-tab-btn:active {
+    color: #121212 !important;
   }
 }

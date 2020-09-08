@@ -1,8 +1,9 @@
 import React from "react";
 import { Card, Button } from "antd";
 import moment from "moment";
-import { Trailer } from "../../../../../components/Trailer/Trailer";
+import { Trailer } from "../Trailer/Trailer";
 import {ShoppingFilled} from "@ant-design/icons";
+import "./TabCard.scss";
 
 export const TabCard = (props) => {
   const { phim } = props;

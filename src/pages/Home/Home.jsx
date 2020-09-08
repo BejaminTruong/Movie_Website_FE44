@@ -24,7 +24,7 @@ export default function Home() {
   }, []);
 
   return (
-    <section>  
+    <section className="home">  
       {Loading ? (
         <div style={{width:"50%",height:"100%",margin:"0 auto "}}>
           <img

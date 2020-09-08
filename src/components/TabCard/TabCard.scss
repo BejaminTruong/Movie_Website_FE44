@@ -99,12 +99,12 @@
     & .detail__movie {
       transform: translate(0, 0);
       opacity: 1;
-      transition: all linear 0.5s;
+      transition: all linear 0.2s;
     }
 
     & .link__booking {
       transform: translate(0);
-      transition: all linear 0.5s;
+      transition: all linear 0.2s;
     }
 
     & .card__info {

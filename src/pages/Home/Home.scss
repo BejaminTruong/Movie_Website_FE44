@@ -1,6 +1,7 @@
 /****************HOME CSS****************/
-@import "./components/Carousel/Carousel.scss";
-@import "./components/Tabs/Tabs.scss";
+.home{
+  padding: 0 8% ;
+}
 
 .swiper-button-prev {
     background-color: #12121273;
