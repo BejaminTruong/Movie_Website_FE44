@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Tabs } from "antd";
 import { quanLyPhimService } from "../../../../services/QuanLyPhimService";
-import {
-  groupID_defaultTab,
-  groupID_Tab2,
-  groupID_Tab3,
+import {groupID_defaultTab,groupID_Tab2,groupID_Tab3,
 } from "../../../../configs/setting";
 import { ListCards } from "../../../../components/ListCards/ListCards";
 import { TabCard } from "../../../../components/TabCard/TabCard";

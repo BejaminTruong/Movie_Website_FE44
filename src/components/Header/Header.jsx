@@ -1,5 +1,7 @@
 import React from "react";
 import {Row, Col, Space} from "antd";
+import logo from  "../../favicon_movie.ico";
+import movie_name from "../../Logo_name.png";
 import "./Header.scss"
 
 export const Header= () => {
@@ -7,8 +9,9 @@ export const Header= () => {
     <section className="header">
       <nav className="navbar__wrapper">
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="space-between" align="middle">
-          <Col span={6}>
-            <div>col-6</div>
+          <Col span={6}>           
+            <img src={logo} width="20%" height="20%"  style={{borderRadius:"100%",display:"inline-block"}}/>
+            <img src={movie_name} width="80%" style={{backgroundColor:"transparent"}} />
           </Col>
           <Col span={10}>
             <Row justify="center" >
