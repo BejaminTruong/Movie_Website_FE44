@@ -3,7 +3,7 @@ import {BrowserRouter} from 'react-router-dom'
 import { HomeTemplate } from "./templates/HomeTemplate/HomeTemplate"
 import Home from "./pages/Home/Home"
 import 'antd/dist/antd.css'
-import "./App.css"
+import "./App.scss"
 
 function App() {
   return (

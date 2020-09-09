@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col, Space } from "antd";
 import logo from "favicon_movie.ico";
 import movie_name from "Logo_name.png";
-import "components/Header/_header.scss"
+import "./Header.scss"
 import { NavLink } from "react-router-dom";
 
 export const Header = () => {

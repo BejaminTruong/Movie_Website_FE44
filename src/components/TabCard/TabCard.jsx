@@ -3,7 +3,7 @@ import { Card, Button } from "antd";
 import moment from "moment";
 import { Trailer } from "../Trailer/Trailer";
 import {ShoppingFilled} from "@ant-design/icons";
-import "./_tabCard.scss";
+import "./TabCard.scss";
 import { NavLink } from "react-router-dom";
 
 export const TabCard = (props) => {

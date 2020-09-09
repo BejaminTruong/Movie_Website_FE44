@@ -5,7 +5,7 @@ import {Carousel} from "pages/Home/components/Carousel/Carousel";
 import {Tab} from "pages/Home/components/Tabs/Tab";
 import loading from "Loading.gif";
 import "swiper/swiper-bundle.css";
-import "./_home.scss";
+import "./Home.scss";
 
 export default function Home() {
   let [DSPhim, setDSPhim] = useState([]);
