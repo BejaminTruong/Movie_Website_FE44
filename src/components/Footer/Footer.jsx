@@ -13,6 +13,7 @@ import { Space } from "antd";
 import Toan from "images/icons8-minion-100.png";
 import Binh from "images/icons8-minion-2-100.png";
 export const Footer = () => {
+
   return (
     <div className="footer">
       <div className="iconRow">

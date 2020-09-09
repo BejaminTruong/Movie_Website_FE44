@@ -1,40 +1,57 @@
 import React, { useState, useEffect } from "react";
 import { Tabs } from "antd";
 import { quanLyPhimService } from "services/QuanLyPhimService";
-import {groupID_defaultTab,groupID_Tab2,groupID_Tab3,
+import {
+  groupID_defaultTab,
+  groupID_Tab2,
+  groupID_Tab3,
 } from "configs/setting";
 import { ListCards } from "components/ListCards/ListCards";
 import { TabCard } from "components/TabCard/TabCard";
-import "./_tabs.scss"
+import Loading from "images/Loading.gif";
+import "./_tabs.scss";
 
 export const Tab = (props) => {
   let [DSPhim, setDSPhim] = useState([]);
-  
+  let [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     quanLyPhimService.layDanhSachPhim(groupID_defaultTab).then((res) => {
       setDSPhim(res.data);
+      setIsLoading(false);
     });
   }, []);
 
   const handleLoadingTab1 = () => {
     quanLyPhimService.layDanhSachPhim(groupID_defaultTab).then((res) => {
       setDSPhim(res.data);
+      setIsLoading(false);
     });
   };
 
   const handleLoadingTab2 = () => {
     quanLyPhimService.layDanhSachPhim(groupID_Tab2).then((res) => {
       setDSPhim(res.data);
+      setIsLoading(false);
     });
   };
 
   const handleLoadingTab3 = () => {
     quanLyPhimService.layDanhSachPhim(groupID_Tab3).then((res) => {
       setDSPhim(res.data);
+      setIsLoading(false);
     });
   };
 
   const renderListCard = () => {
+    if (isLoading) {
+      return (
+        <div style={{ width: "100%", height: "100%", margin: "0 auto " }}>
+          <img src={Loading} alt="Loading..." width="100%" height="100%" />
+        </div>
+      );
+    }
+
     return (
       <ListCards
         data={DSPhim}
@@ -60,9 +77,9 @@ export const Tab = (props) => {
           type="card"
           size="large"
           tabPosition="top"
-          tabBarStyle={{ fontWeight: 700, padding: "10px 0"}}
+          tabBarStyle={{ fontWeight: 700, padding: "10px 0" }}
           tabBarGutter={10}
-          onTabClick={(key,e) => {
+          onTabClick={(key, e) => {
             if (key === "1") {
               handleLoadingTab1();
             } else if (key === "2") {

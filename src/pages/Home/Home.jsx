@@ -3,14 +3,16 @@ import { quanLyPhimService } from "services/QuanLyPhimService";
 import {groupID_carousel} from "configs/setting"
 import {Carousel} from "components/Carousel/Carousel";
 import {Tab} from "components/Tabs/Tab";
-import loading from "images/Loading.gif";
+import Load from "images/Loading.gif";
 import "swiper/swiper-bundle.css";
 import "./Home.scss";
 
-export default function Home() {
+export default function Home(props) {
   let [DSPhim, setDSPhim] = useState([]);
   let [DSPhimTopRanking,setDSPhimTopRanking] = useState([]);
   let [Loading, setLoading] = useState(true);
+
+  const {handleLoading} = props;
 
   useEffect(() => {
     quanLyPhimService
@@ -18,6 +20,7 @@ export default function Home() {
       .then((res) => {
         setDSPhim(res.data);
         setLoading(false);
+        handleLoading();
         return res.data
       }).then(DSPhimTop => {
         let DSPhimTopRanking = [];
@@ -39,9 +42,9 @@ export default function Home() {
   return (
     <section className="home"> 
       {Loading ? (
-        <div style={{width:"50%",height:"100%",margin:"0 auto "}}>
+        <div style={{width:"100%",height:"100%",margin:"0 auto "}}>
           <img
-            src={loading}
+            src={Load}
             alt="Loading..."
             width="100%"
             height="100%"
