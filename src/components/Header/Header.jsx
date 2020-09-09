@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Space } from "antd";
-import logo from "favicon_movie.ico";
-import movie_name from "Logo_name.png";
+import logo from "images/favicon_movie.ico";
+import movie_name from "images/Logo_name.png";
 import "./Header.scss"
 import { NavLink } from "react-router-dom";
 
