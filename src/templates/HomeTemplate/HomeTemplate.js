@@ -7,7 +7,7 @@ const HomeComponent = (props) =>{
     return <Fragment>
         <Header />
         {props.children}
-        {!Loading ? <Footer Loading={Loading} /> : <></>}
+        {!Loading ? <Footer /> : <> </>}
     </Fragment>
 }
 
@@ -21,7 +21,7 @@ export const HomeTemplate = ({Component,...rest}) =>{
 
     return <Route {...rest} render={(props)=>{
         return <HomeComponent Loading={isLoading}>
-            <Component {...props} handleLoading={handleLoading}/>
+            <Component {...props} Loading={isLoading} handleLoading={handleLoading}/>
         </HomeComponent>
     }} />
 }
