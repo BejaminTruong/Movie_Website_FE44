@@ -1,4 +1,4 @@
-.header{
+.header {
   position: sticky;
   left: 0%;
   right: 0%;
@@ -6,27 +6,30 @@
   bottom: auto;
   z-index: 100;
   padding: 10px 10%;
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: #121212;
 
-  & .navbar__wrapper{
+  & .navbar__wrapper {
     position: relative;
     z-index: 1;
     width: 100%;
 
-    & .nav__link{
+    & .nav__link {
       font-size: 14px;
       font-weight: 600;
-      color: #FFFFFF;
+      color: #ffffff;
       display: block;
       padding: 10px 10px;
       border-radius: 5px;
-      &:hover{
-        background-color: rgba(46,46,46,1);
+      &:hover {
+        background-color: rgba(46, 46, 46, 1);
+      }
+      @media screen and (max-width:1200px){
+        font-size: 0.7em;
       }
     }
 
-    & .btn{
+    & .btn {
       padding: 10px 20px;
       background-color: transparent;
       border-radius: 5px;
@@ -34,10 +37,13 @@
       border-style: solid;
       border-color: #171c20;
       font-weight: 600;
-      &:hover{
-        background-color: rgba(46,46,46,1) !important;
+      &:hover {
+        background-color: rgba(46, 46, 46, 1) !important;
         cursor: pointer;
+      }
+      @media screen and (max-width:1200px){
+        font-size: 0.7em;
       }
     }
   }
-} 
+}

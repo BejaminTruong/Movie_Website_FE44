@@ -1,0 +1,19 @@
+$breakpoints: (
+  "extra-large": 1200px,
+  "large": 992px,
+  "medium": 768px,
+  "small": 576px,
+);
+@mixin responsive($breakpoint) {
+  @if map-has-key($map: $breakpoints, $key: $breakpoint) {
+    $value: map-get(
+      $map: $breakpoints,
+      $key: $breakpoint,
+    );
+    @media screen and (max-width: $value) {
+      @content;
+    }
+  } @else {
+    @warn "no breakpoint founded!";
+  }
+}

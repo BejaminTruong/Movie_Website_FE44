@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from "antd";
-import "./Trailer.scss";
+import "./_trailer.scss";
 
 export const Trailer = (props) => {
 

@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import SwiperCore, { Navigation, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "./ListCards.scss";
+import "./_listCards.scss"
 
 SwiperCore.use([Navigation, Autoplay]);
 

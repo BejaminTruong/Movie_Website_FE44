@@ -1,7 +1,10 @@
 import React from "react";
 import { Row, Col, Space } from "antd";
-import "./Header.scss";
-import saitama from "../../images/icons8-saitama-48.png";
+import logo from "favicon_movie.ico";
+import movie_name from "Logo_name.png";
+import "components/Header/_header.scss"
+import { NavLink } from "react-router-dom";
+
 export const Header = () => {
   return (
     <section className="header">
@@ -12,9 +15,21 @@ export const Header = () => {
           align="middle"
         >
           <Col span={6}>
-            <div>
-              <img src={saitama} alt="saitama" />
-            </div>
+            <NavLink to="/home">
+              <img
+                src={logo}
+                width="20%"
+                height="20%"
+                style={{ borderRadius: "100%", display: "inline-block" }}
+                alt="logo"
+              />
+              <img
+                src={movie_name}
+                width="80%"
+                style={{ backgroundColor: "transparent" }}
+                alt="brand"
+              />
+            </NavLink>
           </Col>
           <Col span={10}>
             <Row justify="center">

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { quanLyPhimService } from "../../services/QuanLyPhimService";
-import {groupID_carousel} from "../../configs/setting"
-import {Carousel} from "./components/Carousel/Carousel";
-import {Tab} from "./components/Tabs/Tab";
-import loading from "../../Loading.gif";
+import { quanLyPhimService } from "services/QuanLyPhimService";
+import {groupID_carousel} from "configs/setting"
+import {Carousel} from "pages/Home/components/Carousel/Carousel";
+import {Tab} from "pages/Home/components/Tabs/Tab";
+import loading from "Loading.gif";
 import "swiper/swiper-bundle.css";
-import "./Home.scss";
+import "./_home.scss";
 
 export default function Home() {
   let [DSPhim, setDSPhim] = useState([]);
+  let [DSPhimTopRanking,setDSPhimTopRanking] = useState([]);
   let [Loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,14 +18,26 @@ export default function Home() {
       .then((res) => {
         setDSPhim(res.data);
         setLoading(false);
+        return res.data
+      }).then(DSPhimTop => {
+        let DSPhimTopRanking = [];
+        DSPhimTop.forEach((phim) => {
+          const rate = +phim.danhGia;
+          if (rate >= 8 && rate <= 10) {
+            DSPhimTopRanking.push(phim);
+          }
+        })
+
+        setDSPhimTopRanking(DSPhimTopRanking);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
+  
   return (
-    <section className="home">  
+    <section className="home"> 
       {Loading ? (
         <div style={{width:"50%",height:"100%",margin:"0 auto "}}>
           <img
@@ -36,7 +49,7 @@ export default function Home() {
         </div>
       ) : (
         <>
-          <Carousel DSPhim={DSPhim} />
+          <Carousel DSPhim={DSPhim} DSPhimTop = {DSPhimTopRanking} />
           <Tab />
         </>
       )}
