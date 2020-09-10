@@ -1,22 +1,44 @@
-import React,{Fragment} from 'react'
-import {Route} from 'react-router-dom'
-import { Header } from '../../components/Header/Header'
-import { Footer } from '../../components/Footer/Footer'
-import { BackTop } from 'antd';
-import "./HomeTemplate.scss"
-const HomeComponent = (props) =>{
-    return <Fragment>
+import React, { Fragment, useState } from "react";
+import { Route } from "react-router-dom";
+import { BackTop } from "antd";
+import { Header } from "components/Header/Header";
+import { Footer } from "components/Footer/Footer";
+const HomeComponent = (props) => {
+  const { Loading } = props;
+  if (!Loading) {
+    return (
+      <Fragment>
         <Header />
         {props.children}
-        <Footer/>
-        <BackTop className="backTop"/>
-    </Fragment>
-}
+        <BackTop />
+        <Footer />
+      </Fragment>
+    );
+  }
+  return props.children;
+};
 
-export const HomeTemplate = ({Component,...rest}) =>{
-    return <Route {...rest} render={(props)=>{
-        return <HomeComponent>
-            <Component {...props} />
-        </HomeComponent>
-    }} />
-}
+export const HomeTemplate = ({ Component, ...rest }) => {
+  let [isLoading, setIsLoading] = useState(true);
+
+  const handleLoading = () => {
+    setIsLoading(false);
+  };
+
+  return (
+    <Route
+      {...rest}
+      render={(props) => {
+        return (
+          <HomeComponent Loading={isLoading}>
+            <Component
+              {...props}
+              Loading={isLoading}
+              handleLoading={handleLoading}
+            />
+          </HomeComponent>
+        );
+      }}
+    />
+  );
+};

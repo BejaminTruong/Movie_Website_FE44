@@ -12,7 +12,8 @@ import "./Footer.scss";
 import { Space } from "antd";
 import Toan from "images/icons8-minion-100.png";
 import Binh from "images/icons8-minion-2-100.png";
-export const Footer = () => {
+export const Footer = (props) => {
+
   return (
     <div className="footer">
       <div className="iconRow">
