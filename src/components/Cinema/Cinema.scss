@@ -1,0 +1,83 @@
+/**************** CINEMA ********************/
+
+.active {
+  opacity: 1 !important;
+}
+
+.cinema {
+  margin-top: 50px;
+  background-color: #121212;
+  height: 730px;
+  overflow: hidden;
+
+  & .ant-space-item {
+    & .cinema__logo {
+      margin: 0 auto;
+      padding: 15px 0;
+      position: relative;
+      cursor: pointer;
+      opacity: 0.5;
+      &::after {
+        position: absolute;
+        bottom: 0;
+        content: "";
+        display: block;
+        width: 100%;
+        border: 0.5px solid #ffffffb3;
+      }
+
+      &:hover {
+        opacity: 1 !important;
+        transition: all linear 0.3s;
+      }
+      
+    }
+  }
+
+  & .cinema__branch {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px 0;
+    opacity: 0.5;
+    cursor: pointer;
+
+    & .cinema__branch__img {
+      width: 20%;
+      height: 100%;
+    }
+
+    & .cinema__branch__info {
+      width: 80%;
+      padding: 0 20px;
+
+      & h3 {
+        color: #ffffff;
+      }
+
+      & > p {
+        color: #ffffffb3;
+      }
+
+      & p:last-child {
+        color: red;
+      }
+    }
+
+    &:hover {
+      opacity: 1;
+      transition: all linear 0.3s;
+    }
+  }
+
+  & .swiper-container {
+    width: 100% !important;
+    height: 700px !important;
+
+    & .swiper-scrollbar-drag {
+      background-color: #ffffff;
+    }
+  }
+}

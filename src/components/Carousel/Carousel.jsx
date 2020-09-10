@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SwiperCore, { Navigation, Autoplay, Lazy } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
 import moment from "moment";
 import { Trailer } from "components/Trailer/Trailer";
 import "./_carousel.scss";
 import { ListCards } from "components/ListCards/ListCards";
 import { NavLink } from "react-router-dom";
+
 SwiperCore.use([Navigation, Autoplay, Lazy]);
 
 export const Carousel = (props) => {

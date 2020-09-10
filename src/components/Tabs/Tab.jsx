@@ -9,9 +9,12 @@ import {
 import { ListCards } from "components/ListCards/ListCards";
 import { TabCard } from "components/TabCard/TabCard";
 import Loading from "images/Loading.gif";
+import SwiperCore, { Navigation,Lazy } from "swiper";
 import "./_tabs.scss";
 
-export const Tab = (props) => {
+SwiperCore.use([Navigation, Lazy]);
+
+export const Tab = () => {
   let [DSPhim, setDSPhim] = useState([]);
   let [isLoading, setIsLoading] = useState(true);
 
@@ -56,7 +59,6 @@ export const Tab = (props) => {
       <ListCards
         data={DSPhim}
         slidesPerView={4}
-        speed={1000}
         spaceBetween={20}
         slidesPerColumn={2}
         slidesPerColumnFill="row"
@@ -70,7 +72,7 @@ export const Tab = (props) => {
     );
   };
   return (
-    <div>
+    <>
       <section className="tabs">
         <Tabs
           defaultActiveKey="1"
@@ -100,6 +102,6 @@ export const Tab = (props) => {
           </Tabs.TabPane>
         </Tabs>
       </section>
-    </div>
+    </>
   );
 };
