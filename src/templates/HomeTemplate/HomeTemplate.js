@@ -3,6 +3,17 @@ import { Route } from "react-router-dom";
 import { BackTop } from "antd";
 import { Header } from "components/Header/Header";
 import { Footer } from "components/Footer/Footer";
+import { ArrowUpOutlined } from "@ant-design/icons";
+const backTop = {
+  height: 40,
+  width: 40,
+  lineHeight: "40px",
+  borderRadius: 4,
+  backgroundColor: "#f5c518",
+  color: "#000",
+  textAlign: "center",
+  fontSize: 14,
+};
 const HomeComponent = (props) => {
   const { Loading } = props;
   if (!Loading) {
@@ -10,7 +21,11 @@ const HomeComponent = (props) => {
       <Fragment>
         <Header />
         {props.children}
-        <BackTop />
+        <BackTop>
+          <div style={backTop}>
+            <ArrowUpOutlined />
+          </div>
+        </BackTop>
         <Footer />
       </Fragment>
     );
