@@ -1,9 +1,6 @@
-import React, { Fragment } from "react";
-import SwiperCore, { Navigation, Autoplay } from "swiper";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./ListCards.scss"
-
-SwiperCore.use([Navigation, Autoplay]);
 
 export const ListCards = ({ data, ...props }) => {
   return (
@@ -11,7 +8,7 @@ export const ListCards = ({ data, ...props }) => {
       {data?.map((phim, index) => {
         return (
           <SwiperSlide key={index} style={{ listStyle: "none" }}>
-            {props.children(phim)}
+            {props.children(phim,index)}
           </SwiperSlide>
         );
       })}

@@ -1,8 +1,8 @@
 .header {
-  a:hover{
+  a:hover {
     color: unset;
   }
-  position: fixed;
+  position: sticky;
   left: 0%;
   right: 0%;
   top: 0%;
@@ -27,7 +27,7 @@
       &:hover {
         background-color: rgba(46, 46, 46, 1);
       }
-      @media screen and (max-width:1200px){
+      @media screen and (max-width: 1200px) {
         font-size: 0.7em;
       }
     }
@@ -44,7 +44,7 @@
         background-color: rgba(46, 46, 46, 1) !important;
         cursor: pointer;
       }
-      @media screen and (max-width:1200px){
+      @media screen and (max-width: 1200px) {
         font-size: 0.7em;
       }
     }

@@ -19,9 +19,9 @@ export class QuanLyRapService{
         })
     }   
 
-    layThongTinLichChieuTheoCumRap = (maHeThongRap,maNhom)=>{
+    layThongTinLichChieuTheoCumRap = (maNhom)=>{
         return axios({
-            url:`${domain}/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maHeThongRap=${maHeThongRap}&maNhom=${maNhom}`,
+            url:`${domain}/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=${maNhom}`,
             method:"GET"
         })
     }
