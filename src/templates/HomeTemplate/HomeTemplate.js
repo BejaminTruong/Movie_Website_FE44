@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import { BackTop } from "antd";
 import { Header } from "components/Header/Header";
@@ -15,22 +15,18 @@ const backTop = {
   fontSize: 14,
 };
 const HomeComponent = (props) => {
-  const { Loading } = props;
-  if (!Loading) {
-    return (
-      <Fragment>
-        <Header />
-        {props.children}
-        <BackTop>
-          <div style={backTop}>
-            <ArrowUpOutlined />
-          </div>
-        </BackTop>
-        <Footer />
-      </Fragment>
-    );
-  }
-  return props.children;
+  return (
+    <div style={{ position: "relative" }}>
+      <Header />
+      {props.children}
+      <BackTop>
+        <div style={backTop}>
+          <ArrowUpOutlined />
+        </div>
+      </BackTop>
+      <Footer />
+    </div>
+  );
 };
 
 export const HomeTemplate = ({ Component, ...rest }) => {
@@ -45,7 +41,7 @@ export const HomeTemplate = ({ Component, ...rest }) => {
       {...rest}
       render={(props) => {
         return (
-          <HomeComponent Loading={isLoading}>
+          <HomeComponent>
             <Component
               {...props}
               Loading={isLoading}
