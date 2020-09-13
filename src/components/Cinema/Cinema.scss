@@ -7,8 +7,9 @@
 .cinema {
   margin-top: 50px;
   background-color: #121212;
-  height: 730px;
+  height: 100%;
   overflow: hidden;
+  height: 1000px;
 
   & .ant-space-item {
     & .cinema__logo {
@@ -17,6 +18,7 @@
       position: relative;
       cursor: pointer;
       opacity: 0.5;
+      width:50%;
       &::after {
         position: absolute;
         bottom: 0;
@@ -31,6 +33,9 @@
         transition: all linear 0.3s;
       }
       
+      @media screen and (max-width: 1200px) {
+        width: 50%;
+      }
     }
   }
 
@@ -52,6 +57,7 @@
     & .cinema__branch__info {
       width: 80%;
       padding: 0 20px;
+      overflow: hidden;
 
       & h3 {
         color: #ffffff;
@@ -59,6 +65,9 @@
 
       & > p {
         color: #ffffffb3;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
       }
 
       & p:last-child {
@@ -74,10 +83,63 @@
 
   & .swiper-container {
     width: 100% !important;
-    height: 700px !important;
+    height: 940px !important; 
 
-    & .swiper-scrollbar-drag {
-      background-color: #ffffff;
+  }
+
+  & .swiper-scrollbar{
+    background-color: #ffffff;
+    & .swiper-scrollbar-drag{
+      background-color:#F5C518;
+    }
+  }
+
+
+  @media screen and (max-width: 1200px) {
+    height: 1000px;
+
+    & .swiper-container{
+      height: 900px !important;
+    }
+    
+    & .cinema__branch{
+      & .cinema__branch__info {
+        & h3{
+          font-size: 16px;
+        }
+
+        & > p{
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 992px) {
+    & .cinema__branch{
+      & .cinema__branch__info {
+        & h3{
+          font-size: 14px;
+        }
+
+        & > p{
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    & .cinema__branch{
+      & .cinema__branch__info {
+        & h3{
+          font-size: 14px;
+        }
+
+        & > p{
+          font-size: 12px;
+        }
+      }
     }
   }
 }

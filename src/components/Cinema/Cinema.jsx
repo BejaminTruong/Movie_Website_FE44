@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Space } from "antd";
 import {ListCards} from "components/ListCards/ListCards"
 import SwiperCore,{Scrollbar,Lazy,Mousewheel} from "swiper";
+import "swiper/swiper.scss"
 import "./Cinema.scss"
 
 SwiperCore.use([Scrollbar,Lazy,Mousewheel])
@@ -17,7 +18,7 @@ const renderHeThongRap = () =>{
         
         const active = index === maHeThongRap ? "active" : "";
 
-        return <div className={`cinema__logo ${active}`} key={index} style={{width:"80px",height:"100px"}} onClick={()=>{
+        return <div className={`cinema__logo ${active}`} key={index} onClick={()=>{
             handleSetDSCumRap(rap.maHeThongRap);
             setMaHeThongRap(index);
             setMaCumRap(0);
@@ -28,13 +29,13 @@ const renderHeThongRap = () =>{
 }
 
 const renderCumRap = () =>{
-    return <ListCards data={DSCumRap} scrollbar lazy slidesPerView={5} direction="vertical" slidesPerColumnFill="column" slidesPerGroup={1}
+    return <ListCards data={DSCumRap} scrollbar breakpoints={{1200:{slidesPerView: 6},992:{slidesPerView: 6},768:{slidesPerView: 6},576 :{slidesPerView: 6}}} lazy direction="vertical" slidesPerColumnFill="column" slidesPerGroup={1}
     tag="div" mousewheel >
         {(cumrap,index) =>{
 
             const active = index === maCumRap ? "active" : "";
 
-            return <div className={`cinema__branch ${active}`} onClick={()=>{
+            return <div className={`cinema__branch ${active}`} key={index} onClick={()=>{
                     handleSetDSLichChieu(cumrap.maHeThongRap,cumrap.maCumRap);
                     setMaCumRap(index);
                 }}>
@@ -70,15 +71,15 @@ const renderCumRap = () =>{
 
   return <section className="cinema">
       <Row gutter={{xs: 8, sm: 16, md: 24, lg: 32}}>
-          <Col span={3}>
+          <Col span={3} style={{padding:0}}>
               <Space direction="vertical" size="large" style={{width:"100%"}}>
                 {renderHeThongRap()}
               </Space> 
           </Col>
-          <Col span={9}>
+          <Col span={10}>
               {renderCumRap()}
           </Col>
-          <Col span={12}>
+          <Col span={11}>
             {renderLichChieu()}
           </Col>
       </Row>

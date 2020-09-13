@@ -1,3 +1,5 @@
+/*================== HEADER =================== */
+
 .header {
   a:hover {
     color: unset;
@@ -8,7 +10,7 @@
   top: 0%;
   bottom: auto;
   z-index: 100;
-  padding: 10px 10%;
+  padding: 10px 7%;
   color: #ffffff;
   background-color: #121212;
 
@@ -16,6 +18,18 @@
     position: relative;
     z-index: 1;
     width: 100%;
+
+    & .header__logo{
+      width:20%;
+      height: 20%;
+      border-radius: 100%;
+      display: inline-block;
+    }
+
+    & .header__img{
+      width: 80%; 
+      background-color: transparent;
+    }
 
     & .nav__link {
       font-size: 14px;
@@ -28,7 +42,7 @@
         background-color: rgba(46, 46, 46, 1);
       }
       @media screen and (max-width: 1200px) {
-        font-size: 0.7em;
+        font-size: 0.85em;
       }
     }
 
@@ -45,7 +59,7 @@
         cursor: pointer;
       }
       @media screen and (max-width: 1200px) {
-        font-size: 0.7em;
+        font-size: 0.85em;
       }
     }
   }
@@ -61,7 +75,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.9);
     color: #ffffff;
     transform: translateX(100%);
   }
@@ -71,6 +85,39 @@
     transform: translateX(0);
     transition: all linear 0.3s;
     z-index: 1;
+  }
+
+  .dataToggle__item{
+    padding: 10px 10px;
+    width: 100%;
+    display: block;
+    color: #ffffff !important;
+    font-weight: 600;
+    &:hover{
+      background-color:rgba(46, 46, 46, 1);
+      cursor: pointer;
+    }
+
+    &.item--1{
+      flex-direction: row;
+      justify-content: space-between;
+      display: flex;
+      & .ant-btn{
+        background-color: transparent;
+        border: none;
+
+        &:hover{       
+          color: #F5C518;         
+        }
+      }
+
+      & a:hover{
+        color: #F5C518;
+      }
+      &:hover{
+        background-color: transparent;
+      }
+    }
   }
 }
 
