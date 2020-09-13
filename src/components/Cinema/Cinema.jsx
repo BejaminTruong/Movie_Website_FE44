@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Row, Col, Space } from "antd";
 import {ListCards} from "components/ListCards/ListCards"
-import SwiperCore,{Scrollbar,Lazy} from "swiper";
+import SwiperCore,{Scrollbar,Lazy,Mousewheel} from "swiper";
 import "./Cinema.scss"
 
-SwiperCore.use([Scrollbar,Lazy])
+SwiperCore.use([Scrollbar,Lazy,Mousewheel])
 
 export const Cinema = (props) => {
 
@@ -29,7 +29,7 @@ const renderHeThongRap = () =>{
 
 const renderCumRap = () =>{
     return <ListCards data={DSCumRap} scrollbar lazy slidesPerView={5} direction="vertical" slidesPerColumnFill="column" slidesPerGroup={1}
-    tag="div" >
+    tag="div" mousewheel >
         {(cumrap,index) =>{
 
             const active = index === maCumRap ? "active" : "";
