@@ -49,4 +49,28 @@
       }
     }
   }
+
+  .btn-toggle{
+    &:hover{
+      background-color: rgba(46, 46, 46, 1) !important;
+    }
+  }
+  
+  .menuToggle{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0,0,0,0.8);
+    color: #ffffff;
+    transform: translateX(100%);
+  }
+
+  .menuToggle-active{
+    display: initial;
+    transform: translateX(0);
+    transition: all linear 0.3s;
+    z-index: 1;
+  }
 }
+
