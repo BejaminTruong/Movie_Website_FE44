@@ -3,11 +3,8 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./Login.scss";
 import React, { useState } from "react";
 import { dangNhapAction } from "redux/actions/QuanLyNguoiDungAction";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 export const Login = (props) => {
-  const propNguoiDung = useSelector(
-    (state) => state.QuanLyNguoiDungReducer.nguoiDung
-  );
   const [stateUser, setUser] = useState({ taiKhoan: "", matKhau: "" });
   const dispatch = useDispatch();
   const handleSubmit = () => {
@@ -27,9 +24,6 @@ export const Login = (props) => {
       }}
       onFinish={handleSubmit}
     >
-      <h1>
-        {propNguoiDung.taiKhoan ? `Hi ${propNguoiDung.taiKhoan}` : "Login"}
-      </h1>
       <Form.Item
         name="username"
         rules={[
