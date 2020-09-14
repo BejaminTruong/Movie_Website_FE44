@@ -129,15 +129,6 @@ export const Register = () => {
             required: true,
             message: "Please input your phone number!",
           },
-          ({ getFieldValue }) => ({
-            validator(rule, value) {
-              if (!_.isNumber(getFieldValue("soDt"))) {
-                return Promise.resolve();
-              } else {
-                return Promise.reject("Please input number only!");
-              }
-            },
-          }),
         ]}
       >
         <Input />
