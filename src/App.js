@@ -5,6 +5,7 @@ import Home from "pages/Home/Home"
 import 'antd/dist/antd.css'
 import "App.scss"
 import { Login } from 'pages/Login/Login';
+import { Register } from 'pages/Register/Register';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <HomeTemplate exact path='/home' Component={Home} />
         <HomeTemplate exact path='/' Component={Home} />
         <HomeTemplate exact path="/login" Component={Login}/>
+        <HomeTemplate exact path="/register" Component={Register}/>
       </div>
     </BrowserRouter>
   );
