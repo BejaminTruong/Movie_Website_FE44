@@ -2,6 +2,14 @@
 .home{
   padding: 0 10% 15%;
   background-color: #000;
+
+  @media screen and (max-width: 1200px){
+    padding: 7% 5% 15%;
+  }
+
+  @media screen and (max-width: 996px){
+    padding: 1%;
+  }
 }
 
 .swiper-button-prev {

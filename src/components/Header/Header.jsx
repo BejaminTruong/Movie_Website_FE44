@@ -5,7 +5,7 @@ import movie_name from "images/Logo_name.png";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {UserOutlined,MenuOutlined,ArrowRightOutlined} from "@ant-design/icons";
+import {UserOutlined,MenuOutlined,ArrowRightOutlined,UsbOutlined} from "@ant-design/icons";
 import Avatar from "antd/lib/avatar/avatar";
 import _ from "lodash";
 
@@ -23,10 +23,14 @@ export const Header = () => {
     setCollapsed(!collapsed);
 
     const active = collapsed ? "menuToggle" : "menuToggle menuToggle-active";
-    const hidden = collapsed ? "hidden" : "hidden";
+    const hidden = collapsed ? "" : "hidden";
     document.getElementById("menuToggle").className = `${active}`;
-    document.body.style.overflowX = `${hidden}`;
+    document.body.style.overflow = `${hidden}`;
     
+  }
+
+  const setBodyOverflow = () =>{
+    document.body.style.overflow = ""
   }
 
   let handleResize = () => {
@@ -42,22 +46,22 @@ export const Header = () => {
   });
 
   return (
-    <section className="header" style={{ padding: innerWidth <= 916 ? "20px" : "" }}>
+    <section className="header" style={{ padding: innerWidth <= 992? "20px" : "" }}>
       <nav className="navbar__wrapper">
         <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} justify="space-between" align="middle">
           <Col span={6}>
             <NavLink to="/home">
-              <img src={logo} width="20%" height="20%" style={{ borderRadius: "100%", display: "inline-block" }} alt="logo"/>
-              <img src={movie_name} width="80%" style={{ backgroundColor: "transparent" }} alt="brand"/>
+              <img className="header__logo" src={logo} alt="logo"/>
+              <img className="header__img" src={movie_name} alt="brand"/>
             </NavLink>
           </Col>
           <Col span={18} style={{ paddingLeft: "50px", position: "unset" }}>
-            <div style={{display: innerWidth >=  916 ? "none" : "",textAlign:"right"}} >
+            <div style={{display: innerWidth > 992 ? "none" : "",textAlign:"right"}} >
               <Button type="primary" className="btn-toggle" onClick={toggleCollapsed} size="middle" style={{fontSize:"18px",fontWeight:"bolder",backgroundColor:"#121212",borderColor:"#171c20"}}>
                 <MenuOutlined />
               </Button>
             </div>               
-            <Row align="middle" justify="space-around" style={{ display: innerWidth <= 912 ? "none" : "" }}>
+            <Row align="middle" justify="space-around" style={{ display: innerWidth <= 992 ? "none" : "" }}>
               <Col span={14}>
                 <Space size={10} style={{display:"flex",flexDirection:"row",justifyContent:"center"}}>
                   <NavLink to="/home" className="nav__link">Trang Chủ</NavLink>
@@ -78,15 +82,15 @@ export const Header = () => {
                     </Space>
                   ) : (
                     <Space>
-                      <a
-                        href="/register"
+                      <NavLink
+                        to="/register"
                         className="btn ant-btn-background-ghost"
                       >
                         Đăng Ký
-                      </a>
-                      <a href="/login" className="btn ant-btn-background-ghost">
+                      </NavLink>
+                      <NavLink to="/login" className="btn ant-btn-background-ghost">
                         Đăng Nhập
-                      </a>
+                      </NavLink>
                     </Space>
                   )}
                 </Row>
@@ -95,24 +99,33 @@ export const Header = () => {
           </Col>
         </Row>
       </nav>
-      <div className="menuToggle" id="menuToggle" style={{height:`${innerHeight}px`,opacity: collapsed ? 1 : 0}}>
+      <div className="menuToggle" id="menuToggle" style={{display: innerWidth > 992 ? "none" : "", height:`${innerHeight}px`,opacity: collapsed ? 1 : 0}}>
         <Row justify="space-between">
           <Col span={12} offset={12} style={{background:"#121212",height: `${innerHeight}px`}}>
-            <Button type="primary" onClick={toggleCollapsed} size="middle" style={{fontSize:"18px",fontWeight:"bolder",backgroundColor:"#121212",borderColor:"#171c20"}}>
-              <ArrowRightOutlined />
-            </Button>
-            <div>
-              <NavLink to="/home">Trang Chủ</NavLink>
-            </div>
-            <div>
-              <NavLink to="/contact">Liên Hệ</NavLink>
-            </div>
-            <div>
-              <NavLink to="/news">Tin Tức</NavLink>
-            </div>
-            <div>
-              <NavLink to="#">Ứng Dụng</NavLink>
-            </div>                          
+            <div className="dataToggle__item item--1">
+              {!_.isEmpty(propNguoiDung) ? (
+                <Space>
+                  <Avatar style={{ backgroundColor: "#f5c518" }} icon={<UserOutlined />}/>
+                        {propNguoiDung.taiKhoan}
+                      </Space>
+                    ) : (
+                <Space>
+                  <NavLink to="/login" className="btn ant-btn-background-ghost" onClick={setBodyOverflow()}>
+                    <UserOutlined style={{marginRight:"5px"}} /> Đăng Nhập
+                  </NavLink>
+                </Space>
+              )}
+              <Button type="primary" onClick={toggleCollapsed} size="middle" style={{fontSize:"18px",fontWeight:"bolder",backgroundColor:"#121212",borderColor:"#171c20"}}>
+                <ArrowRightOutlined />
+              </Button>
+            </div>         
+              <NavLink className="dataToggle__item" to="/home" onClick={setBodyOverflow()}>Trang Chủ</NavLink>
+            
+              <NavLink className="dataToggle__item" to="/contact" onClick={setBodyOverflow()}>Liên Hệ</NavLink>
+        
+              <NavLink className="dataToggle__item" to="/news" onClick={setBodyOverflow()}>Tin Tức</NavLink>
+           
+              <NavLink className="dataToggle__item" to="#" onClick={setBodyOverflow()}>Ứng Dụng</NavLink>                               
           </Col>
         </Row>  
       </div>                       
