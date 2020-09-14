@@ -7,13 +7,13 @@ import { useDispatch } from "react-redux";
 export const Login = (props) => {
   const [stateUser, setUser] = useState({ taiKhoan: "", matKhau: "" });
   const dispatch = useDispatch();
-  const handleSubmit = () => {
-    dispatch(dangNhapAction(stateUser));
-    props.history.replace("/home");
-  };
   const handleChange = (event) => {
     let { name, value } = event.target;
     setUser({ ...stateUser, [name]: value });
+  };
+  const handleSubmit = () => {
+    dispatch(dangNhapAction(stateUser));
+    props.history.replace("/home");
   };
   return (
     <Form
