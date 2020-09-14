@@ -16,7 +16,7 @@ export default function Home(props) {
   let [DSPhimTopRanking, setDSPhimTopRanking] = useState([]);
   let [DSHeThongRap, setDSHeThongRap] = useState([]);
   let [DSCumRap, setDSCumRap] = useState([]);
-  let [DSPhimTheoLichChieu, setDSPhimTheoLichChieu] = useState([]);
+  let [DSLichChieu, setDSLichchieu] = useState([]);
 
   const { Loading, handleLoading } = props;
 
@@ -24,9 +24,9 @@ export default function Home(props) {
     const requestOne = quanLyPhimService.layDanhSachPhim(groupID_carousel);
     const requestTwo = quanLyRapSerVice.layThongTinHeThongRap();
     const requestThree = quanLyRapSerVice.layThongTinCumRap(CinemaID);
-    const requestFour = quanLyRapSerVice.layThongTinLichChieuTheoCumRap(groupID_Cinema);
+    const requestFour = quanLyRapSerVice.layThongTinLichChieuTheoCumRap(CinemaID,groupID_Cinema);
 
-    axios.all([requestOne, requestTwo, requestThree, requestFour]).then(axios.spread((...responses) => {
+    axios.all([requestOne, requestTwo, requestThree,requestFour]).then(axios.spread((...responses) => {
           const responseOne = responses[0];
           const responseTwo = responses[1];
           const responeseThree = responses[2];
@@ -35,51 +35,43 @@ export default function Home(props) {
           setDSPhim(responseOne.data);
           setDSHeThongRap(responseTwo.data);
           setDSCumRap(responeseThree.data);
-          setDSPhimTheoLichChieu(responseFour.data);
-          
+          setDSLichchieu(responseFour.data[0].lstCumRap);
+  
           return responseOne.data;          
         })
-      ).then((DSTop) => {
+      ).then((list) => {
+       
         let DSTopRanking = [];
-        DSTop.forEach((phim) => {
+        list.forEach((phim) => {
           if (phim.danhGia <= 10 && phim.danhGia >= 8) {
             DSTopRanking.push(phim);
           }
         });
-
         setDSPhimTopRanking(DSTopRanking);
         handleLoading();
       }).catch((errors) => {
         console.log(errors);
       });
-
+      
   }, []);
 
   const handleSetDSCumRap = (maHeThongRap) => {
-    quanLyRapSerVice.layThongTinCumRap(maHeThongRap).then(res=>{
-      setDSCumRap(res.data);
-    }).catch(error=>{
-      console.log(error);
+
+    const requestOne = quanLyRapSerVice.layThongTinCumRap(maHeThongRap);
+    const requestTwo = quanLyRapSerVice.layThongTinLichChieuTheoCumRap(maHeThongRap,groupID_Cinema);
+
+    axios.all([requestOne, requestTwo]).then(axios.spread((...responses) => {
+      const responseOne = responses[0];
+      const responseTwo = responses[1];
+
+      setDSCumRap(responseOne.data);
+      setDSLichchieu(responseTwo.data[0].lstCumRap);
+
+      console.log(responseTwo.data)
+    })).catch(errors=>{
+      console.log(errors)
     })
   };
-
-  const handleSetDSLichChieu = (maCumRap) =>{
-
-    // quanLyRapSerVice.layThongTinLichChieuTheoCumRap(groupID_Cinema).then(res=>{
-
-    //   let list = [];
-
-    //   for(let item of res.data[0].lstCumRap){
-    //     if(item.maCumRap === maCumRap){
-    //       list.push(item.danhSachPhim);
-    //     }
-    //   }
-    //   setDSLichChieu(list);
-    // }).catch(error=>{
-    //   console.log(error);
-    // })
-    
-  }
 
   return (
     <section className="home">
@@ -94,9 +86,8 @@ export default function Home(props) {
           <Cinema
             DSHeThongRap={DSHeThongRap}
             DSCumRap={DSCumRap}
-            DSPhimTheoLichChieu={DSPhimTheoLichChieu}
+            DSLichChieu={DSLichChieu}
             handleSetDSCumRap={handleSetDSCumRap}
-            handleSetDSLichChieu={handleSetDSLichChieu}
           />
         </>
       )}
