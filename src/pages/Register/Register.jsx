@@ -35,8 +35,8 @@ const tailFormItemLayout = {
 };
 export const Register = () => {
   const [form] = Form.useForm();
-  const handleSubmit = (values) => {
-    let { taiKhoan, matKhau, email, soDt, hoTen } = values;
+  const handleSubmit = ({ taiKhoan, matKhau, email, soDt, hoTen }) => {
+    // let { taiKhoan, matKhau, email, soDt, hoTen } = values;
     const registerUser = {
       taiKhoan,
       matKhau,
