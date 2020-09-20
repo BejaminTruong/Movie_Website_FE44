@@ -27,8 +27,8 @@ export const Trailer = (props) => {
 
   return (
     <>
-      <button className="btn-trailer" onClick={showModal}>
-        <i className="fas fa-play-circle"></i>
+      <button className={props.className} onClick={showModal}>
+        {props.children}
       </button>
       <Modal
         visible={visible}
