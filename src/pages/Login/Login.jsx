@@ -1,20 +1,33 @@
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./Login.scss";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { dangNhapAction } from "redux/actions/QuanLyNguoiDungAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 export const Login = (props) => {
-  const [stateUser, setUser] = useState({ taiKhoan: "", matKhau: "" });
   const dispatch = useDispatch();
-  const handleChange = (event) => {
-    let { name, value } = event.target;
-    setUser({ ...stateUser, [name]: value });
+  const status = useSelector((state) => state.QuanLyNguoiDungReducer.status);
+  const checkValidateStatus = () => {
+    if (status === "success") {
+      return "success";
+    }
+    if (status === "error") {
+      return "error";
+    }
   };
-  const handleSubmit = () => {
-    dispatch(dangNhapAction(stateUser));
-    props.history.replace("/home");
+  const checkHelp = () => {
+    if (status === "error") {
+      return "Wrong UserName or Password";
+    }
   };
+  const handleSubmit = (values) => {
+    dispatch(dangNhapAction(values));
+  };
+  useEffect(() => {
+    if (status === "success") {
+      props.history.replace("/home");
+    }
+  });
   return (
     <Form
       name="normal_login"
@@ -25,7 +38,10 @@ export const Login = (props) => {
       onFinish={handleSubmit}
     >
       <Form.Item
-        name="username"
+        help={checkHelp()}
+        validateStatus={checkValidateStatus()}
+        hasFeedback
+        name="taiKhoan"
         rules={[
           {
             required: true,
@@ -34,15 +50,16 @@ export const Login = (props) => {
         ]}
       >
         <Input
-          onChange={handleChange}
-          name="taiKhoan"
           allowClear
           prefix={<UserOutlined className="site-form-item-icon" />}
           placeholder="Username"
         />
       </Form.Item>
       <Form.Item
-        name="password"
+        help={checkHelp()}
+        validateStatus={checkValidateStatus()}
+        hasFeedback
+        name="matKhau"
         rules={[
           {
             required: true,
@@ -51,11 +68,8 @@ export const Login = (props) => {
         ]}
       >
         <Input.Password
-          onChange={handleChange}
-          name="matKhau"
           allowClear
           prefix={<LockOutlined className="site-form-item-icon" />}
-          type="password"
           placeholder="Password"
         />
       </Form.Item>
