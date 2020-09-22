@@ -1,6 +1,7 @@
 import { dang_nhap } from "redux/types/QuanLyNguoiDungType";
 import { userLogin, accessToken } from "configs/setting";
 import { domain } from "configs/setting";
+
 import axios from "axios";
 export const dangNhapAction = (thongTinDangNhap) => {
   return (dispatch) => {
@@ -30,3 +31,4 @@ export const dangNhapAction = (thongTinDangNhap) => {
     })();
   };
 };
+

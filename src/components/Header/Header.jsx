@@ -117,13 +117,15 @@ export const Header = () => {
               <Col span={10}>
                 <Row justify="end">
                   {!_.isEmpty(propNguoiDung) ? (
-                    <Space>
-                      <Avatar
-                        style={{ backgroundColor: "#f5c518" }}
-                        icon={<UserOutlined />}
-                      />
-                      {propNguoiDung.taiKhoan}
-                    </Space>
+                    <NavLink style={{ color: "white" }} to="account">
+                      <Space>
+                        <Avatar
+                          style={{ backgroundColor: "#f5c518" }}
+                          icon={<UserOutlined />}
+                        />
+                        {propNguoiDung.taiKhoan}
+                      </Space>
+                    </NavLink>
                   ) : (
                     <Space>
                       <NavLink
@@ -163,13 +165,15 @@ export const Header = () => {
           >
             <div className="dataToggle__item item--1">
               {!_.isEmpty(propNguoiDung) ? (
-                <Space>
-                  <Avatar
-                    style={{ backgroundColor: "#f5c518" }}
-                    icon={<UserOutlined />}
-                  />
-                  {propNguoiDung.taiKhoan}
-                </Space>
+                <NavLink style={{ color: "white" }} to="/account">
+                  <Space>
+                    <Avatar
+                      style={{ backgroundColor: "#f5c518" }}
+                      icon={<UserOutlined />}
+                    />
+                    {propNguoiDung.taiKhoan}
+                  </Space>
+                </NavLink>
               ) : (
                 <Space>
                   <NavLink

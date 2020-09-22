@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
 import "./Register.scss";
-import { dangKyService } from "services/QuanLyNguoiDungService";
+import { qlNguoiDungService } from "services/QuanLyNguoiDungService";
 import _ from "lodash";
 const formItemLayout = {
   labelCol: {
@@ -46,12 +46,11 @@ export const Register = () => {
       maLoaiNguoiDung: "KhachHang",
       hoTen,
     };
-    dangKyService(registerUser);
+    qlNguoiDungService.dangKyService(registerUser);
   };
   return (
     <Form
       form={form}
-      initialValues={{ prefix: 86 }}
       {...formItemLayout}
       name="register"
       className="registerForm"

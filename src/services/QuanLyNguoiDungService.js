@@ -1,6 +1,8 @@
 import { domain } from "configs/setting";
-import axios from 'axios'
-export const dangKyService = (thongTinDangKy) => {
+import axios from "axios";
+
+export class QuanLyNguoiDungService {
+  dangKyService = (thongTinDangKy) => {
     return (async () => {
       try {
         const result = await axios({
@@ -14,3 +16,12 @@ export const dangKyService = (thongTinDangKy) => {
       }
     })();
   };
+  layThongTinTaiKhoan = (userName) => {
+    return axios({
+      method: "post",
+      url: `${domain}/api/QuanLyNguoiDung/ThongTinTaiKhoan`,
+      data: userName,
+    });
+  };
+}
+export const qlNguoiDungService = new QuanLyNguoiDungService();
