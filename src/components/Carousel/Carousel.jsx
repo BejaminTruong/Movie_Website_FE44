@@ -33,7 +33,9 @@ export const Carousel = (props) => {
               />
               <div className="trailer__title">
                 <div className="movie__trailer">
-                  <Trailer trailer={phim.trailer} />
+                  <Trailer className="btn-trailer" trailer={phim.trailer}>
+                    <i className="fas fa-play-circle"></i>
+                  </Trailer>
                 </div>
                 <div className="trailer__info">
                   <h3>
@@ -83,7 +85,9 @@ export const Carousel = (props) => {
                   alt={phim.tenPhim}
                 />
                 <div className="movie__trailer2">
-                  <Trailer trailer={phim.trailer} />
+                  <Trailer className="btn-trailer" trailer={phim.trailer}>
+                    <i className="fas fa-play-circle"></i>
+                  </Trailer>
                   <NavLink
                     className="link__movie__text"
                     to={`/detail/${phim.maPhim}`}

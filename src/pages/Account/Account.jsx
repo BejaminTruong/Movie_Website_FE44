@@ -4,18 +4,23 @@ import { Tabs, Row, Col, Button, Table, Tag, Space } from "antd";
 import { EditFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { qlNguoiDungService } from "services/QuanLyNguoiDungService";
+import _ from "lodash";
 const { TabPane } = Tabs;
 const columns = [
   {
     title: "Tên Rạp",
     dataIndex: "tenRap",
     key: "tenRap",
-    render: (text) => <a>{text}</a>,
   },
   {
-    title: "Địa Chỉ",
-    dataIndex: "diaChi",
-    key: "diaChi",
+    title: "Tên hệ thống rạp",
+    dataIndex: "tenHeThongRap",
+    key: "tenHeThongRap",
+  },
+  {
+    title: "Ghế",
+    key: "ghe",
+    dataIndex: "ghe",
   },
   {
     title: "Ngày đặt",
@@ -23,39 +28,12 @@ const columns = [
     key: "ngayDat",
   },
   {
-    title: "Rạp",
-    key: "rap",
-    dataIndex: "rap",
-  },
-  {
-    title: "Ghế",
-    key: "ghe",
+    title: "Tên Phim",
+    key: "tenPhim",
+    dataIndex: "tenPhim",
   },
 ];
-
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-    tags: ["nice", "developer"],
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    tags: ["loser"],
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-    tags: ["cool", "teacher"],
-  },
-];
+const data = [];
 export const Account = () => {
   const propNguoiDung = useSelector(
     (state) => state.QuanLyNguoiDungReducer.nguoiDung
@@ -69,9 +47,26 @@ export const Account = () => {
         setUserInfo(res.data);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
       });
   }, [propNguoiDung.taiKhoan]);
+  let index = -1;
+  if (!_.isEmpty(userInfo)) {
+    userInfo.thongTinDatVe.forEach((ve) => {
+      ve.danhSachGhe.forEach((g) => {
+        index++;
+        data.push({
+          key: index,
+          tenRap: g.tenRap,
+          tenHeThongRap: g.tenHeThongRap,
+          ghe: g.tenGhe,
+          ngayDat: ve.ngayDat,
+          tenPhim: ve.tenPhim,
+        });
+      });
+    });
+    console.log(data);
+  }
   return (
     <Tabs className="accountTab" defaultActiveKey="1" type="card" size="large">
       <TabPane tab="Personal Information" key="1">
@@ -90,7 +85,7 @@ export const Account = () => {
       </TabPane>
       <TabPane tab="Booking History" key="2">
         <Table
-          pagination={{ position: ["bottomCenter"], pageSize: 5 }}
+          pagination={{ position: ["bottomCenter"], pageSize: 10 }}
           columns={columns}
           dataSource={data}
         />

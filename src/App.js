@@ -7,6 +7,7 @@ import "App.scss";
 import { Login } from "pages/Login/Login";
 import { Register } from "pages/Register/Register";
 import { Account } from "pages/Account/Account";
+import { Detail } from "pages/Detail/Detail";
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +17,7 @@ function App() {
         <HomeTemplate exact path="/login" Component={Login} />
         <HomeTemplate exact path="/register" Component={Register} />
         <HomeTemplate exact path="/account" Component={Account} />
+        <HomeTemplate exact path="/detail/:maPhim" Component={Detail} />
       </div>
     </BrowserRouter>
   );
