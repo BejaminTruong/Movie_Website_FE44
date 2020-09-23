@@ -5,6 +5,7 @@ import { EditFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { qlNguoiDungService } from "services/QuanLyNguoiDungService";
 import _ from "lodash";
+import moment from "moment";
 const { TabPane } = Tabs;
 const columns = [
   {
@@ -60,7 +61,7 @@ export const Account = () => {
           tenRap: g.tenRap,
           tenHeThongRap: g.tenHeThongRap,
           ghe: g.tenGhe,
-          ngayDat: ve.ngayDat,
+          ngayDat: moment(ve.ngayDat).format("MM-DD-YYYY"),
           tenPhim: ve.tenPhim,
         });
       });
@@ -69,21 +70,25 @@ export const Account = () => {
   }
   return (
     <Tabs className="accountTab" defaultActiveKey="1" type="card" size="large">
-      <TabPane tab="Personal Information" key="1">
-        <Row gutter={[24, 24]}>
-          <Col span={12}>Email: {userInfo.email}</Col>
-          <Col span={12}>UserName: {userInfo.taiKhoan}</Col>
-          <Col span={12}>Full Name: {userInfo.hoTen}</Col>
-          <Col span={12}>Password: {userInfo.matKhau}</Col>
-          <Col span={12}>Phone: {userInfo.soDT}</Col>
-          <Col span={12}>
+      <TabPane className="accountTab_Tab1" tab="Personal Information" key="1">
+        <Row  gutter={[24, 24]}>
+          <Col xl={{ span: 4, offset: 7 }} sm={{ span: 8, offset: 4 }} xs={{span:12, offset:2}}>Email: {userInfo.email}</Col>
+          <Col xl={{span:4}} sm={{ span: 8, offset: 4 }}>
+            UserName: {userInfo.taiKhoan}
+          </Col>
+          <Col xl={{ span: 4, offset: 7 }} sm={{ span: 8, offset: 4 }} xs={{span:12, offset:2}}>Full Name: {userInfo.hoTen}</Col>
+          <Col xl={{span:4}} sm={{ span: 8, offset: 4 }}>
+            Password: {userInfo.matKhau}
+          </Col>
+          <Col xl={{ offset: 7 }} sm={{ span: 4, offset: 4 }} xs={{span:10,offset:2}}>Phone: {userInfo.soDT}</Col>
+          <Col xl={{ offset: 4 }} sm={{ span: 4, offset: 8 }} xs={{span:4,offset:2}}>
             <Button type="primary">
               <EditFilled /> Edit
             </Button>
           </Col>
         </Row>
       </TabPane>
-      <TabPane tab="Booking History" key="2">
+      <TabPane tab="Booking History" key="2" className="accountTab_Tab2">
         <Table
           pagination={{ position: ["bottomCenter"], pageSize: 10 }}
           columns={columns}
