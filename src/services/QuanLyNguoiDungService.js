@@ -1,6 +1,5 @@
-import { domain } from "configs/setting";
+import { domain, accessToken } from "configs/setting";
 import axios from "axios";
-
 export class QuanLyNguoiDungService {
   dangKyService = (thongTinDangKy) => {
     return (async () => {
@@ -21,6 +20,18 @@ export class QuanLyNguoiDungService {
       method: "post",
       url: `${domain}/api/QuanLyNguoiDung/ThongTinTaiKhoan`,
       data: userName,
+    });
+  };
+  capNhatThongTinTaiKhoan = (updateInfo) => {
+    return axios({
+      method: "PUT",
+      url: `${domain}/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
+      data: updateInfo,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem(accessToken)
+        )}`,
+      },
     });
   };
 }
