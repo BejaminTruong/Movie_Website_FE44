@@ -120,7 +120,7 @@ export const Header = () => {
                   {!_.isEmpty(propNguoiDung) ? (
                     <div
                       style={{ color: "white", cursor: "pointer" }}
-                      onClick={() => history.push("/account")}
+                      onClick={() => history.push(`/account/${propNguoiDung.taiKhoan}`)}
                     >
                       <Space>
                         <Avatar
@@ -171,7 +171,7 @@ export const Header = () => {
               {!_.isEmpty(propNguoiDung) ? (
                 <div
                   style={{ color: "white", cursor: "pointer" }}
-                  onClick={() => history.push("/account")}
+                  onClick={() => history.push(`/account/${propNguoiDung.taiKhoan}`)}
                 >
                   <Space>
                     <Avatar

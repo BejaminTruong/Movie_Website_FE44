@@ -34,5 +34,16 @@ export class QuanLyNguoiDungService {
       },
     });
   };
+  xoaTaiKhoanNguoiDung = (taiKhoan) => {
+    return axios({
+      method: "DELETE",
+      url: `${domain}/api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${taiKhoan}`,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem(accessToken)
+        )}`,
+      },
+    });
+  };
 }
 export const qlNguoiDungService = new QuanLyNguoiDungService();

@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./Account.scss";
-import { Tabs, Row, Col, Button, Table, Modal, Form, Input } from "antd";
+import {
+  Tabs,
+  Row,
+  Col,
+  Button,
+  Table,
+  Modal,
+  Form,
+  Input,
+  Divider,
+} from "antd";
 import {
   EditFilled,
   UserOutlined,
@@ -8,12 +18,14 @@ import {
   SmileOutlined,
   PhoneOutlined,
   LockOutlined,
+  LogoutOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { qlNguoiDungService } from "services/QuanLyNguoiDungService";
 import _ from "lodash";
 import moment from "moment";
-import { userLogin } from "configs/setting";
+import { useHistory } from "react-router-dom";
 const { TabPane } = Tabs;
 const columns = [
   {
@@ -55,7 +67,8 @@ const formItemLayout = {
     },
   },
 };
-export const Account = () => {
+export const Account = (props) => {
+  const history = useHistory();
   const propNguoiDung = useSelector(
     (state) => state.QuanLyNguoiDungReducer.nguoiDung
   );
@@ -122,9 +135,23 @@ export const Account = () => {
         console.log(err);
       });
   };
-
   const handleCancel = () => {
     setShowModal(false);
+  };
+  const handleLogOut = () => {
+    localStorage.clear();
+    history.push("/home");
+    window.location.reload(false);
+  };
+  const handleDelete = () => {
+    qlNguoiDungService
+      .xoaTaiKhoanNguoiDung(props.match.params.TaiKhoan)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err, props.match.params.TaiKhoan);
+      });
   };
   return (
     <Tabs className="accountTab" defaultActiveKey="1" type="card" size="large">
@@ -157,82 +184,91 @@ export const Account = () => {
           >
             Phone: {userInfo.soDT}
           </Col>
-          <Col
-            xl={{ offset: 4 }}
-            sm={{ span: 4, offset: 8 }}
-            xs={{ span: 4, offset: 2 }}
-          >
+        </Row>
+        <Divider />
+        <Row justify="center" gutter={[8]}>
+          <Col>
             <Button type="primary" onClick={handleModal}>
               <EditFilled /> Edit
             </Button>
-            <Modal
-              className="customModal"
-              title="Edit User Information"
-              visible={showModal}
-              onOk={handleOk}
-              onCancel={handleCancel}
-            >
-              <Form
-                initialValues={{
-                  taiKhoan: userInfo.taiKhoan,
-                  matKhau: userInfo.matKhau,
-                  email: userInfo.email,
-                  hoTen: userInfo.hoTen,
-                  soDt: userInfo.soDT,
-                }}
-                form={form}
-                labelAlign="left"
-                {...formItemLayout}
-              >
-                <Form.Item hidden name="taiKhoan" label="UserName">
-                  <Input
-                    prefix={<UserOutlined className="site-form-item-icon" />}
-                    placeholder="Username"
-                    allowClear
-                  />
-                </Form.Item>
-                <Form.Item
-                  name="email"
-                  label="E-mail"
-                  rules={[
-                    {
-                      pattern:
-                        "^[a-z][a-z0-9_.]{5,32}@[a-z0-9]{2,}(.[a-z0-9]{2,4}){1,2}$",
-                      message: "The input is not valid E-mail!",
-                    },
-                  ]}
-                >
-                  <Input
-                    prefix={<MailOutlined className="site-form-item-icon" />}
-                    placeholder="Email"
-                    allowClear
-                  />
-                </Form.Item>
-                <Form.Item label="Full Name" name="hoTen">
-                  <Input
-                    prefix={<SmileOutlined className="site-form-item-icon" />}
-                    placeholder="Full Name"
-                    allowClear
-                  />
-                </Form.Item>
-                <Form.Item label="Telephone" name="soDt">
-                  <Input
-                    prefix={<PhoneOutlined className="site-form-item-icon" />}
-                    placeholder="Telephone"
-                    allowClear
-                  />
-                </Form.Item>
-                <Form.Item label="Password" name="matKhau">
-                  <Input.Password
-                    prefix={<LockOutlined className="site-form-item-icon" />}
-                    placeholder="Password"
-                    allowClear
-                  />
-                </Form.Item>
-              </Form>
-            </Modal>
+          </Col>
+          <Col>
+            <Button onClick={handleLogOut}>
+              <LogoutOutlined /> Log Out
+            </Button>
+          </Col>
+          <Col>
+            <Button onClick={handleDelete} danger>
+              <DeleteOutlined /> Delete
+            </Button>
           </Col>
         </Row>
+        <Modal
+          className="customModal"
+          title="Edit User Information"
+          visible={showModal}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <Form
+            initialValues={{
+              taiKhoan: userInfo.taiKhoan,
+              matKhau: userInfo.matKhau,
+              email: userInfo.email,
+              hoTen: userInfo.hoTen,
+              soDt: userInfo.soDT,
+            }}
+            form={form}
+            labelAlign="left"
+            {...formItemLayout}
+          >
+            <Form.Item hidden name="taiKhoan" label="UserName">
+              <Input
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                placeholder="Username"
+                allowClear
+              />
+            </Form.Item>
+            <Form.Item
+              name="email"
+              label="E-mail"
+              rules={[
+                {
+                  pattern:
+                    "^[a-z][a-z0-9_.]{5,32}@[a-z0-9]{2,}(.[a-z0-9]{2,4}){1,2}$",
+                  message: "The input is not valid E-mail!",
+                },
+              ]}
+            >
+              <Input
+                prefix={<MailOutlined className="site-form-item-icon" />}
+                placeholder="Email"
+                allowClear
+              />
+            </Form.Item>
+            <Form.Item label="Full Name" name="hoTen">
+              <Input
+                prefix={<SmileOutlined className="site-form-item-icon" />}
+                placeholder="Full Name"
+                allowClear
+              />
+            </Form.Item>
+            <Form.Item label="Telephone" name="soDt">
+              <Input
+                prefix={<PhoneOutlined className="site-form-item-icon" />}
+                placeholder="Telephone"
+                allowClear
+              />
+            </Form.Item>
+            <Form.Item label="Password" name="matKhau">
+              <Input.Password
+                prefix={<LockOutlined className="site-form-item-icon" />}
+                placeholder="Password"
+                allowClear
+              />
+            </Form.Item>
+          </Form>
+        </Modal>
       </TabPane>
       <TabPane tab="Booking History" key="2" className="accountTab_Tab2">
         <Table
