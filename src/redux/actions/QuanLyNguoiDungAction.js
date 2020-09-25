@@ -12,7 +12,6 @@ export const dangNhapAction = (thongTinDangNhap) => {
           url: `${domain}/api/quanlynguoidung/dangnhap`,
           data: thongTinDangNhap,
         });
-        console.log(result.data);
         localStorage.setItem(userLogin, JSON.stringify(result.data));
         localStorage.setItem(
           accessToken,

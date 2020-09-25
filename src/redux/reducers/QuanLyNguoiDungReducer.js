@@ -14,8 +14,14 @@ export default (state = initialState, action) => {
     case dang_nhap: {
       return { ...state, status: "success", nguoiDung: action.nguoiDung };
     }
-    case "ERROR":{
-      return {...state, status: "error"}
+    case "ERROR": {
+      return { ...state, status: "error" };
+    }
+    case "LOGGEDOUT": {
+      return { ...state, nguoiDung: {} };
+    }
+    case "UPDATE_INFO":{
+      return {...state, nguoiDung: action.nguoiDung}
     }
     default:
       return state;

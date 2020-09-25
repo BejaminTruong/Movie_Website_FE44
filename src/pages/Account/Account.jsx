@@ -19,9 +19,8 @@ import {
   PhoneOutlined,
   LockOutlined,
   LogoutOutlined,
-  DeleteOutlined,
 } from "@ant-design/icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { qlNguoiDungService } from "services/QuanLyNguoiDungService";
 import _ from "lodash";
 import moment from "moment";
@@ -67,23 +66,25 @@ const formItemLayout = {
     },
   },
 };
-export const Account = (props) => {
+export const Account = () => {
   const history = useHistory();
   const propNguoiDung = useSelector(
     (state) => state.QuanLyNguoiDungReducer.nguoiDung
   );
   const [userInfo, setUserInfo] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [form] = Form.useForm();
+  const dispatch = useDispatch();
   useEffect(() => {
     qlNguoiDungService
       .layThongTinTaiKhoan({ taiKhoan: propNguoiDung.taiKhoan })
       .then((res) => {
-        console.log(res.data);
         setUserInfo(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [propNguoiDung.taiKhoan]);
+  }, [userInfo]);
   let index = -1;
   useEffect(() => {
     if (!_.isEmpty(userInfo)) {
@@ -102,11 +103,6 @@ export const Account = (props) => {
       });
     }
   }, [userInfo, index]);
-  const [showModal, setShowModal] = useState(false);
-  const [form] = Form.useForm();
-  const handleModal = () => {
-    setShowModal(true);
-  };
   const handleOk = () => {
     let { taiKhoan, matKhau, email, hoTen, soDt } = form.getFieldsValue([
       "taiKhoan",
@@ -128,30 +124,17 @@ export const Account = (props) => {
       .capNhatThongTinTaiKhoan(updatedValues)
       .then((res) => {
         console.log(res.data);
-        window.location.reload(false);
         setShowModal(false);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  const handleCancel = () => {
-    setShowModal(false);
-  };
   const handleLogOut = () => {
+    dispatch({ type: "LOGGEDOUT" });
+    setUserInfo({});
     localStorage.clear();
     history.push("/home");
-    window.location.reload(false);
-  };
-  const handleDelete = () => {
-    qlNguoiDungService
-      .xoaTaiKhoanNguoiDung(props.match.params.TaiKhoan)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err, props.match.params.TaiKhoan);
-      });
   };
   return (
     <Tabs className="accountTab" defaultActiveKey="1" type="card" size="large">
@@ -186,29 +169,34 @@ export const Account = (props) => {
           </Col>
         </Row>
         <Divider />
-        <Row justify="center" gutter={[8]}>
-          <Col>
-            <Button type="primary" onClick={handleModal}>
-              <EditFilled /> Edit
-            </Button>
-          </Col>
-          <Col>
-            <Button onClick={handleLogOut}>
-              <LogoutOutlined /> Log Out
-            </Button>
-          </Col>
-          <Col>
-            <Button onClick={handleDelete} danger>
-              <DeleteOutlined /> Delete
-            </Button>
-          </Col>
-        </Row>
+        {userInfo?.taiKhoan ? (
+          <Row justify="center" gutter={[8]}>
+            <Col>
+              <Button type="primary" onClick={() => setShowModal(true)}>
+                <EditFilled /> Edit
+              </Button>
+            </Col>
+            <Col>
+              <Button onClick={handleLogOut}>
+                <LogoutOutlined /> Log Out
+              </Button>
+            </Col>
+          </Row>
+        ) : (
+          <Row justify="center">
+            <Col>
+              <Button type="primary" onClick={() => history.push("/login")}>
+                You Need To Log In
+              </Button>
+            </Col>
+          </Row>
+        )}
         <Modal
           className="customModal"
           title="Edit User Information"
           visible={showModal}
           onOk={handleOk}
-          onCancel={handleCancel}
+          onCancel={() => setShowModal(false)}
         >
           <Form
             initialValues={{

@@ -18,7 +18,6 @@ export const Header = () => {
   const propNguoiDung = useSelector(
     (state) => state.QuanLyNguoiDungReducer.nguoiDung
   );
-
   let [innerWidth, setInnerWidth] = useState(0);
   let [innerHeight, setInnerHeight] = useState(0);
   let [collapsed, setCollapsed] = useState(false);
@@ -120,7 +119,7 @@ export const Header = () => {
                   {!_.isEmpty(propNguoiDung) ? (
                     <div
                       style={{ color: "white", cursor: "pointer" }}
-                      onClick={() => history.push(`/account/${propNguoiDung.taiKhoan}`)}
+                      onClick={() => history.push("/account")}
                     >
                       <Space>
                         <Avatar
@@ -171,7 +170,7 @@ export const Header = () => {
               {!_.isEmpty(propNguoiDung) ? (
                 <div
                   style={{ color: "white", cursor: "pointer" }}
-                  onClick={() => history.push(`/account/${propNguoiDung.taiKhoan}`)}
+                  onClick={() => history.push("/account")}
                 >
                   <Space>
                     <Avatar

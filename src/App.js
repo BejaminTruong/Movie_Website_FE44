@@ -16,7 +16,7 @@ function App() {
         <HomeTemplate exact path="/" Component={Home} />
         <HomeTemplate exact path="/login" Component={Login} />
         <HomeTemplate exact path="/register" Component={Register} />
-        <HomeTemplate exact path="/account/:TaiKhoan" Component={Account} />
+        <HomeTemplate exact path="/account" Component={Account} />
         <HomeTemplate exact path="/detail/:maPhim" Component={Detail} />
       </div>
     </BrowserRouter>
