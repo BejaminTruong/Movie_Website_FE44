@@ -11,7 +11,7 @@ import { Detail } from 'pages/Detail/Detail';
 function App() {
   return (
     <BrowserRouter>
-      <div className="app">
+      <div className="app"> 
         <HomeTemplate exact path='/home' Component={Home} />
         <HomeTemplate exact path='/' Component={Home} />
         <HomeTemplate exact path="/login" Component={Login}/>

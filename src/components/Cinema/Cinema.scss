@@ -7,9 +7,8 @@
 .cinema {
   margin-top: 50px;
   background-color: #121212;
-  height: 100%;
+  height: 800px;
   overflow: hidden;
-  height: 900px;
 
   & .ant-space-item {
     & .cinema__logo {
@@ -31,6 +30,7 @@
       &:hover {
         opacity: 1 !important;
         transition: all linear 0.3s;
+        filter: drop-shadow(0 0 0.75rem white);
       }
 
       @media screen and (max-width: 1200px) {
@@ -132,12 +132,11 @@
 
   & .swiper-container {
     width: 100% !important;
-    height: 900px !important;
-    & .swiper-wrapper{
-      & .swiper-slide{
-        height: auto !important;
-      }
-    }
+    height: auto !important;
+  }
+
+  & .swiper-slide{
+    height: auto !important;
   }
 
   & .swiper-scrollbar {
@@ -148,12 +147,6 @@
   }
 
   @media screen and (max-width: 1200px) {
-    height: 1000px;
-
-    & .swiper-container {
-      height: 900px !important;
-    }
-
     & .cinema__branch {
       & .cinema__branch__info {
         & h3 {

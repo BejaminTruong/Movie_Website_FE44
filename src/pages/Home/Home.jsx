@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { quanLyPhimService } from "services/QuanLyPhimService";
 import { groupID_carousel, groupID_Cinema, CinemaID } from "configs/setting";
 import { Carousel } from "components/Carousel/Carousel";
@@ -21,6 +21,7 @@ export default function Home(props) {
   const { Loading, handleLoading } = props;
 
   useEffect(() => {
+   
     const requestOne = quanLyPhimService.layDanhSachPhim(groupID_carousel);
     const requestTwo = quanLyRapSerVice.layThongTinHeThongRap();
     const requestThree = quanLyRapSerVice.layThongTinCumRap(CinemaID);

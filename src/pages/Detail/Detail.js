@@ -23,8 +23,31 @@ export const Detail = (props) => {
         });
     },[])
 
+    var i = 0;
+    const move = (end) =>{
+        if(!end){
+            return;
+        }
+        if (i == 0) {
+            i = 1;
+            var elem = document.getElementById('progressBar');
+            var width = 1;
+            var id = setInterval(frame, 10);
+            function frame() {
+                if (width >= end * 10) {
+                    clearInterval(id);
+                    i = 0;
+                } else {
+                    width++;
+                    elem.style.strokeDashoffset = `calc(440 - (440 * ${width}) / 100)`;
+                }
+            }
+        }
+    }
+
+
     return (
-        <section className="detail"> 
+        <section className="detail" onLoad={move(chiTietPhim.danhGia)} > 
             <img className="detail__img" src={chiTietPhim.hinhAnh} alt={chiTietPhim.tenPhim} />
             <div className="detail__bg"></div>
             <div className="intro__movie">              
@@ -38,7 +61,7 @@ export const Detail = (props) => {
                         </Breadcrumb.Item>
                     </Breadcrumb>
                 </div>      
-                <div className="intro__movie__content" >
+                <div className="intro__movie__content">
                     <img src={chiTietPhim.hinhAnh} slt={chiTietPhim.tenPhim} />
                     <div className="movie__content__info">
                         <h3>{chiTietPhim.tenPhim}</h3>
@@ -53,9 +76,22 @@ export const Detail = (props) => {
                             <i className="fas fa-ticket-alt"></i>
                         </NavLink>
                     </div>
+                    <div className="rate">
+                        <div className="box">
+                            <div className="percent">
+                                <svg>
+                                    <circle cx="70" cy="70" r="70"></circle>
+                                    <circle id="progressBar" cx="70" cy="70" r="70" ></circle>
+                                </svg>
+                                <div className="number">
+                                    <h2>{chiTietPhim.danhGia}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-           
         </section>
     )
 }
+

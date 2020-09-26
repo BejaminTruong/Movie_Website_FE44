@@ -30,8 +30,7 @@ const renderHeThongRap = () =>{
 }
 
 const renderCumRap = () =>{
-    return <ListCards data={DSCumRap} scrollbar={{draggable:true}} breakpoints={{1200:{slidesPerView: 6},992:{slidesPerView: 6},768:{slidesPerView: 6},576 :{slidesPerView: 6}}} lazy direction="vertical" slidesPerColumnFill="column" slidesPerGroup={1}
-    tag="div" mousewheel >
+    return <ListCards data={DSCumRap} scrollbar={{draggable:true,dragSize:"auto"}} lazy direction="vertical" freeMode tag="div" mousewheel >
         {(cumrap,index) =>{
 
             const active = index === maCumRap ? "active" : "";
@@ -57,8 +56,7 @@ const renderCumRap = () =>{
     const LichChieu = DSLichChieu?.find(item => item.maCumRap === DSCumRap[maCumRap].maCumRap);
 
     if(LichChieu){
-        return <ListCards data={LichChieu.danhSachPhim} scrollbar={{draggable:true,dragSize:"auto"}} lazy direction="vertical" slidesPerColumnFill="column" slidesPerGroup={1}
-        tag="div" mousewheel >
+        return <ListCards data={LichChieu.danhSachPhim} scrollbar freeMode lazy direction="vertical" tag="div" mousewheel>
             {(phim,index) =>{
                 return <div className="cinema__schedule" key={index}>
                     <div className="cinema__schedule__img">
