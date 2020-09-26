@@ -28,11 +28,11 @@ export const Header = () => {
     const active = collapsed ? "menuToggle" : "menuToggle menuToggle-active";
     const hidden = collapsed ? "" : "hidden";
     document.getElementById("menuToggle").className = `${active}`;
-    document.body.style.overflow = `${hidden}`;
+    document.body.style.overflowY = hidden;
   };
 
   const setBodyOverflow = () => {
-    document.body.style.overflow = "";
+    document.body.style.overflowY = "";
   };
 
   let handleResize = () => {
@@ -48,10 +48,7 @@ export const Header = () => {
   }, []);
 
   return (
-    <section
-      className="header"
-      style={{ padding: innerWidth <= 992 ? "20px" : "" }}
-    >
+    <section className="header" style={{ padding: innerWidth <= 992 ? "20px" : "" }}>
       <nav className="navbar__wrapper">
         <Row
           gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
@@ -185,7 +182,7 @@ export const Header = () => {
                   <NavLink
                     to="/login"
                     className="btn ant-btn-background-ghost"
-                    onClick={setBodyOverflow()}
+                    onClick={setBodyOverflow}
                   >
                     <UserOutlined style={{ marginRight: "5px" }} /> Đăng Nhập
                   </NavLink>
@@ -208,7 +205,7 @@ export const Header = () => {
             <NavLink
               className="dataToggle__item"
               to="/home"
-              onClick={setBodyOverflow()}
+              onClick={setBodyOverflow}
             >
               Trang Chủ
             </NavLink>
@@ -216,7 +213,7 @@ export const Header = () => {
             <NavLink
               className="dataToggle__item"
               to="/contact"
-              onClick={setBodyOverflow()}
+              onClick={setBodyOverflow}
             >
               Liên Hệ
             </NavLink>
@@ -224,7 +221,7 @@ export const Header = () => {
             <NavLink
               className="dataToggle__item"
               to="/news"
-              onClick={setBodyOverflow()}
+              onClick={setBodyOverflow}
             >
               Tin Tức
             </NavLink>
@@ -232,7 +229,7 @@ export const Header = () => {
             <NavLink
               className="dataToggle__item"
               to="#"
-              onClick={setBodyOverflow()}
+              onClick={setBodyOverflow}
             >
               Ứng Dụng
             </NavLink>
