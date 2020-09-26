@@ -3,7 +3,7 @@ import { Row, Col, Space, Button } from "antd";
 import logo from "images/favicon_movie.ico";
 import movie_name from "images/Logo_name.png";
 import "./Header.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import {
   UserOutlined,
@@ -14,10 +14,10 @@ import Avatar from "antd/lib/avatar/avatar";
 import _ from "lodash";
 
 export const Header = () => {
+  const history = useHistory();
   const propNguoiDung = useSelector(
     (state) => state.QuanLyNguoiDungReducer.nguoiDung
   );
-
   let [innerWidth, setInnerWidth] = useState(0);
   let [innerHeight, setInnerHeight] = useState(0);
   let [collapsed, setCollapsed] = useState(false);
@@ -117,13 +117,18 @@ export const Header = () => {
               <Col span={10}>
                 <Row justify="end">
                   {!_.isEmpty(propNguoiDung) ? (
-                    <Space>
-                      <Avatar
-                        style={{ backgroundColor: "#f5c518" }}
-                        icon={<UserOutlined />}
-                      />
-                      {propNguoiDung.taiKhoan}
-                    </Space>
+                    <div
+                      style={{ color: "white", cursor: "pointer" }}
+                      onClick={() => history.push("/account")}
+                    >
+                      <Space>
+                        <Avatar
+                          style={{ backgroundColor: "#f5c518" }}
+                          icon={<UserOutlined />}
+                        />
+                        {propNguoiDung.taiKhoan}
+                      </Space>
+                    </div>
                   ) : (
                     <Space>
                       <NavLink
@@ -163,13 +168,18 @@ export const Header = () => {
           >
             <div className="dataToggle__item item--1">
               {!_.isEmpty(propNguoiDung) ? (
-                <Space>
-                  <Avatar
-                    style={{ backgroundColor: "#f5c518" }}
-                    icon={<UserOutlined />}
-                  />
-                  {propNguoiDung.taiKhoan}
-                </Space>
+                <div
+                  style={{ color: "white", cursor: "pointer" }}
+                  onClick={() => history.push("/account")}
+                >
+                  <Space>
+                    <Avatar
+                      style={{ backgroundColor: "#f5c518" }}
+                      icon={<UserOutlined />}
+                    />
+                    {propNguoiDung.taiKhoan}
+                  </Space>
+                </div>
               ) : (
                 <Space>
                   <NavLink

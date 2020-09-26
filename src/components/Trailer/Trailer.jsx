@@ -30,7 +30,7 @@ export const Trailer = (props) => {
       <button className={props.className} onClick={showModal}>
         {props.children}
       </button>
-      <Modal
+      <Modal className="trailerModal"
         visible={visible}
         onCancel={handleCancel}
         width="80%"

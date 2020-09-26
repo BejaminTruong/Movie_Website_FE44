@@ -1,0 +1,29 @@
+.accountTab {
+  padding: 50px 0 200px;
+  &_Tab1 {
+    font-size: 18px;
+    margin: 20px 0 200px !important;
+  }
+  &_Tab2 {
+    margin-bottom: 300px !important;
+  }
+}
+@media screen and (max-width: 426px) {
+  .accountTab_Tab1 {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 321px) {
+  .accountTab {
+    padding: 20px 0 120px;
+    &_Tab1 {
+      font-size: 12px;
+    }
+    .ant-table{
+      font-size: 10px;
+    }
+    .ant-tabs-tab{
+      font-size: 12px !important;
+    }
+  }
+}
