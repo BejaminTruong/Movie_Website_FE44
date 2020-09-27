@@ -16,7 +16,7 @@ const backTop = {
 };
 const HomeComponent = (props) => {
   return (
-    <div style={{ position: "relative" }}>
+    <>
       <Header />
       {props.children}
       <BackTop>
@@ -25,7 +25,7 @@ const HomeComponent = (props) => {
         </div>
       </BackTop>
       <Footer />
-    </div>
+    </>
   );
 };
 

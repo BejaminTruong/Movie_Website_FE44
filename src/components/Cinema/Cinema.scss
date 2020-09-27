@@ -7,9 +7,8 @@
 .cinema {
   margin-top: 50px;
   background-color: #121212;
-  height: 100%;
+  height: 800px;
   overflow: hidden;
-  height: 900px;
 
   & .ant-space-item {
     & .cinema__logo {
@@ -31,6 +30,10 @@
       &:hover {
         opacity: 1 !important;
         transition: all linear 0.3s;
+      }
+
+      &.active{
+        filter: drop-shadow(0 0 0.75rem white);
       }
 
       @media screen and (max-width: 1200px) {
@@ -87,21 +90,15 @@
     height: auto;
 
     & .cinema__schedule__img {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
       width: 100%;
       & img {
-        width: 20%;
-        height: 100%;
+        width: 80px;
+        height: 80px;
+        margin-right: 20px;
       }
       & .cinema__schedule__content {
         padding: 0 15px;
-        width: 85%;
-        & h3 {
-          color: #ffffff;
-        }
-
+        width: 100%;
         & .cinema__schedule_info {
           & .schedule__second {
             background-color: #f5c518;
@@ -132,12 +129,11 @@
 
   & .swiper-container {
     width: 100% !important;
-    height: 900px !important;
-    & .swiper-wrapper{
-      & .swiper-slide{
-        height: auto !important;
-      }
-    }
+    height: auto !important;
+  }
+
+  & .swiper-slide{
+    height: auto !important;
   }
 
   & .swiper-scrollbar {
@@ -147,22 +143,55 @@
     }
   }
 
-  @media screen and (max-width: 1200px) {
-    height: 1000px;
+  & .ant-collapse {
+    border: none;
+    & > .ant-collapse-item{
+      border: none;
+    }
+  }
 
-    & .swiper-container {
-      height: 900px !important;
+  & .ant-collapse-header{
+    padding: 0 !important;
+    display: flex;
+    flex-direction: row;
+   
+    & h3{
+      color: #ffffff !important;
+      font-size: 18px !important;
+    }
+    
+    & .anticon {
+      display: none !important;
     }
 
-    & .cinema__branch {
-      & .cinema__branch__info {
-        & h3 {
-          font-size: 16px;
-        }
+  }
 
+  & .ant-collapse-content.ant-collapse-content-active{
+    background-color: transparent;
+    border: none;
+  }
+
+  & .ant-collapse-content .ant-collapse-content-inactive{
+    background-color: #ffffff 85%;
+  }
+
+  & .ant-collapse-content-box{
+    padding: 0 !important;
+    margin-top: 10px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    & .cinema__branch {
+      & .cinema__branch__info { 
         & > p {
           font-size: 14px;
         }
+      }
+    }
+
+    & .ant-collapse-header{
+      & h3 {
+        font-size: 16px !important;
       }
     }
   }
@@ -170,13 +199,15 @@
   @media screen and (max-width: 992px) {
     & .cinema__branch {
       & .cinema__branch__info {
-        & h3 {
-          font-size: 14px;
-        }
-
         & > p {
           font-size: 12px;
         }
+      }
+    }
+
+    & .ant-collapse-header{
+      & h3 {
+        font-size: 14px !important;
       }
     }
 
@@ -229,10 +260,6 @@
           width: 25%;
         }
         & .cinema__schedule__content {
-          & h3{
-            font-size: 14px ;
-          }
-  
           & .cinema__schedule_info {
             & .schedule__second {
               padding: 2px 5px;
@@ -272,9 +299,6 @@
           width: 25%;
         }
         & .cinema__schedule__content {
-          & h3{
-            font-size: 14px ;
-          }
   
           & .cinema__schedule_info {
             & .schedule__second {

@@ -1,12 +1,20 @@
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./Login.scss";
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { dangNhapAction } from "redux/actions/QuanLyNguoiDungAction";
 import { useDispatch, useSelector } from "react-redux";
 export const Login = (props) => {
   const dispatch = useDispatch();
   const status = useSelector((state) => state.QuanLyNguoiDungReducer.status);
+
+  useLayoutEffect(()=>{
+    document.getElementById("footer").style.position = "absolute";
+    document.getElementById("footer").style.bottom="0";
+    document.getElementById("footer").style.left="0";
+    document.getElementById("footer").style.right="0";
+  })
+
   const checkValidateStatus = () => {
     if (status === "success") {
       return "success";
@@ -28,6 +36,7 @@ export const Login = (props) => {
       props.history.replace("/home");
     }
   });
+
   return (
     <Form
       name="normal_login"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { Form, Input, Button } from "antd";
 import "./Register.scss";
 import { qlNguoiDungService } from "services/QuanLyNguoiDungService";
@@ -35,6 +35,15 @@ const tailFormItemLayout = {
 };
 export const Register = () => {
   const [form] = Form.useForm();
+
+  useLayoutEffect(()=>{
+    document.getElementById("footer").style.position = "absolute";
+    document.getElementById("footer").style.bottom="0";
+    document.getElementById("footer").style.left="0";
+    document.getElementById("footer").style.right="0";
+  })
+
+
   const handleSubmit = ({ taiKhoan, matKhau, email, soDt, hoTen }) => {
     // let { taiKhoan, matKhau, email, soDt, hoTen } = values;
     const registerUser = {
