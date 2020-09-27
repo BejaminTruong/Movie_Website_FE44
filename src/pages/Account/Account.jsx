@@ -53,7 +53,7 @@ const columns = [
     dataIndex: "tenPhim",
   },
 ];
-const data = [];
+let data = [];
 const formItemLayout = {
   labelCol: {
     sm: {
@@ -75,34 +75,34 @@ export const Account = () => {
   const [showModal, setShowModal] = useState(false);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  let index = 0;
   useEffect(() => {
     qlNguoiDungService
       .layThongTinTaiKhoan({ taiKhoan: propNguoiDung.taiKhoan })
       .then((res) => {
         setUserInfo(res.data);
+        res.data.thongTinDatVe.forEach((ve) => {
+          ve.danhSachGhe.forEach((g) => {
+            index++;
+            data.push({
+              key: index,
+              tenRap: g.tenRap,
+              tenHeThongRap: g.tenHeThongRap,
+              ghe: g.tenGhe,
+              ngayDat: moment(ve.ngayDat).format("MM-DD-YYYY"),
+              tenPhim: ve.tenPhim,
+            });
+          });
+        });
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [userInfo]);
-  let index = -1;
-  useEffect(() => {
-    if (!_.isEmpty(userInfo)) {
-      userInfo.thongTinDatVe.forEach((ve) => {
-        ve.danhSachGhe.forEach((g) => {
-          index++;
-          data.push({
-            key: index,
-            tenRap: g.tenRap,
-            tenHeThongRap: g.tenHeThongRap,
-            ghe: g.tenGhe,
-            ngayDat: moment(ve.ngayDat).format("MM-DD-YYYY"),
-            tenPhim: ve.tenPhim,
-          });
-        });
-      });
-    }
-  }, [userInfo]);
+    return () => {
+      setUserInfo({});
+      data = [];
+    };
+  }, []);
   const handleOk = () => {
     let { taiKhoan, matKhau, email, hoTen, soDt } = form.getFieldsValue([
       "taiKhoan",
@@ -124,6 +124,7 @@ export const Account = () => {
       .capNhatThongTinTaiKhoan(updatedValues)
       .then((res) => {
         console.log(res.data);
+        setUserInfo(res.data);
         setShowModal(false);
       })
       .catch((err) => {

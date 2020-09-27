@@ -1,42 +1,56 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { domain } from "configs/setting";
+import { userLogin, accessToken } from "configs/setting";
+import { dang_nhap } from "redux/types/QuanLyNguoiDungType";
+import { useDispatch } from "react-redux";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./Login.scss";
-import React, { useEffect, useLayoutEffect } from "react";
-import { dangNhapAction } from "redux/actions/QuanLyNguoiDungAction";
-import { useDispatch, useSelector } from "react-redux";
 export const Login = (props) => {
   const dispatch = useDispatch();
-  const status = useSelector((state) => state.QuanLyNguoiDungReducer.status);
-
-  useLayoutEffect(()=>{
-    document.getElementById("footer").style.position = "absolute";
-    document.getElementById("footer").style.bottom="0";
-    document.getElementById("footer").style.left="0";
-    document.getElementById("footer").style.right="0";
-  })
-
+  const [logInStatus, setLogInStatus] = useState("");
   const checkValidateStatus = () => {
-    if (status === "success") {
-      return "success";
-    }
-    if (status === "error") {
+    if (logInStatus === "failed") {
       return "error";
     }
   };
   const checkHelp = () => {
-    if (status === "error") {
+    if (logInStatus === "failed") {
       return "Wrong UserName or Password";
     }
   };
-  const handleSubmit = (values) => {
-    dispatch(dangNhapAction(values));
+  const dangNhapAction = (thongTinDangNhap) => {
+    return (dispatch) => {
+      (async () => {
+        try {
+          const result = await axios({
+            method: "post",
+            url: `${domain}/api/quanlynguoidung/dangnhap`,
+            data: thongTinDangNhap,
+          });
+          localStorage.setItem(userLogin, JSON.stringify(result.data));
+          localStorage.setItem(
+            accessToken,
+            JSON.stringify(result.data.accessToken)
+          );
+          dispatch({
+            type: dang_nhap,
+            nguoiDung: result.data,
+          });
+          setLogInStatus("success");
+        } catch (error) {
+          console.log(error.response.data);
+          setLogInStatus("failed");
+        }
+      })();
+    };
   };
   useEffect(() => {
-    if (status === "success") {
-      props.history.replace("/home");
+    if (logInStatus === "success") {
+      props.history.push("/home");
     }
-  });
-
+  }, [logInStatus])
   return (
     <Form
       name="normal_login"
@@ -44,7 +58,7 @@ export const Login = (props) => {
       initialValues={{
         remember: false,
       }}
-      onFinish={handleSubmit}
+      onFinish={(values)=>{dispatch(dangNhapAction(values));}}
     >
       <Form.Item
         help={checkHelp()}

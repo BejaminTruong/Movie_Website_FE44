@@ -24,7 +24,7 @@ export const dangNhapAction = (thongTinDangNhap) => {
       } catch (error) {
         console.log(error.response.data);
         dispatch({
-          type: "ERROR",
+          type: "FAILED",
         });
       }
     })();

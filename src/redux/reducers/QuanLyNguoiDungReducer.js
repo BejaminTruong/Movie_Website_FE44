@@ -6,16 +6,12 @@ if (localStorage.getItem(userLogin)) {
 }
 const initialState = {
   nguoiDung: usLogin,
-  status: "",
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case dang_nhap: {
-      return { ...state, status: "success", nguoiDung: action.nguoiDung };
-    }
-    case "ERROR": {
-      return { ...state, status: "error" };
+      return { ...state, nguoiDung: action.nguoiDung };
     }
     case "LOGGEDOUT": {
       return { ...state, nguoiDung: {} };

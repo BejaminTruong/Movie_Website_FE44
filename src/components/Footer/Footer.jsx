@@ -15,7 +15,7 @@ import Binh from "images/icons8-minion-2-100.png";
 export const Footer = () => {
 
   return (
-    <div className="footer" id="footer">
+    <div className="footer">
       <div className="iconRow">
         <Space align="center" size="large">
           <div className="iconBorder">

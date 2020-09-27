@@ -48,7 +48,10 @@ export const Header = () => {
   }, []);
 
   return (
-    <section className="header" style={{ padding: innerWidth <= 992 ? "20px" : "" }}>
+    <section
+      className="header"
+      style={{ padding: innerWidth <= 992 ? "20px" : "" }}
+    >
       <nav className="navbar__wrapper">
         <Row
           gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
@@ -113,7 +116,7 @@ export const Header = () => {
               </Col>
               <Col span={10}>
                 <Row justify="end">
-                  {!_.isEmpty(propNguoiDung) ? (
+                  {!_.isEmpty(propNguoiDung.taiKhoan) ? (
                     <div
                       style={{ color: "white", cursor: "pointer" }}
                       onClick={() => history.push("/account")}
@@ -134,12 +137,13 @@ export const Header = () => {
                       >
                         Đăng Ký
                       </NavLink>
-                      <NavLink
-                        to="/login"
+                      <div
+                        // to="/login"
+                        onClick={() => history.push("/login")}
                         className="btn ant-btn-background-ghost"
                       >
                         Đăng Nhập
-                      </NavLink>
+                      </div>
                     </Space>
                   )}
                 </Row>
@@ -164,7 +168,7 @@ export const Header = () => {
             style={{ background: "#121212", height: `${innerHeight}px` }}
           >
             <div className="dataToggle__item item--1">
-              {!_.isEmpty(propNguoiDung) ? (
+              {!_.isEmpty(propNguoiDung.taiKhoan) ? (
                 <div
                   style={{ color: "white", cursor: "pointer" }}
                   onClick={() => history.push("/account")}
