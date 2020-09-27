@@ -1,16 +1,20 @@
 .accountTab {
-  padding: 50px 0 200px;
+  padding: 50px 100px 200px;
   &_Tab1 {
     font-size: 18px;
     margin: 20px 0 200px !important;
   }
   &_Tab2 {
-    margin-bottom: 300px !important;
+    margin-bottom: 100px !important;
   }
 }
 @media screen and (max-width: 426px) {
-  .accountTab_Tab1 {
-    font-size: 14px;
+  .accountTab{
+    padding-left: 0;
+    padding-right: 0;
+    &_Tab1 {
+      font-size: 14px;
+    }
   }
 }
 @media screen and (max-width: 321px) {

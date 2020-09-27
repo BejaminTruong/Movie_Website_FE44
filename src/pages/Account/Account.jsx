@@ -102,7 +102,7 @@ export const Account = () => {
         });
       });
     }
-  }, [userInfo, index]);
+  }, [userInfo]);
   const handleOk = () => {
     let { taiKhoan, matKhau, email, hoTen, soDt } = form.getFieldsValue([
       "taiKhoan",
@@ -141,27 +141,27 @@ export const Account = () => {
       <TabPane className="accountTab_Tab1" tab="Personal Information" key="1">
         <Row gutter={[24, 24]}>
           <Col
-            xl={{ span: 5, offset: 7 }}
+            xl={{ span: 6, offset: 7 }}
             sm={{ span: 8, offset: 4 }}
             xs={{ span: 12, offset: 2 }}
           >
             Email: {userInfo.email}
           </Col>
-          <Col xl={{ span: 4, offset: 3 }} sm={{ span: 8, offset: 4 }}>
+          <Col xl={{ span: 4, offset: 2 }} sm={{ span: 8, offset: 4 }}>
             UserName: {userInfo.taiKhoan}
           </Col>
           <Col
-            xl={{ span: 4, offset: 7 }}
+            xl={{ span: 6, offset: 7 }}
             sm={{ span: 8, offset: 4 }}
             xs={{ span: 12, offset: 2 }}
           >
             Full Name: {userInfo.hoTen}
           </Col>
-          <Col xl={{ span: 4 }} sm={{ span: 8, offset: 4 }}>
+          <Col xl={{ span: 4 }} sm={{ span: 8, offset: 2 }}>
             Password: {userInfo.matKhau}
           </Col>
           <Col
-            xl={{ offset: 7 }}
+            xl={{ span: 6, offset: 7 }}
             sm={{ span: 4, offset: 4 }}
             xs={{ span: 10, offset: 2 }}
           >
