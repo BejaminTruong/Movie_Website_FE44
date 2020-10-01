@@ -1,15 +1,16 @@
 .accountTab {
-  padding: 50px 100px 200px;
+  margin-top: 50px !important;
   &_Tab1 {
     font-size: 18px;
-    margin: 20px 0 200px !important;
+    min-height: 300px;
   }
   &_Tab2 {
     margin-bottom: 100px !important;
+    min-height: 600px;
   }
 }
 @media screen and (max-width: 426px) {
-  .accountTab{
+  .accountTab {
     padding-left: 0;
     padding-right: 0;
     &_Tab1 {
@@ -23,10 +24,10 @@
     &_Tab1 {
       font-size: 12px;
     }
-    .ant-table{
+    .ant-table {
       font-size: 10px;
     }
-    .ant-tabs-tab{
+    .ant-tabs-tab {
       font-size: 12px !important;
     }
   }

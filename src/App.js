@@ -1,24 +1,27 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import { HomeTemplate } from "templates/HomeTemplate/HomeTemplate";
 import Home from "pages/Home/Home";
-import "antd/dist/antd.css";
-import "App.scss";
 import { Login } from "pages/Login/Login";
 import { Register } from "pages/Register/Register";
 import { Account } from "pages/Account/Account";
 import { Detail } from "pages/Detail/Detail";
+import { AdminTemplate } from "templates/AdminTemplate/AdminTemplate";
+import { UserAdmin } from "pages/Admin/UserAdmin/UserAdmin";
+import "antd/dist/antd.css";
 function App() {
   return (
     <BrowserRouter>
-      <div className="app">
+        <Route exact>
+          <AdminTemplate exact path="/admin/useradmin" Component={UserAdmin} />
+          <AdminTemplate exact path="/admin" Component={UserAdmin} />
+        </Route>
         <HomeTemplate exact path="/home" Component={Home} />
-        <HomeTemplate exact path="/" Component={Home} />
         <HomeTemplate exact path="/login" Component={Login} />
         <HomeTemplate exact path="/register" Component={Register} />
         <HomeTemplate exact path="/account" Component={Account} />
         <HomeTemplate exact path="/detail/:maPhim" Component={Detail} />
-      </div>
+        <HomeTemplate exact path="/" Component={Home} />
     </BrowserRouter>
   );
 }

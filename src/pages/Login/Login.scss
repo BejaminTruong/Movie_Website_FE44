@@ -1,18 +1,10 @@
 .loginForm {
-  padding: 100px 450px 350px;
-}
-@media screen and (max-width: 1025px) {
-  .loginForm {
-    padding: 100px 300px 350px;
-  }
-}
-@media screen and (max-width: 769px) {
-  .loginForm {
-    padding: 100px 200px 350px;
-  }
+  padding: 0 25% !important;
+  margin-top: 80px !important;
+  min-height: 300px;
 }
 @media screen and (max-width: 426px) {
   .loginForm {
-    padding: 100px 30px 350px;
+    padding: 0 10% !important;
   }
 }

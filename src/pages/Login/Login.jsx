@@ -3,13 +3,17 @@ import axios from "axios";
 import { domain } from "configs/setting";
 import { userLogin, accessToken } from "configs/setting";
 import { dang_nhap } from "redux/types/QuanLyNguoiDungType";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./Login.scss";
-export const Login = (props) => {
+import { useLocation, useHistory } from "react-router-dom";
+export const Login = () => {
   const dispatch = useDispatch();
   const [logInStatus, setLogInStatus] = useState("");
+  const propsNguoiDung = useSelector(
+    (state) => state.QuanLyNguoiDungReducer.nguoiDung
+  );
   const checkValidateStatus = () => {
     if (logInStatus === "failed") {
       return "error";
@@ -38,6 +42,7 @@ export const Login = (props) => {
             type: dang_nhap,
             nguoiDung: result.data,
           });
+          console.log(result.data);
           setLogInStatus("success");
         } catch (error) {
           console.log(error.response.data);
@@ -46,11 +51,18 @@ export const Login = (props) => {
       })();
     };
   };
+  let history = useHistory();
+  let location = useLocation();
+  let { from } = location.state || { from: { pathname: "/" } };
   useEffect(() => {
     if (logInStatus === "success") {
-      props.history.push("/home");
+      console.log(propsNguoiDung.maLoaiNguoiDung);
+      if (propsNguoiDung.maLoaiNguoiDung === "QuanTri")
+        // props.history.push("/admin/useradmin");
+        history.replace(from);
+      else history.push("/home");
     }
-  }, [logInStatus])
+  }, [logInStatus]);
   return (
     <Form
       name="normal_login"
@@ -58,7 +70,9 @@ export const Login = (props) => {
       initialValues={{
         remember: false,
       }}
-      onFinish={(values)=>{dispatch(dangNhapAction(values));}}
+      onFinish={(values) => {
+        dispatch(dangNhapAction(values));
+      }}
     >
       <Form.Item
         help={checkHelp()}

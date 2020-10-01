@@ -16,7 +16,7 @@ const backTop = {
 };
 const HomeComponent = (props) => {
   return (
-    <div style={{position:"relative"}}>
+    <div style={{ position: "relative", height: "100%" }}>
       <Header />
       {props.children}
       <BackTop>
