@@ -8,6 +8,7 @@ import { Account } from "pages/Account/Account";
 import { Detail } from "pages/Detail/Detail";
 import { AdminTemplate } from "templates/AdminTemplate/AdminTemplate";
 import { UserAdmin } from "pages/Admin/UserAdmin/UserAdmin";
+import {BookingTicket} from "pages/BookingTicket/BookingTicket";
 import "antd/dist/antd.css";
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <HomeTemplate exact path="/register" Component={Register} />
         <HomeTemplate exact path="/account" Component={Account} />
         <HomeTemplate exact path="/detail/:maPhim" Component={Detail} />
+        <HomeTemplate exact path="/bookingticket/:maLichChieu" Component={BookingTicket} />
         <HomeTemplate exact path="/" Component={Home} />
     </BrowserRouter>
   );

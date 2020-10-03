@@ -11,13 +11,20 @@
   overflow: hidden;
 
   & .ant-space-item {
+    padding-top: 15px;
     & .cinema__logo {
       margin: 0 auto;
       padding: 15px 0;
       position: relative;
       cursor: pointer;
       opacity: 0.5;
-      width: 50%;
+      width: 80%;
+      text-align: center;
+
+      & img{
+        width: 50%;
+      }
+
       &::after {
         position: absolute;
         bottom: 0;
@@ -34,6 +41,7 @@
 
       &.active{
         filter: drop-shadow(0 0 0.75rem white);
+        background-color: rgba(0,0,0,0.65);
       }
 
       @media screen and (max-width: 1200px) {

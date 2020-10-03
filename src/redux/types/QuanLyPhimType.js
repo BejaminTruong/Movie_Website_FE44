@@ -1,0 +1,1 @@
+export const LAY_CHI_TIET_PHIM = "LAY_CHI_TIET_PHIM";

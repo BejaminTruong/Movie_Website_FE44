@@ -28,7 +28,7 @@ export const TabCard = (props) => {
             </div>
           </div>
           <div className="link__booking">
-            <Button href={`/booking/${phim.maPhim}`} className="btn__link__booking" type="link" size="large" icon={<ShoppingFilled />}>
+            <Button href={`/bookingticket/${phim.maPhim}`} className="btn__link__booking" type="link" size="large" icon={<ShoppingFilled />}>
               Đặt Vé
             </Button>
           </div>
