@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Redirect, Route } from "react-router-dom";
+import { NavLink, Redirect, Route, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Layout, Menu } from "antd";
+import { Avatar, Col, Layout, Menu, Row, Space } from "antd";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -12,17 +12,21 @@ import {
 import "./AdminTemplate.scss";
 const { Header, Sider, Content } = Layout;
 const AdminComponent = (props) => {
+  const history = useHistory();
+  const propNguoiDung = useSelector(
+    (state) => state.QuanLyNguoiDungReducer.nguoiDung
+  );
   const [sideCollapsed, setSideCollapsed] = useState(false);
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={sideCollapsed}>
         <div className="logo" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={["2"]}>
           <Menu.Item key="1" icon={<UserOutlined />}>
-            nav 1
+            <NavLink to="/admin/movieadmin">Quản Lý Phim</NavLink>
           </Menu.Item>
           <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            nav 2
+            <NavLink to="/admin/useradmin">Quản Lý Người Dùng</NavLink>
           </Menu.Item>
           <Menu.Item key="3" icon={<UploadOutlined />}>
             nav 3
@@ -31,20 +35,41 @@ const AdminComponent = (props) => {
       </Sider>
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
-          {React.createElement(
-            sideCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-            {
-              className: "trigger",
-              onClick: () => setSideCollapsed(!sideCollapsed),
-            }
-          )}
+          <Row justify="space-between">
+            <Col span={2}>
+              {React.createElement(
+                sideCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+                {
+                  className: "trigger",
+                  onClick: () => setSideCollapsed(!sideCollapsed),
+                }
+              )}
+            </Col>
+            <Col
+              style={{
+                cursor: "pointer",
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "center",
+              }}
+              span={2}
+              onClick={() => history.push("/account")}
+            >
+              <Space style={{marginRight:"10px"}}>
+                <Avatar
+                  style={{ backgroundColor: "#f5c518" }}
+                  icon={<UserOutlined />}
+                />
+                {propNguoiDung.taiKhoan}
+              </Space>
+            </Col>
+          </Row>
         </Header>
         <Content
           className="site-layout-background"
           style={{
             margin: "24px 16px",
             padding: 24,
-            minHeight: 280,
           }}
         >
           {props.children}
