@@ -1,4 +1,4 @@
-import {LAY_THONG_TIN_Cinema,Update_Thong_Tin_Cum_Rap_Lich_Chieu} from "redux/types/QuanLyRapPhimType";
+import {LAY_THONG_TIN_Cinema,Update_Thong_Tin_Cum_Rap_Lich_Chieu,LAY_CHI_TIET_PHim} from "redux/types/QuanLyRapPhimType";
 const initialState = {
     DSHeThongRap:[],
     DSCumRap: [],

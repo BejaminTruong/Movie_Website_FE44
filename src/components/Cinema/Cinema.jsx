@@ -7,6 +7,7 @@ import "swiper/swiper.scss";
 import "./Cinema.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {handleSetDSCumRap} from "redux/actions/QuanLyRapPhimAction";
+import { NavLink } from "react-router-dom";
 
 SwiperCore.use([Scrollbar, Lazy, Mousewheel]);
 
@@ -93,11 +94,11 @@ export const Cinema = () => {
                     }  className="cinema__schedule_info">
                       {phim.lstLichChieuTheoPhim.map((item, index) => {
                         return (
-                          <div key={index} className="schedule__second">
+                          <NavLink to={`/bookingticket/${item.maLichChieu}`} key={index} className="schedule__second">
                             <span>
                               {moment(item.ngayChieuGioChieu).format("hh:mm A")}
                             </span>
-                          </div>
+                          </NavLink>
                         );
                       })}
                     </Collapse.Panel>

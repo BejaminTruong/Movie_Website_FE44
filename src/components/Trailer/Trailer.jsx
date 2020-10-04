@@ -33,7 +33,7 @@ export const Trailer = (props) => {
       <Modal className="trailerModal"
         visible={visible}
         onCancel={handleCancel}
-        width="80%"
+        width="70%"
         footer={null}
       >
         <iframe frameBorder="0" allowFullScreen src={props.trailer} />

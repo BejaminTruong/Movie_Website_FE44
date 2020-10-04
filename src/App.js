@@ -5,9 +5,10 @@ import Home from "pages/Home/Home";
 import { Login } from "pages/Login/Login";
 import { Register } from "pages/Register/Register";
 import { Account } from "pages/Account/Account";
-import { Detail } from "pages/Detail/Detail";
+import { Detail } from "./pages/Detail/Detail";
 import { AdminTemplate } from "templates/AdminTemplate/AdminTemplate";
 import { UserAdmin } from "pages/Admin/UserAdmin/UserAdmin";
+import { BookingTicket } from "pages/BookingTicket/BookingTicket";
 import "antd/dist/antd.css";
 import { AddUser } from "./pages/Admin/AddUser/AddUser";
 function App() {
@@ -27,7 +28,24 @@ function App() {
       <HomeTemplate exact path="/register" Component={Register} />
       <HomeTemplate exact path="/account" Component={Account} />
       <HomeTemplate exact path="/detail/:maPhim" Component={Detail} />
+      <HomeTemplate
+        exact
+        path="/bookingticket/:maLichChieu"
+        Component={BookingTicket}
+      />
       <HomeTemplate exact path="/" Component={Home} />
+      {/* <Route exact>
+          <AdminTemplate exact path="/admin/useradmin" Component={UserAdmin} />
+          <AdminTemplate exact path="/admin" Component={UserAdmin} />
+        </Route>
+        <HomeTemplate exact path="/home" Component={Home} />
+        <HomeTemplate exact path="/login" Component={Login} />
+        <HomeTemplate exact path="/register" Component={Register} />
+        <HomeTemplate exact path="/account" Component={Account} />
+        <HomeTemplate exact path="/detail/:maPhim" Component={Detail} />
+        <HomeTemplate exact path="/bookingticket/:maLichChieu" Component={BookingTicket} />
+        <HomeTemplate exact path="/" Component={Home} /> */}
+      {/* >>>>>>> 6dd7db92e6b940044999a0c64b9ae2d59addfec4 */}
     </BrowserRouter>
   );
 }
