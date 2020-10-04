@@ -93,7 +93,6 @@ export const DetailSchedule = () => {
                         className="cinema__schedule_info"
                       >
                         {cumRapChieu.lichChieuPhim.map((item, index) => {
-                          console.log(item)
                           return (
                             <NavLink to={`/bookingticket/${item.maLichChieu}`} key={index} className="schedule__second">
                               <span>

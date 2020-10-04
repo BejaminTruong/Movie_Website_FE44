@@ -5,10 +5,15 @@ import { Trailer } from "../Trailer/Trailer";
 import {ShoppingFilled} from "@ant-design/icons";
 import "./TabCard.scss";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { isEmpty } from "lodash";
 
 export const TabCard = (props) => {
   const { phim } = props;
 
+  let usLogin = useSelector(state => state.QuanLyNguoiDungReducer.nguoiDung);
+
+  console.log(isEmpty(usLogin))
   return (
     <>
       <Card className="card" bordered={false}>
@@ -28,9 +33,18 @@ export const TabCard = (props) => {
             </div>
           </div>
           <div className="link__booking">
-            <Button href={`/bookingticket/${phim.maPhim}`} className="btn__link__booking" type="link" size="large" icon={<ShoppingFilled />}>
-              Đặt Vé
-            </Button>
+            {
+              !isEmpty(usLogin) ? (
+                <Button href={`/bookingticket/${phim.maPhim}`} className="btn__link" type="link" size="large" icon={<ShoppingFilled />}>
+                  Đặt Vé
+                </Button>
+              ) :
+              (
+                <Button href="/login" className="btn__link" type="link" size="large" icon={<ShoppingFilled />}>
+                  Đặt Vé
+                </Button>
+              )
+            }
           </div>
         </div>
       </Card>

@@ -8,6 +8,7 @@ import "./Cinema.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {handleSetDSCumRap} from "redux/actions/QuanLyRapPhimAction";
 import { NavLink } from "react-router-dom";
+import { isEmpty } from "lodash";
 
 SwiperCore.use([Scrollbar, Lazy, Mousewheel]);
 
@@ -16,7 +17,8 @@ export const Cinema = () => {
   const DSHeThongRap = useSelector((state) => state.QuanLyRapPhimReducer.DSHeThongRap);
   const DSCumRap = useSelector((state) => state.QuanLyRapPhimReducer.DSCumRap);
   const DSLichChieu = useSelector((state) => state.QuanLyRapPhimReducer.DSLichChieu);
- 
+  const usLogin = useSelector(state => state.QuanLyNguoiDungReducer.nguoiDung);
+
   let [maHeThongRap, setMaHeThongRap] = useState(0);
   let [maCumRap, setMaCumRap] = useState(0);
 
@@ -80,8 +82,7 @@ export const Cinema = () => {
           lazy
           direction="vertical"
           tag="div"
-          mousewheel
-        >
+          mousewheel>
           {(phim, index) => {
             return (
               <div className="cinema__schedule" key={index}>
@@ -93,23 +94,30 @@ export const Cinema = () => {
                     </>
                     }  className="cinema__schedule_info">
                       {phim.lstLichChieuTheoPhim.map((item, index) => {
-                        return (
-                          <NavLink to={`/bookingticket/${item.maLichChieu}`} key={index} className="schedule__second">
-                            <span>
-                              {moment(item.ngayChieuGioChieu).format("hh:mm A")}
-                            </span>
-                          </NavLink>
-                        );
-                      })}
+                        {
+                          return !isEmpty(usLogin) ? (
+                            <NavLink to={`/bookingticket/${item.maLichChieu}`} key={index} className="schedule__second">
+                              <span>
+                                {moment(item.ngayChieuGioChieu).format("hh:mm A")}
+                              </span>
+                            </NavLink>
+                          ):(
+                            <NavLink to="/login" key={index} className="schedule__second">
+                              <span>
+                                {moment(item.ngayChieuGioChieu).format("hh:mm A")}
+                              </span>
+                            </NavLink>
+                          )
+                        }
+                      })};
                     </Collapse.Panel>
                   </Collapse>
                 </div>
               </div>
-            );
+            )
           }}
         </ListCards>
-      );
-    }
+      )};
     return <></>;
   };
 

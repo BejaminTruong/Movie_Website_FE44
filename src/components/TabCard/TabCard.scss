@@ -84,7 +84,7 @@
       width: 100%;
       height: 100%;
       transform: translateY(-100%);
-      & .btn__link__booking {
+      & .btn__link {
         width: 100%;
         height: 100%;
         background: #f5c518;
@@ -112,8 +112,9 @@
       }
 
       & .link__booking{
-        & .btn__link__booking{
+        & .btn__link{
           font-size: 16px;
+          padding: 0;
         }
       }
     }
@@ -130,7 +131,7 @@
       }
 
       & .link__booking{
-        & .btn__link__booking{
+        & .btn__link{
           font-size: 16px;
         }
       }

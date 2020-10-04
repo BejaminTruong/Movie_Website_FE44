@@ -16,12 +16,7 @@ export class QuanLyPhimService{
             method:"GET"
         })
     }
-    layChiTietPhongVe = (maLichChieu) =>{
-        return axios({
-            url:`${domain}/api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`,
-            method:"GET"
-        })
-    }
+  
 
     // layThongTinTrailer = (id) =>{
     //     return axios({

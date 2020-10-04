@@ -19,7 +19,7 @@ export const Detail = (props) => {
         dispatch(LayThongTinCinema());
         dispatch(LayChiTietPhim(maPhim));
     },[])
-
+    
     var i = 0;
     const move = (end) =>{
         if(!end){
@@ -41,13 +41,13 @@ export const Detail = (props) => {
             }
         }
     }
-  
+    
     return (
-        <section className="detail" onLoad={move(chiTietPhim.danhGia)} > 
+        <section className="detail" onLoad={()=>{move(chiTietPhim.danhGia)}} > 
             <img className="detail__img" src={chiTietPhim.hinhAnh} alt={chiTietPhim.tenPhim} />
             <div className="detail__bg"></div>
-            <IntroMovie pathName={props.location.pathname}/>
-            <div className="detail__cinema__title" id="booking">
+            <IntroMovie pathName={props.location.pathname} setHandleActive={setHandleActive} />
+            <div className="detail__cinema__title" id="booking__info">
                 <span className={handleActive === 0 || handleActive === 1 ? "active" : ""} onClick={()=>setHandleActive(1)}>Lịch Chiếu</span>
                 <span className={handleActive === 2 ? "active" : ""} onClick={()=>setHandleActive(2)}>Thông Tin</span>
             </div>
