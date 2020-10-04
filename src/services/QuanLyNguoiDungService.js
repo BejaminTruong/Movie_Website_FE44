@@ -45,5 +45,11 @@ export class QuanLyNguoiDungService {
       },
     });
   };
+  layDanhSachNguoiDungPhanTrang = (currentPage, count) => {
+    return axios({
+      method: "GET",
+      url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang?MaNhom=GP01&soTrang=${currentPage}&soPhanTuTrenTrang=${count}`,
+    });
+  };
 }
 export const qlNguoiDungService = new QuanLyNguoiDungService();
