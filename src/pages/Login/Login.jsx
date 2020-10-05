@@ -4,7 +4,7 @@ import { domain } from "configs/setting";
 import { userLogin, accessToken } from "configs/setting";
 import { dang_nhap } from "redux/types/QuanLyNguoiDungType";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./Login.scss";
 import { useLocation, useHistory } from "react-router-dom";
@@ -44,6 +44,7 @@ export const Login = () => {
           });
           console.log(result.data);
           setLogInStatus("success");
+          message.destroy(1);
         } catch (error) {
           console.log(error.response.data);
           setLogInStatus("failed");
@@ -53,13 +54,14 @@ export const Login = () => {
   };
   let history = useHistory();
   let location = useLocation();
-  let { from } = location.state || { from: { pathname: "/" } };
+  let { from } = location.state || { from: { pathname: "/admin" } };
   useEffect(() => {
     if (logInStatus === "success") {
+      message
+        .success("Login Successfully!",1)
+        .then(() => message.info(`Welcom back ${propsNguoiDung.taiKhoan}`,2));
       console.log(propsNguoiDung.maLoaiNguoiDung);
-      if (propsNguoiDung.maLoaiNguoiDung === "QuanTri")
-        // props.history.push("/admin/useradmin");
-        history.replace(from);
+      if (propsNguoiDung.maLoaiNguoiDung === "QuanTri") history.replace(from);
       else history.push("/home");
     }
   }, [logInStatus]);
@@ -71,6 +73,10 @@ export const Login = () => {
         remember: false,
       }}
       onFinish={(values) => {
+        message.loading({
+          content:"Action in progress...",
+          key: 1,
+        });
         dispatch(dangNhapAction(values));
       }}
     >
