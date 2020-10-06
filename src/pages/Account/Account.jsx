@@ -10,6 +10,9 @@ import {
   Form,
   Input,
   Divider,
+  Skeleton,
+  Space,
+  message
 } from "antd";
 import {
   EditFilled,
@@ -71,6 +74,7 @@ export const Account = () => {
   const propNguoiDung = useSelector(
     (state) => state.QuanLyNguoiDungReducer.nguoiDung
   );
+  const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [form] = Form.useForm();
@@ -94,6 +98,7 @@ export const Account = () => {
             });
           });
         });
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -126,9 +131,11 @@ export const Account = () => {
         console.log(res.data);
         setUserInfo(res.data);
         setShowModal(false);
+        message.success("Update Successfully!");
       })
       .catch((err) => {
         console.log(err);
+        message.error("Update Failed!");
       });
   };
   const handleLogOut = () => {
@@ -140,58 +147,62 @@ export const Account = () => {
   return (
     <Tabs className="accountTab" defaultActiveKey="1" type="card" size="large">
       <TabPane className="accountTab_Tab1" tab="Personal Information" key="1">
-        <Row gutter={[24, 24]}>
-          <Col
-            xl={{ span: 6, offset: 7 }}
-            sm={{ span: 8, offset: 4 }}
-            xs={{ span: 12, offset: 2 }}
-          >
-            Email: {userInfo.email}
-          </Col>
-          <Col xl={{ span: 4, offset: 2 }} sm={{ span: 8, offset: 4 }}>
-            UserName: {userInfo.taiKhoan}
-          </Col>
-          <Col
-            xl={{ span: 6, offset: 7 }}
-            sm={{ span: 8, offset: 4 }}
-            xs={{ span: 12, offset: 2 }}
-          >
-            Full Name: {userInfo.hoTen}
-          </Col>
-          <Col xl={{ span: 4 }} sm={{ span: 8, offset: 2 }}>
-            Password: {userInfo.matKhau}
-          </Col>
-          <Col
-            xl={{ span: 6, offset: 7 }}
-            sm={{ span: 4, offset: 4 }}
-            xs={{ span: 10, offset: 2 }}
-          >
-            Phone: {userInfo.soDT}
-          </Col>
-        </Row>
-        <Divider />
-        {userInfo?.taiKhoan ? (
-          <Row justify="center" gutter={[8]}>
-            <Col>
-              <Button type="primary" onClick={() => setShowModal(true)}>
-                <EditFilled /> Edit
-              </Button>
-            </Col>
-            <Col>
-              <Button onClick={handleLogOut}>
-                <LogoutOutlined /> Log Out
-              </Button>
-            </Col>
-          </Row>
+        {!loading ? (
+          <>
+            <Row gutter={[24, 24]}>
+              <Col
+                xl={{ span: 6, offset: 7 }}
+                sm={{ span: 8, offset: 4 }}
+                xs={{ span: 12, offset: 2 }}
+              >
+                Email: {userInfo.email}
+              </Col>
+              <Col xl={{ span: 4, offset: 2 }} sm={{ span: 8, offset: 4 }}>
+                UserName: {userInfo.taiKhoan}
+              </Col>
+              <Col
+                xl={{ span: 6, offset: 7 }}
+                sm={{ span: 8, offset: 4 }}
+                xs={{ span: 12, offset: 2 }}
+              >
+                Full Name: {userInfo.hoTen}
+              </Col>
+              <Col xl={{ span: 4 }} sm={{ span: 8, offset: 2 }}>
+                Password: {userInfo.matKhau}
+              </Col>
+              <Col
+                xl={{ span: 6, offset: 7 }}
+                sm={{ span: 4, offset: 4 }}
+                xs={{ span: 10, offset: 2 }}
+              >
+                Phone: {userInfo.soDT}
+              </Col>
+            </Row>
+            <Divider />
+            <Row justify="center" gutter={[8]}>
+              <Col>
+                <Button type="primary" onClick={() => setShowModal(true)}>
+                  <EditFilled /> Edit
+                </Button>
+              </Col>
+              <Col>
+                <Button onClick={handleLogOut}>
+                  <LogoutOutlined /> Log Out
+                </Button>
+              </Col>
+            </Row>
+          </>
         ) : (
-          <Row justify="center">
-            <Col>
-              <Button type="primary" onClick={() => history.push("/login")}>
-                You Need To Log In
-              </Button>
-            </Col>
-          </Row>
+          <div style={{ width: "50%", margin: "auto" }}>
+            <Skeleton active paragraph={{ rows: 3 }} />
+            <Divider />
+            <Space>
+              <Skeleton.Button active />
+              <Skeleton.Button active />
+            </Space>
+          </div>
         )}
+
         <Modal
           className="customModal"
           title="Edit User Information"
