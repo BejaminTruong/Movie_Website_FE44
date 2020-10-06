@@ -45,10 +45,16 @@ export class QuanLyNguoiDungService {
       },
     });
   };
-  layDanhSachNguoiDungPhanTrang = (currentPage, count) => {
+  layDanhSachNguoiDungPhanTrang = (currentPage, count, groupID) => {
     return axios({
       method: "GET",
-      url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang?MaNhom=GP01&soTrang=${currentPage}&soPhanTuTrenTrang=${count}`,
+      url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang?MaNhom=${groupID}&soTrang=${currentPage}&soPhanTuTrenTrang=${count}`,
+    });
+  };
+  timKiemNguoiDung = (groupID, keyWord) => {
+    return axios({
+      method: "GET",
+      url: `${domain}/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=${groupID}&tuKhoa=${keyWord}`,
     });
   };
 }

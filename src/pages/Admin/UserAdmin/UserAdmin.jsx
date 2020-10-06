@@ -22,6 +22,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 const { Option } = Select;
+const { Search } = Input;
 const formItemLayout = {
   labelCol: {
     sm: {
@@ -34,14 +35,15 @@ const formItemLayout = {
     },
   },
 };
-let recordData = {};
-let totalData = 0;
+let called = false;
 export const UserAdmin = () => {
   const [showModal, setShowModal] = useState(false);
   const [form] = Form.useForm();
   const [dataTable, setDataTable] = useState([]);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
   const [changePage, setChangePage] = useState(1);
+  const [groupID, setGroupID] = useState("GP01");
+  const [totalData, setTotalData] = useState(0);
   const columns = [
     {
       title: "STT",
@@ -116,71 +118,58 @@ export const UserAdmin = () => {
   ];
   useEffect(() => {
     let fetchedData = [];
-    let index = 0;
     qlNguoiDungService
-      .layDanhSachNguoiDungPhanTrang(changePage, 10)
+      .layDanhSachNguoiDungPhanTrang(changePage, 10, groupID)
       .then((res) => {
-        res.data.items.forEach(
-          ({ taiKhoan, matKhau, hoTen, email, soDt, maLoaiNguoiDung }, i) => {
-            index++;
-            fetchedData = [
-              ...fetchedData,
-              {
-                key: i + 1,
-                STT: changePage === 1 ? i + 1 : i + 1 + (changePage - 1) * 10,
-                taiKhoan,
-                matKhau,
-                hoTen,
-                email,
-                soDt,
-                maLoaiNguoiDung,
-              },
-            ];
-          }
-        );
-        totalData = res.data.totalCount;
+        res.data.items.forEach(({ ...rest }, i) => {
+          fetchedData = [
+            ...fetchedData,
+            {
+              key: i + 1,
+              STT: changePage === 1 ? i + 1 : i + 1 + (changePage - 1) * 10,
+              ...rest,
+            },
+          ];
+        });
+        setTotalData(res.data.totalCount);
         setDataTable(fetchedData);
+        called = false;
       })
-      .catch((err) => console.log(err));
-  }, [ignored]);
+      .catch((err) => {
+        // console.log(err);
+        setDataTable([]);
+      });
+  }, [ignored, groupID]);
   const handlePage = (nextPage) => {
+    if (called) {
+      setChangePage(nextPage);
+      return;
+    }
     setChangePage(nextPage);
     let newData = [];
     let index = 0;
     qlNguoiDungService
-      .layDanhSachNguoiDungPhanTrang(nextPage, 10)
+      .layDanhSachNguoiDungPhanTrang(nextPage, 10, groupID)
       .then((res) => {
-        res.data.items.forEach(
-          ({ taiKhoan, matKhau, hoTen, email, soDt, maLoaiNguoiDung }, i) => {
-            index++;
-            newData = [
-              ...newData,
-              {
-                key: index,
-                STT: nextPage === 1 ? i + 1 : i + 1 + (nextPage - 1) * 10,
-                taiKhoan,
-                matKhau,
-                hoTen,
-                email,
-                soDt,
-                maLoaiNguoiDung,
-              },
-            ];
-          }
-        );
+        res.data.items.forEach(({ ...rest }, i) => {
+          index++;
+          newData = [
+            ...newData,
+            {
+              key: index,
+              STT: nextPage === 1 ? i + 1 : i + 1 + (nextPage - 1) * 10,
+              ...rest,
+            },
+          ];
+        });
         setDataTable(newData);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const handleOk = () => {
-    let formValues = form.getFieldsValue([
-      "taiKhoan",
-      "matKhau",
-      "hoTen",
-      "email",
-      "soDt",
-      "maLoaiNguoiDung",
-    ]);
+    let formValues = form.getFieldsValue();
     let updatedValues = {
       ...formValues,
       maNhom: "GP01",
@@ -198,22 +187,60 @@ export const UserAdmin = () => {
       });
   };
   const handleDelete = (taiKhoan) => {
-    console.log(taiKhoan);
     qlNguoiDungService
       .xoaTaiKhoanNguoiDung(taiKhoan)
       .then((res) => {
-        console.log(res.data);
         forceUpdate();
         message.success("Delete Successfully!");
       })
       .catch((err) => {
-        console.log(err);
         message.error("Delete Failed!");
+      });
+  };
+
+  const handleSearch = (e) => {
+    called = true;
+    if (e.target.value === "") {
+      setDataTable([])
+      forceUpdate();
+      return;
+    }
+    let searchData = [];
+    qlNguoiDungService
+      .timKiemNguoiDung(groupID, e.target.value)
+      .then((res) => {
+        res.data.forEach(({ ...rest }, i) => {
+          searchData = [
+            ...searchData,
+            {
+              key: i + 1,
+              STT: changePage === 1 ? i + 1 : i + 1 + (changePage - 1) * 10,
+              ...rest,
+            },
+          ];
+        });
+        setChangePage(1);
+        setTotalData(res.data.length);
+        setDataTable(searchData);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
   return (
     <>
       <NavLink to="/admin/useradmin/adduser">Thêm Người Dùng</NavLink>
+      <Search
+        allowClear
+        placeholder="Enter UserName"
+        onChange={handleSearch}
+        enterButton
+      />
+      <Input
+        onPressEnter={(e) => setGroupID("GP" + e.target.value)}
+        addonBefore="GP"
+        defaultValue="01"
+      />
       <Table
         pagination={{
           position: ["bottomCenter"],
@@ -234,12 +261,7 @@ export const UserAdmin = () => {
           setShowModal(false);
         }}
       >
-        <Form
-          initialValues={recordData}
-          form={form}
-          labelAlign="left"
-          {...formItemLayout}
-        >
+        <Form form={form} labelAlign="left" {...formItemLayout}>
           <Form.Item name="taiKhoan" label="UserName">
             <Input
               disabled
