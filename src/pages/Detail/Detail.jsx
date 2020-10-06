@@ -25,7 +25,7 @@ export const Detail = (props) => {
         if(!end){
             return;
         }
-        if (i == 0) {
+        if (i === 0) {
             i = 1;
             var elem = document.getElementById('progressBar');
             var width = 1;
@@ -43,7 +43,7 @@ export const Detail = (props) => {
     }
     
     return (
-        <section className="detail" onLoad={()=>{move(chiTietPhim.danhGia)}} > 
+        <section className="detail animate__animated animate__fadeIn" onLoad={()=>{move(chiTietPhim.danhGia)}} > 
             <img className="detail__img" src={chiTietPhim.hinhAnh} alt={chiTietPhim.tenPhim} />
             <div className="detail__bg"></div>
             <IntroMovie pathName={props.location.pathname} setHandleActive={setHandleActive} />

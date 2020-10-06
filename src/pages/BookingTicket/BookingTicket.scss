@@ -1,0 +1,196 @@
+/*====================== BOOKING TICKET ========================*/
+$size: 180px;
+$size1: 135px;
+.booking__ticket {
+  display: flex;
+  height: 100%;
+  & .booking__ticket__img {
+    width: 3%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+
+    & .img__bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.55) 30%,
+        rgba(0, 0, 0, 0.75) 60%,
+        rgba(0, 0, 0, 0.85) 80%
+      );
+    }
+  }
+  &__item {
+    &.item--1 {
+      width: 65%;
+      padding: 10px 3%;
+    }
+
+    &.item--2 {
+      width: 32%;
+      padding: 2% 2%;
+    }
+
+    & .item--1__title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    & .item--1__cine {
+      & .cine_screen {
+        width: 100%;
+        height: 15px;
+        background-color: #000;
+        position: relative;
+
+        & .cine__screen__shape {
+          width: 93%;
+          height: 80px;
+          background-image: linear-gradient(
+            to top,
+            transparent,
+            rgba(0, 0, 0, 0.55) 60%,
+            rgba(0, 0, 0, 0.75) 80%
+          );
+          margin: 0 auto;
+          transform: perspective(10px) rotateX(1deg);
+        }
+
+        & p {
+          position: absolute;
+          top: 150%;
+          left: 50%;
+          transform: translateX(-50%);
+          font-size: 20px;
+          font-weight: 400;
+        }
+      }
+    }
+
+    & .item--1__rowchair{
+      margin-top: 100px;
+      position: relative;
+
+      & > div{
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      & .half__circle{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border: 3px solid red; 
+        width: $size1 * 2;
+        height: $size1;
+        transform: translate(-50%,-35%);
+        border-bottom-left-radius: $size1 * 2;
+        border-bottom-right-radius: $size1 * 2;  
+        z-index: -1;
+
+        &::after{
+          content: '';
+          position: absolute;
+          top: 10%;
+          left: 50%;
+          border: 1px dashed red;   
+          width: $size * 2;
+          height: $size;
+          transform: translate(-50%,-20%);
+          border-bottom-left-radius: $size * 2;
+          border-bottom-right-radius: $size * 2; 
+          opacity: 0.5; 
+        }
+      }
+    }
+  }
+}
+
+.headRow{
+  margin-right: 50px;
+  width: 5%;
+  height: 25px;
+  display: inline-block;
+  text-align: center;
+  padding: 0 2px;
+  line-height: 36px;
+  transform: translateY(-5px);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.ghe{
+  margin: 5px 4px;
+  width: 4%;
+  height: 25px;
+  display: inline-block;
+  text-align: center;
+  padding: 0 1px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top: none !important;
+  & p{
+    margin: 0;
+    transform: translateY(-3px);
+    display: block;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &:hover{
+    cursor: pointer;
+  }
+
+  &:focus{
+    outline: none;
+  }
+}
+
+.gheVip{
+  border: 5px solid  rgb(207, 138, 10);
+  border-top: none;
+
+  & p{
+    background-color: rgb(207, 138, 10);
+  }
+}
+
+.gheThuong{
+  border: 5px solid  rgba(0,0,0,0.65);
+
+  & p{
+    background-color: rgba(0,0,0,0.65);
+  }
+}
+
+.gheDaDat{
+  border: 5px solid rgb(233, 30, 30);
+  border-top: none;
+  opacity: 0.65;
+  cursor: default !important;
+
+  & p{
+    background-color: rgb(233, 30, 30);
+  }
+}
+
+.gheDangDat{
+  border: 5px solid rgb(4, 138, 4);
+  & p{
+    background-color:rgb(4, 138, 4);
+    text-indent: 0;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+

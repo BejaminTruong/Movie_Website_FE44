@@ -48,7 +48,7 @@ export const Header = () => {
   }, []);
 
   return (
-    <section
+    <header
       className="header"
       style={{ padding: innerWidth <= 992 ? "20px" : "" }}
     >
@@ -240,6 +240,6 @@ export const Header = () => {
           </Col>
         </Row>
       </div>
-    </section>
+    </header>
   );
 };

@@ -36,7 +36,7 @@ export const Trailer = (props) => {
         width="70%"
         footer={null}
       >
-        <iframe frameBorder="0" allowFullScreen src={props.trailer} />
+        <iframe title={`trailer ${props.maPhim}`} frameBorder="0" allowFullScreen src={props.trailer} />
       </Modal>
     </>
   );

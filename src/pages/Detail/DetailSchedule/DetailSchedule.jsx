@@ -4,9 +4,9 @@ import { CinemaID } from "configs/setting";
 import { Row, Col, Space, Collapse } from "antd";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import "animate.css";
 import "./DetailSchedule.scss";
 import { NavLink } from "react-router-dom";
+import { isEmpty } from "lodash";
 
 export const DetailSchedule = () => {
 
@@ -17,6 +17,9 @@ export const DetailSchedule = () => {
   let chiTietPhim = useSelector(
     state => state.QuanLyPhimReducer.chiTietPhim
   )
+
+  const usLogin = useSelector(state => state.QuanLyNguoiDungReducer.nguoiDung);
+
 
   let [maHeThongRap, setMaHeThongRap] = useState(CinemaID);
 
@@ -92,16 +95,20 @@ export const DetailSchedule = () => {
                         }
                         className="cinema__schedule_info"
                       >
-                        {cumRapChieu.lichChieuPhim.map((item, index) => {
-                          return (
-                            <NavLink to={`/bookingticket/${item.maLichChieu}`} key={index} className="schedule__second">
-                              <span>
-                                {moment(item.ngayChieuGioChieu).format(
-                                  "hh:mm A"
-                                )}
-                              </span>
-                            </NavLink>
-                          );
+                        {cumRapChieu.lichChieuPhim.map((item, index) => {                         
+                            return !isEmpty(usLogin) ? (
+                              <NavLink to={`/bookingticket/${item.maLichChieu}`} key={index} className="schedule__second">
+                                <span>
+                                  {moment(item.ngayChieuGioChieu).format("hh:mm A")}
+                                </span>
+                              </NavLink>
+                            ):(
+                              <NavLink to="/login" key={index} className="schedule__second">
+                                <span>
+                                  {moment(item.ngayChieuGioChieu).format("hh:mm A")}
+                                </span>
+                              </NavLink>
+                            )
                         })}
                       </Collapse.Panel>
                     </Collapse>

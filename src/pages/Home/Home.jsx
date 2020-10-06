@@ -44,7 +44,7 @@ export default function Home(props) {
   }, []);
 
   return (
-    <section className="home">
+    <section className="home animate__animated animate__fadeIn">
       {Loading ? (
         <div style={{ width: "100%", height: "100%" }}>
           <img src={Load} alt="Loading..." width="100%" height="100%" />

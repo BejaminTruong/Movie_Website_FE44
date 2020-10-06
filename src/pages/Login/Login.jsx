@@ -60,7 +60,7 @@ export const Login = () => {
       if (propsNguoiDung.maLoaiNguoiDung === "QuanTri")
         // props.history.push("/admin/useradmin");
         history.replace(from);
-      else history.push("/home");
+      else history.goBack();
     }
   }, [logInStatus]);
   return (

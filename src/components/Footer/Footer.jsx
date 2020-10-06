@@ -15,7 +15,7 @@ import Binh from "images/icons8-minion-2-100.png";
 export const Footer = () => {
 
   return (
-    <div className="footer">
+    <footer className="footer">
       <div className="iconRow">
         <Space align="center" size="large">
           <div className="iconBorder">
@@ -56,6 +56,6 @@ export const Footer = () => {
         <CopyrightOutlined /> 2020 by Trương Thái Bình - Khổng Hữu Toàn. All
         right reserved
       </p>
-    </div>
+    </footer>
   );
 };

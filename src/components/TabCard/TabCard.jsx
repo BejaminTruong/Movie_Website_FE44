@@ -13,13 +13,12 @@ export const TabCard = (props) => {
 
   let usLogin = useSelector(state => state.QuanLyNguoiDungReducer.nguoiDung);
 
-  console.log(isEmpty(usLogin))
   return (
     <>
       <Card className="card" bordered={false}>
         <div className="card__img">
           <NavLink to={`/detail/${phim.maPhim}`} className="detail__movie" />
-          <Trailer className="btn-trailer" trailer={phim.trailer}>
+          <Trailer maPhim={phim.maPhim} className="btn-trailer" trailer={phim.trailer}>
             <i className="fas fa-play-circle"></i>
           </Trailer>
           <img src={phim.hinhAnh} alt={phim.tenPhim} />

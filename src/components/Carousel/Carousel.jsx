@@ -25,7 +25,7 @@ export const Carousel = (props) => {
           autoplay
           lazy
         >
-          {(phim) => (
+          {(phim,index) => (
             <>
               <NavLink
                 className="link__movie__detail--1"
@@ -33,7 +33,7 @@ export const Carousel = (props) => {
               />
               <div className="trailer__title">
                 <div className="movie__trailer">
-                  <Trailer className="btn-trailer" trailer={phim.trailer}>
+                  <Trailer className="btn-trailer" maPhim={phim.maPhim} trailer={phim.trailer}>
                     <i className="fas fa-play-circle"></i>
                   </Trailer>
                 </div>
@@ -72,7 +72,7 @@ export const Carousel = (props) => {
           autoplay
           lazy
         >
-          {(phim) => (
+          {(phim,index) => (
             <div className="slide_movieTop">
               <div className="movieTop__content">
                 <NavLink
@@ -85,7 +85,7 @@ export const Carousel = (props) => {
                   alt={phim.tenPhim}
                 />
                 <div className="movie__trailer2">
-                  <Trailer className="btn-trailer" trailer={phim.trailer}>
+                  <Trailer className="btn-trailer" maPhim={phim.maPhim} trailer={phim.trailer}>
                     <i className="fas fa-play-circle"></i>
                   </Trailer>
                   <NavLink

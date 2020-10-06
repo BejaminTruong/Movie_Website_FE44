@@ -93,8 +93,7 @@ export const Cinema = () => {
                       <h3>{phim.tenPhim}</h3>
                     </>
                     }  className="cinema__schedule_info">
-                      {phim.lstLichChieuTheoPhim.map((item, index) => {
-                        {
+                      {phim.lstLichChieuTheoPhim.map((item, index) => {                       
                           return !isEmpty(usLogin) ? (
                             <NavLink to={`/bookingticket/${item.maLichChieu}`} key={index} className="schedule__second">
                               <span>
@@ -107,8 +106,7 @@ export const Cinema = () => {
                                 {moment(item.ngayChieuGioChieu).format("hh:mm A")}
                               </span>
                             </NavLink>
-                          )
-                        }
+                          )                        
                       })};
                     </Collapse.Panel>
                   </Collapse>

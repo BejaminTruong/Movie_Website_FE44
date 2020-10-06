@@ -25,13 +25,13 @@ export const IntroMovie = (props) => {
                 </Breadcrumb>
             </div>      
             <div className="intro__movie__content">
-                <img src={chiTietPhim.hinhAnh} slt={chiTietPhim.tenPhim} />
+                <img src={chiTietPhim.hinhAnh} alt={chiTietPhim.tenPhim} />
                 <div className="movie__content__info">
                     <h3>{chiTietPhim.tenPhim}</h3>
                     <p>* Thời Lượng: {!isEmpty(chiTietPhim.heThongRapChieu) ? chiTietPhim.heThongRapChieu[0].cumRapChieu[0].lichChieuPhim[0].thoiLuong : ""} phút</p>
                     <p>* Khởi chiếu: {moment(chiTietPhim.ngayKhoiChieu).format("DD.MM.yyyy")}</p>
                     <p>* Phụ đề: Engsub - Vietub - Thuyết Minh </p>
-                    <Trailer className="btn__intro__movie" trailer={chiTietPhim.trailer}>
+                    <Trailer maPhim={chiTietPhim.maPhim} className="btn__intro__movie" trailer={chiTietPhim.trailer}>
                         Xem Trailer
                     </Trailer>
                     <Scrollchor to="#booking__info" beforeAnimate={()=>{props.setHandleActive(1)}}  animate={{offset: -10, duration: 600}} className="btn__booking">
