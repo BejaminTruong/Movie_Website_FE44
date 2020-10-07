@@ -13,9 +13,15 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type) {
 
-    case LAY_CHI_TIET_PHONG_VE:
-        
+    case LAY_CHI_TIET_PHONG_VE:      
         return { ...state,thongTinPhim: action.thongTinPhim,danhSachGhe: action.danhSachGhe}
+    case RESET_DATA:
+        const initialDatVe = {
+            hangGhe: [],
+            danhSachVe: [],
+            tongTien: 0
+        } 
+        return {...state,DatVe: initialDatVe}   
     case DAT_VE:
         let updatedDatVe = {...state.DatVe};
 
@@ -45,13 +51,6 @@ export default (state = initialState, action) => {
         return {...state, DatVe: resetDatVe}
     case TAO_LICH_CHIEU:
         return {...state}
-    case RESET_DATA:
-        const initialDatVe = {
-            hangGhe: [],
-            danhSachVe: [],
-            tongTien: 0
-        } 
-        return {...state,DatVe: initialDatVe}
     default:
         return state
     }

@@ -73,6 +73,9 @@ $size1: 135px;
     & .item--1__rowchair{
       margin-top: 100px;
       position: relative;
+      display: flex;
+      width: 80%;
+      margin: 100px auto 0;
 
       & > div{
         display: flex;
@@ -110,21 +113,16 @@ $size1: 135px;
 }
 
 .headRow{
-  margin-right: 50px;
-  width: 5%;
-  height: 25px;
-  display: inline-block;
-  text-align: center;
-  padding: 0 2px;
-  line-height: 36px;
-  transform: translateY(-5px);
+  width:5%;
+  display: flex;
+  flex-direction: column;
   font-weight: 700;
   font-size: 18px;
 }
 
 .ghe{
   margin: 5px 4px;
-  width: 4%;
+  width: 5%;
   height: 25px;
   display: inline-block;
   text-align: center;

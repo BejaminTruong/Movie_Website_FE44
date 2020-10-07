@@ -10,7 +10,6 @@ export const LayChiTietPhongVe = (maLichchieu,handleLoading) =>{
                 danhSachGhe: response.data.danhSachGhe
             })
             handleLoading();
-            console.log("1")
         }).catch(error=>{
             console.log(error);
         })
