@@ -116,7 +116,8 @@ export const UserAdmin = () => {
       ),
     },
   ];
-  useEffect(() => {
+
+  const initial = () =>{
     let fetchedData = [];
     qlNguoiDungService
       .layDanhSachNguoiDungPhanTrang(changePage, 10, groupID)
@@ -139,7 +140,8 @@ export const UserAdmin = () => {
         // console.log(err);
         setDataTable([]);
       });
-  }, [ignored, groupID]);
+  }
+  useEffect(initial, [ignored, groupID]);
   const handlePage = (nextPage) => {
     if (called) {
       setChangePage(nextPage);

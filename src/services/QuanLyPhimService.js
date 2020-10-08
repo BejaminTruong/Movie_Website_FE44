@@ -2,7 +2,6 @@ import axios from 'axios'
 import {domain} from 'configs/setting'
 
 export class QuanLyPhimService{
-    constructor(){}
 
     layDanhSachPhim = (groupID) =>{
         return axios({

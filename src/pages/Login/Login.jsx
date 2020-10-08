@@ -55,7 +55,8 @@ export const Login = () => {
   let history = useHistory();
   let location = useLocation();
   let { from } = location.state || { from: { pathname: "/admin" } };
-  useEffect(() => {
+
+  const initial = () =>{
     if (logInStatus === "success") {
       message
         .success("Login Successfully!",1)
@@ -64,7 +65,8 @@ export const Login = () => {
       if (propsNguoiDung.maLoaiNguoiDung === "QuanTri") history.replace(from);
       else history.push("/home");
     }
-  }, [logInStatus]);
+  }
+  useEffect(initial, [logInStatus]);
   return (
     <Form
       name="normal_login"

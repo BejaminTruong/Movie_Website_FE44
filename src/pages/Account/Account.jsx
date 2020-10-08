@@ -25,7 +25,7 @@ import {
 } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { qlNguoiDungService } from "services/QuanLyNguoiDungService";
-import _ from "lodash";
+
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 const { TabPane } = Tabs;
@@ -80,7 +80,8 @@ export const Account = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   let index = 0;
-  useEffect(() => {
+
+  const initial = () =>{
     qlNguoiDungService
       .layThongTinTaiKhoan({ taiKhoan: propNguoiDung.taiKhoan })
       .then((res) => {
@@ -107,7 +108,8 @@ export const Account = () => {
       setUserInfo({});
       data = [];
     };
-  }, []);
+  }
+  useEffect(initial, []);
   const handleOk = () => {
     let { taiKhoan, matKhau, email, hoTen, soDt } = form.getFieldsValue([
       "taiKhoan",

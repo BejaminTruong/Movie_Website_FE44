@@ -12,16 +12,15 @@ import { LayThongTinCinema } from "redux/actions/QuanLyRapPhimAction";
 import "./Home.scss";
 
 
-export default function Home(props) {
+export default function Home() {
   const dispatch = useDispatch();
 
   let [DSPhim, setDSPhim] = useState([]);
   let [DSPhimTopRanking, setDSPhimTopRanking] = useState([]);
 
-  const { Loading, handleLoading } = props;
+  let [ Loading, setLoading ] = useState(true);
 
-  useEffect(() => {
-    
+  const initial = () =>{
     dispatch(LayThongTinCinema());
     quanLyPhimService.layDanhSachPhim(groupID_carousel).then(res =>{
 
@@ -36,13 +35,13 @@ export default function Home(props) {
           }
         });
         setDSPhimTopRanking(DSTopRanking);
-        handleLoading();
+        setLoading(false);
       }).catch((errors) => {
         console.log(errors);
       });
-      
-  }, []);
-
+  }
+  useEffect(initial, []);
+  
   return (
     <section className="home animate__animated animate__fadeIn">
       {Loading ? (

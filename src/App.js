@@ -12,15 +12,13 @@ import { BookingTicket } from "pages/BookingTicket/BookingTicket";
 import "animate.css";
 import "antd/dist/antd.css";
 import { AddUser } from "./pages/Admin/AddUser/AddUser";
+import { AdminMovie } from "./pages/AdminMovie/AdminMovie";
 function App() {
   return (
     <BrowserRouter>
       <Route exact>
-        <AdminTemplate
-          exact
-          path="/admin/useradmin/adduser"
-          Component={AddUser}
-        />
+        <AdminTemplate exact path="/admin/movieadmin" Component={AdminMovie} />
+        <AdminTemplate exact path="/admin/useradmin/adduser" Component={AddUser}/>
         <AdminTemplate exact path="/admin/useradmin" Component={UserAdmin} />
         <AdminTemplate exact path="/admin" Component={UserAdmin} />
       </Route>

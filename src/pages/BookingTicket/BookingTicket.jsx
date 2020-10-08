@@ -1,5 +1,4 @@
 import React from "react";
-import moment from "moment";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LayChiTietPhongVe } from "redux/actions/QuanLyDatVeAction";
@@ -10,7 +9,7 @@ import Loader from "react-loader-spinner";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-export const BookingTicket = (props) => {
+export const BookingTicket = () => {
   const dispatch = useDispatch();
   const usLogin = useSelector(
     (state) => state.QuanLyNguoiDungReducer.nguoiDung
@@ -25,7 +24,7 @@ export const BookingTicket = (props) => {
     
   let {maLichChieu} = useParams();
 
-  const [flag,setFlag] = useState(false);
+  let [flag,setFlag] = useState(false);
 
   const [visible, setVisible] = useState(false);
 
@@ -35,19 +34,21 @@ export const BookingTicket = (props) => {
     setLoading(false);
   }
 
-  useEffect(() => {
+  const initial = () =>{
     document.querySelector("header").style.display = "none";
     document.querySelector("footer").style.display = "none";
+
     dispatch(LayChiTietPhongVe(maLichChieu, handleLoading));
 
     if(flag){
       thoiGianGiuGhe();
     }
-  
+
     return () => {
       dispatch(handleReset());
     };
-  }, []);
+  }
+  useEffect(initial, []);
 
   const thoiGianGiuGhe = () => {
    
@@ -112,7 +113,7 @@ export const BookingTicket = (props) => {
       let textHead = "";
       if(index === size && !flag){
         thoiGianGiuGhe();
-        setFlag(!flag)
+        setFlag(!flag);
       }
       if (index % 16 === 0 && index !== 0) {
         i++;
@@ -224,7 +225,7 @@ export const BookingTicket = (props) => {
             <p>{thongTinPhim.tenCumRap}</p>
             <p>
               <span>
-                {moment(thongTinPhim.ngayChieu).format("dddd, DD-MM-yyyy")}
+                {thongTinPhim.ngayChieu}
               </span>
               &nbsp; - &nbsp;
               <span>{thongTinPhim.gioChieu}</span>
@@ -308,7 +309,7 @@ export const BookingTicket = (props) => {
           <p>{thongTinPhim.tenCumRap}</p>
           <p>
             <span>
-              {moment(thongTinPhim.ngayChieu).format("dddd, DD-MM-yyyy")}
+              {thongTinPhim?.ngayChieu}
             </span>
             &nbsp; - &nbsp;
             <span>{thongTinPhim.gioChieu}</span>
@@ -359,16 +360,13 @@ export const BookingTicket = (props) => {
         </div>
         <button className="btn__thanhtoan" onClick={() => ThanhToan()}>THANH TOÁN</button>
       </div>
-      <Modal
-        centered
-        visible={visible}
-        width={900}
-        footer={null}
-        maskClosable
-        className="close-x"
-      >
+      <Modal centered visible={visible} width={900} footer={null} maskClosable className="close-x">
         <p style={{margin:0,fontWeight:500,fontSize:"20px"}}>Đã hết thời gian giữ ghế. Vui lòng thực hiện đơn hàng trong thời hạn 5 phút.
-          <span style={{color:"#FB4226",cursor:"pointer"}} onClick={()=>{setVisible(false); setFlag(false);}}>Đặt vé lại</span>
+          <span style={{color:"#FB4226",cursor:"pointer"}} onClick={()=>{
+            setVisible(false); 
+            setFlag(false);
+            dispatch(handleReset());
+          }}>Đặt vé lại</span>
         </p>
       </Modal>
     </section>

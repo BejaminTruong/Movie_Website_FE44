@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Input, Button } from "antd";
 import "./Register.scss";
 import { qlNguoiDungService } from "services/QuanLyNguoiDungService";
-import _ from "lodash";
+
 const formItemLayout = {
   labelCol: {
     xs: {

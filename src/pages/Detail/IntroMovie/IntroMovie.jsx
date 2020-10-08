@@ -34,7 +34,7 @@ export const IntroMovie = (props) => {
                     <Trailer maPhim={chiTietPhim.maPhim} className="btn__intro__movie" trailer={chiTietPhim.trailer}>
                         Xem Trailer
                     </Trailer>
-                    <Scrollchor to="#booking__info" beforeAnimate={()=>{props.setHandleActive(1)}}  animate={{offset: -10, duration: 600}} className="btn__booking">
+                    <Scrollchor to="booking__info" beforeAnimate={()=>{props.setHandleActive(1)}}  animate={{offset: -10, duration: 600}} className="btn__booking">
                         Mua Vé
                         <i className="fas fa-ticket-alt"></i>
                     </Scrollchor>

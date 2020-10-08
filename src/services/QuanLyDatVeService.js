@@ -2,7 +2,6 @@ import axios from "axios";
 import { domain } from "configs/setting";
 
 export class QuanLyDatVeService {
-  constructor() {}
 
   layChiTietPhongVe = (maLichChieu) => {
     return axios({

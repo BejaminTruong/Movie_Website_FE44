@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import { BackTop } from "antd";
 import { Header } from "components/Header/Header";
@@ -30,12 +30,6 @@ const HomeComponent = (props) => {
 };
 
 export const HomeTemplate = ({ Component, ...rest }) => {
-  let [isLoading, setIsLoading] = useState(true);
-
-  const handleLoading = () => {
-    setIsLoading(false);
-  };
-
   return (
     <Route
       {...rest}
@@ -44,8 +38,6 @@ export const HomeTemplate = ({ Component, ...rest }) => {
           <HomeComponent>
             <Component
               {...props}
-              Loading={isLoading}
-              handleLoading={handleLoading}
             />
           </HomeComponent>
         );

@@ -40,7 +40,7 @@ export const Cinema = () => {
 
   const renderCumRap = () => {
     return (
-      <ListCards data={DSCumRap} scrollbar={{ draggable: true, dragSize: "auto" }} lazy direction="vertical" freeMode tag="div"mousewheel>
+      <ListCards data={DSCumRap} scrollbar={{ draggable: true, dragSize: "auto" }} lazy direction="vertical" freeMode tag="div" mousewheel>
         {(cumrap, index) => {
           const active = index === maCumRap ? "active" : "";
 
