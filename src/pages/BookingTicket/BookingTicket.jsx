@@ -4,13 +4,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LayChiTietPhongVe } from "redux/actions/QuanLyDatVeAction";
 import "./BookingTicket.scss";
-import { Col, Row, Spin } from "antd";
-import {
-  handleDatVe,
-  handleReset,
-} from "../../redux/actions/QuanLyDatVeAction";
+import { Col, Row, Modal,notification } from "antd";
+import {handleDatVe,handleReset,handleThanhToan} from "../../redux/actions/QuanLyDatVeAction";
 import Loader from "react-loader-spinner";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 export const BookingTicket = (props) => {
   const dispatch = useDispatch();
@@ -23,16 +21,29 @@ export const BookingTicket = (props) => {
   const danhSachGhe = useSelector(
     (state) => state.QuanLyDatVeReducer.danhSachGhe
   );
-
   const DatVe = useSelector((state) => state.QuanLyDatVeReducer.DatVe);
+    
+  let {maLichChieu} = useParams();
 
-  const { Loading, handleLoading } = props;
+  const [flag,setFlag] = useState(false);
+
+  const [visible, setVisible] = useState(false);
+
+  const [Loading,setLoading] = useState(true);
+
+  const handleLoading = () =>{
+    setLoading(false);
+  }
 
   useEffect(() => {
     document.querySelector("header").style.display = "none";
     document.querySelector("footer").style.display = "none";
-    dispatch(LayChiTietPhongVe(props.match.params.maLichChieu, handleLoading));
+    dispatch(LayChiTietPhongVe(maLichChieu, handleLoading));
 
+    if(flag){
+      thoiGianGiuGhe();
+    }
+  
     return () => {
       dispatch(handleReset());
     };
@@ -57,8 +68,9 @@ export const BookingTicket = (props) => {
       }, 1000);
 
       const tick = () => {
-        if (minute === 0 && second === 0) {
+        if (minute === 0 && second === 1) {
           clearInterval(clock);
+          setVisible(true);
         }
 
         if (second !== 0) {
@@ -69,6 +81,14 @@ export const BookingTicket = (props) => {
         }
       }
     
+  };
+
+  const openNotificationWithIcon = (type,des) => {
+    notification[type]({
+      message: 'Thông Báo',
+      description:
+        des,
+    });
   };
 
   const headRow = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
@@ -83,16 +103,16 @@ export const BookingTicket = (props) => {
       );
     });
   };
-  const renderHangGhe = () => {
+  const renderHangGhe = () => { 
     let i = 0;
     const size = danhSachGhe.length - 1;
     return danhSachGhe.map((ghe, index) => {
       const loaiGhe = ghe.loaiGhe === "Thuong" ? "gheThuong" : "gheVip";
       const dangDat = DatVe.danhSachVe.findIndex((item) => item.maGhe === ghe.maGhe) !== -1 ? "gheDangDat" : "";
       let textHead = "";
-      if(index === size){
-        // document.getElementById("booking__ticket").onload = thoiGianGiuGhe();
+      if(index === size && !flag){
         thoiGianGiuGhe();
+        setFlag(!flag)
       }
       if (index % 16 === 0 && index !== 0) {
         i++;
@@ -106,7 +126,7 @@ export const BookingTicket = (props) => {
             <button
               key={index}
               disabled
-              className={`ghe ${loaiGhe} gheDaDat ${dangDat}`}
+              className={`ghe gheDaDat `}
               onClick={() => {
                 dispatch(
                   handleDatVe(
@@ -143,7 +163,7 @@ export const BookingTicket = (props) => {
         return (
           <button
             key={index}
-            className={`ghe ${loaiGhe} gheDaDat ${dangDat}`}
+            className={`ghe gheDaDat`}
             disabled
             onClick={() => {
               dispatch(
@@ -177,15 +197,25 @@ export const BookingTicket = (props) => {
     });
   };
 
+  const ThanhToan = () =>{
+    
+    if(DatVe.danhSachVe.length > 0 ){
+      const usBooking = {
+        data:{
+          maLichChieu: maLichChieu,
+          danhSachVe: DatVe.danhSachVe,
+          taiKhoanNguoiDung: usLogin.taiKhoan,
+        },
+        accessToken: usLogin.accessToken, 
+      }
+
+      dispatch(handleThanhToan(usBooking,openNotificationWithIcon));
+    }
+  }
+
   return (
-    <section
-      className="booking__ticket animate__animated animate__fadeIn"
-      id="booking__ticket"
-    >
-      <div
-        className="booking__ticket__img"
-        style={{ backgroundImage: `url('${thongTinPhim.hinhAnh}')` }}
-      >
+    <section className="booking__ticket animate__animated animate__fadeIn" id="booking__ticket">
+      <div className="booking__ticket__img" style={{ backgroundImage: `url('${thongTinPhim.hinhAnh}')` }}>
         <div className="img__bg"></div>
       </div>
       <div className="booking__ticket__item item--1 ">
@@ -213,8 +243,7 @@ export const BookingTicket = (props) => {
             <p>Màn Hình</p>
           </div>
         </div>
-        <div className="item--1__rowchair">
-          {Loading? (
+        {Loading? (
             <div
               className="example"        
               style={{
@@ -222,6 +251,7 @@ export const BookingTicket = (props) => {
                 height: "100%",
                 display: "flex",
                 justifyContent: "center",
+                marginTop:"100px"
               }}
             >
               <Loader
@@ -231,29 +261,47 @@ export const BookingTicket = (props) => {
                 width="100"
               />
             </div>
-          ) : (
-            <>
-              <div className="headRow">
-                {rendertextRow()}
-              </div>
-              <div style={{ margin: "0 auto", width: "90%" }}>
-                {renderHangGhe()}
-              </div>
-              <div className="half__circle"></div>
-            </>
-          )}
-        </div>
+          ) : (<>
+          <div className="item--1__rowchair">
+                <div className="headRow">
+                  {rendertextRow()}
+                </div>
+                <div style={{ margin: "0 auto", width: "90%" }}>
+                  {renderHangGhe()}
+                </div>
+                <div className="half__circle"></div>
+          </div>
+          <div className="item--1__infoChair">
+            <span>
+              <span className="ghe gheThuong">
+                <p></p>
+              </span>
+              &nbsp;&nbsp;Ghế thường 
+            </span>
+            <span>        
+              <span className="ghe gheVip">
+                <p></p>
+              </span>
+              &nbsp;&nbsp;Ghế Vip 
+            </span>
+            <span>
+              <span className="ghe gheDaDat">
+                <p></p>
+              </span>
+              &nbsp;&nbsp;Ghế đã đặt
+            </span>
+            <span>
+              <span className="ghe gheDangDat">
+                <p></p>
+              </span>
+              &nbsp;&nbsp;Ghế đang đặt
+            </span>
+          </div>
+        </> )}
       </div>
       <div className="booking__ticket__item item--2">
-        <div
-          style={{
-            textAlign: "center",
-            color: "#44C020",
-            fontSize: "28px",
-            fontWeight: "600",
-          }}
-        >
-          <p>{DatVe.tongTien} đ</p>
+        <div style={{ textAlign: "center",color: "#44C020",fontSize: "28px",fontWeight: "600",}}>
+          <p>{new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(DatVe?.tongTien)}</p>
         </div>
         <div className="booking__handle__title">
           <p>{thongTinPhim.tenPhim}</p>
@@ -277,7 +325,7 @@ export const BookingTicket = (props) => {
               span={12}
               style={{ display: "flex", flexWrap: "wrap", color: "red" }}
             >
-              {DatVe.hangGhe.map((ghe, index) => {
+              {DatVe.hangGhe?.map((ghe, index) => {
                 return <p key={index}>{ghe},&nbsp;</p>;
               })}
             </Col>
@@ -289,7 +337,7 @@ export const BookingTicket = (props) => {
                 fontWeight: "600",
               }}
             >
-              <p>{DatVe.tongTien} đ</p>
+              <p>{new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(DatVe?.tongTien)}</p>
             </Col>
           </Row>
           <Row>
@@ -309,7 +357,20 @@ export const BookingTicket = (props) => {
             </Col>
           </Row>
         </div>
+        <button className="btn__thanhtoan" onClick={() => ThanhToan()}>THANH TOÁN</button>
       </div>
+      <Modal
+        centered
+        visible={visible}
+        width={900}
+        footer={null}
+        maskClosable
+        className="close-x"
+      >
+        <p style={{margin:0,fontWeight:500,fontSize:"20px"}}>Đã hết thời gian giữ ghế. Vui lòng thực hiện đơn hàng trong thời hạn 5 phút.
+          <span style={{color:"#FB4226",cursor:"pointer"}} onClick={()=>{setVisible(false); setFlag(false);}}>Đặt vé lại</span>
+        </p>
+      </Modal>
     </section>
   );
 };
