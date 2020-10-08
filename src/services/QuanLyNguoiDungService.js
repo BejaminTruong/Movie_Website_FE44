@@ -57,5 +57,17 @@ export class QuanLyNguoiDungService {
       url: `${domain}/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=${groupID}&tuKhoa=${keyWord}`,
     });
   };
+  themNguoiDung = (userInfo) => {
+    return axios({
+      method: "POST",
+      url: `${domain}/api/QuanLyNguoiDung/ThemNguoiDung`,
+      data: userInfo,
+      headers: {
+        Authorization: `Bearer ${JSON.parse(
+          localStorage.getItem(accessToken)
+        )}`,
+      },
+    });
+  };
 }
 export const qlNguoiDungService = new QuanLyNguoiDungService();

@@ -10,7 +10,6 @@ import {
   handleReset,
 } from "../../redux/actions/QuanLyDatVeAction";
 import Loader from "react-loader-spinner";
-import { useState } from "react";
 
 export const BookingTicket = (props) => {
   const dispatch = useDispatch();
