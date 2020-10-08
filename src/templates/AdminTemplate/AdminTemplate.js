@@ -28,9 +28,6 @@ const AdminComponent = (props) => {
           <Menu.Item key="2" icon={<VideoCameraOutlined />}>
             <NavLink to="/admin/useradmin">Quản Lý Người Dùng</NavLink>
           </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-            nav 3
-          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
