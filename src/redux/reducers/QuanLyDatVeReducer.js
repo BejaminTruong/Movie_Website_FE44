@@ -12,7 +12,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-
     case LAY_CHI_TIET_PHONG_VE:      
         return { ...state,thongTinPhim: action.thongTinPhim,danhSachGhe: action.danhSachGhe}
     case RESET_DATA:
@@ -43,12 +42,20 @@ export default (state = initialState, action) => {
         }
         return { ...state, DatVe: updatedDatVe}  
     case THANH_TOAN:
+        const updatedDanhSachGhe = [...state.danhSachGhe];
+        
+        for(let item of updatedDanhSachGhe){
+            const check = action.data.findIndex( ghe => ghe.maGhe === item.maGhe) !== -1 ? true : false;
+            if(check){
+                item.daDat = true;
+            }
+        }
         const resetDatVe = {
             hangGhe: [],
             danhSachVe: [],
             tongTien: 0
         }
-        return {...state, DatVe: resetDatVe}
+        return {...state,danhSachGhe: updatedDanhSachGhe, DatVe: resetDatVe}
     case TAO_LICH_CHIEU:
         return {...state}
     default:
