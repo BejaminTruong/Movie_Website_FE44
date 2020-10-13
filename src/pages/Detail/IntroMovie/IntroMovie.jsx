@@ -45,7 +45,7 @@ export const IntroMovie = (props) => {
                             <div className="percent">
                                 <svg>
                                     <circle cx="70" cy="70" r="70"></circle>
-                                    <circle id="progressBar" cx="70" cy="70" r="70" ></circle>
+                                    <circle ref={props.progressBarRef}  cx="70" cy="70" r="70" ></circle>
                                 </svg>
                                 <div className="number">
                                     <h2>{chiTietPhim.danhGia}</h2>

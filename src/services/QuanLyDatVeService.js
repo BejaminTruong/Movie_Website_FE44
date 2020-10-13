@@ -20,17 +20,6 @@ export class QuanLyDatVeService {
       },
     });
   };
-
-  TaoLichChieu = (usAdmin) => {
-    return axios({
-      url: `${domain}/api/QuanLyDatVe/TaoLichChieu`,
-      method: "POST",
-      data: usAdmin.data,
-      headers: {
-        Authorization: `Bearer ${usAdmin.accessToken}`,
-      },
-    });
-  };
 }
 
 export const quanLyDatVeService = new QuanLyDatVeService();

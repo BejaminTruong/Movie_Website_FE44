@@ -1,4 +1,4 @@
-import { LAY_CHI_TIET_PHONG_VE,DAT_VE,TAO_LICH_CHIEU,THANH_TOAN,RESET_DATA} from "redux/types/QuanLyDatVeType";
+import { LAY_CHI_TIET_PHONG_VE,DAT_VE,THANH_TOAN,RESET_DATA} from "redux/types/QuanLyDatVeType";
 
 const initialState = {
     thongTinPhim: {},
@@ -56,8 +56,6 @@ export default (state = initialState, action) => {
             tongTien: 0
         }
         return {...state,danhSachGhe: updatedDanhSachGhe, DatVe: resetDatVe}
-    case TAO_LICH_CHIEU:
-        return {...state}
     default:
         return state
     }

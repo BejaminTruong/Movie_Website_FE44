@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState , useRef } from 'react';
 import Load from "images/Loading.gif";
 import { useDispatch, useSelector } from 'react-redux';
 import { LayThongTinCinema } from "redux/actions/QuanLyRapPhimAction";
@@ -12,7 +12,8 @@ import "./Detail.scss";
 
 export const Detail = (props) => {
 
-    let dispatch = useDispatch();   
+    let dispatch = useDispatch();
+    const progressBarRef = useRef(); 
     let chiTietPhim = useSelector(state => state.QuanLyPhimReducer.chiTietPhim);
     let [handleActive,setHandleActive] = useState(0);
     let {maPhim} = useParams();
@@ -32,7 +33,7 @@ export const Detail = (props) => {
         }
         if (i === 0) {
             i = 1;
-            var elem = document.getElementById('progressBar');
+            var elem = progressBarRef.current;
             var width = 1;
             var id = setInterval(frame, 10);
             function frame() {
@@ -56,7 +57,7 @@ export const Detail = (props) => {
             <section className="detail animate__animated animate__fadeIn" onLoad={()=>{move(chiTietPhim.danhGia)}} > 
                 <img className="detail__img" src={chiTietPhim.hinhAnh} alt={chiTietPhim.tenPhim} />
                 <div className="detail__bg"></div>
-                <IntroMovie pathName={props.location.pathname} setHandleActive={setHandleActive} />
+                <IntroMovie pathName={props.location.pathname} setHandleActive={setHandleActive} progressBarRef={progressBarRef} />
                 <div className="detail__cinema__title" id="booking__info">
                     <span className={handleActive === 0 || handleActive === 1 ? "active" : ""} onClick={()=>setHandleActive(1)}>Lịch Chiếu</span>
                     <span className={handleActive === 2 ? "active" : ""} onClick={()=>setHandleActive(2)}>Thông Tin</span>

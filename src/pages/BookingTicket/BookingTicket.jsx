@@ -1,16 +1,16 @@
-import React from "react";
-import { useEffect } from "react";
+import React, {useState , useRef, useEffect}from "react";
+import Loader from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { LayChiTietPhongVe } from "redux/actions/QuanLyDatVeAction";
-import "./BookingTicket.scss";
 import { Col, Row, Modal,notification } from "antd";
 import {handleDatVe,handleReset,handleThanhToan} from "../../redux/actions/QuanLyDatVeAction";
-import Loader from "react-loader-spinner";
-import { useState } from "react";
 import { useParams } from "react-router-dom";
+
+import "./BookingTicket.scss";
 
 export const BookingTicket = () => {
   const dispatch = useDispatch();
+  const time = useRef();
   const usLogin = useSelector(
     (state) => state.QuanLyNguoiDungReducer.nguoiDung
   );
@@ -55,7 +55,7 @@ export const BookingTicket = () => {
       var minute = 5;
       var second = 0;
      
-      const elem = document.getElementById("time");
+      const elem = time.current;
       var clock = setInterval(() => {
         tick();
 
@@ -235,7 +235,7 @@ export const BookingTicket = () => {
           </div>
           <div className="content__right">
             <p>Thời gian giữ ghế</p>
-            <p id="time">5:00</p>
+            <p id="time" ref={time} >5:00</p>
           </div>
         </div>
         <div className="item--1__cine">

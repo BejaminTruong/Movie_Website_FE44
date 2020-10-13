@@ -6,8 +6,7 @@ import "./DetailInformation.scss";
 import "animate.css";
 export const DetailInformation = () => {
   let chiTietPhim = useSelector((state) => state.QuanLyPhimReducer.chiTietPhim);
-
-  console.log(chiTietPhim);
+  
   return (
     <div className="detail_movie_info animate__animated animate__fadeIn">
       <div className="movie_info">
