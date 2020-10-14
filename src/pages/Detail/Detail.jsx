@@ -21,8 +21,8 @@ export const Detail = (props) => {
     let [ Loading, setLoading ] = useState(true);
 
     const initial = () =>{
-        dispatch(LayThongTinCinema());
         dispatch(LayChiTietPhim(maPhim,setLoading));
+        dispatch(LayThongTinCinema());
     }
     useEffect(initial,[])
     
@@ -47,14 +47,14 @@ export const Detail = (props) => {
             }
         }
     }
-    
+
     return (<>
         {Loading ? (
             <div style={{ width: "100%", height: "100%" }}>
             <img src={Load} alt="Loading..." width="100%" height="100%" />
             </div>
         ) : (
-            <section className="detail animate__animated animate__fadeIn" onLoad={()=>{move(chiTietPhim.danhGia)}} > 
+            <section className="detail animate__animated animate__fadeIn" onLoad={() => move(chiTietPhim.danhGia)} > 
                 <img className="detail__img" src={chiTietPhim.hinhAnh} alt={chiTietPhim.tenPhim} />
                 <div className="detail__bg"></div>
                 <IntroMovie pathName={props.location.pathname} setHandleActive={setHandleActive} progressBarRef={progressBarRef} />

@@ -1,24 +1,16 @@
 import { blue, red, green } from "@ant-design/colors";
-import {
-  Button,
-  Input,
-  Space,
-  Table,
-  Form,
-  Modal,
-  Select,
-  message,
-  DatePicker,
-  notification,
-} from "antd";
+import {Button,Input,Space,Table,Form,Modal,Select,DatePicker,notification,InputNumber} from "antd";
 import Loader from "react-loader-spinner";
 import React, { useEffect, useReducer, useState } from "react";
 import { NavLink } from "react-router-dom";
-import {DeleteFilled,EditFilled,DiffOutlined} from "@ant-design/icons";
+import { DeleteFilled, EditFilled, DiffOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { LayThongTinPhim} from "../../../redux/actions/QuanLyPhimAction";
+import { LayThongTinPhim } from "../../../redux/actions/QuanLyPhimAction";
 import { quanLyPhimService } from "../../../services/QuanLyPhimService";
-import { handleSetDSCumRap, LayThongTinCinema } from "../../../redux/actions/QuanLyRapPhimAction";
+import {
+  handleSetDSCumRap,
+  LayThongTinCinema,
+} from "../../../redux/actions/QuanLyRapPhimAction";
 
 import "./AdminMovie.scss";
 
@@ -40,14 +32,14 @@ let called = false;
 export const AdminMovie = () => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [updatedForm, setupdatedForm] = useState(false);
   const [form] = Form.useForm();
   const [dataTable, setDataTable] = useState([]);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
   const [changePage, setChangePage] = useState(1);
   const [groupID, setGroupID] = useState("GP01");
   const [totalData, setTotalData] = useState(0);
-  const [loading,setLoading] = useState(false);
-  const [maPhim,setmaPhim] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const columns = [
     {
@@ -91,22 +83,33 @@ export const AdminMovie = () => {
       key: "thaoTac",
       render: (text, record) => (
         <Space>
-          <Button style={{ backgroundColor: green[7], color: "white" }} onClick={() => {
-              setmaPhim(record.maPhim);
-              dispatch(LayThongTinPhim(record.maPhim,setLoading,setShowModal));
+          <Button
+            style={{ backgroundColor: green[7], color: "white" }}
+            onClick={() => {
+              const infoMovie = {
+                maPhim: record.maPhim,
+                ngayChieuGioChieu: record.ngayChieuGioChieu,
+                maRap: record.maRap,
+                giaVe: record.giaVe
+              };
+
+              layThongTinLichChieu(record.maPhim,infoMovie);
             }}
           >
             <DiffOutlined />
             Create showtimes
           </Button>
-          <Button style={{ backgroundColor: blue[6], color: "white" }} onClick={() => {
+          <Button
+            style={{ backgroundColor: blue[6], color: "white" }}
+            onClick={() => {  
               form.setFieldsValue({
                 maPhim: record.maPhim,
-                ngayChieuGioChieu: record.ngayChieuGioChieu,
-                maRap: record.maRap,
-                giaVe: record.giaVe,
+                tenPhim: record.tenPhim,
+                maNhom: record.maNhom,
+                hinhAnh: record.hinhAnh.props.src,
+                moTa: record.moTa,
               });
-              setShowModal(true);
+              setupdatedForm(true);
             }}
           >
             <EditFilled />
@@ -164,45 +167,62 @@ export const AdminMovie = () => {
     },
   ];
 
-  let DSHeThongRap = useSelector(state => state.QuanLyRapPhimReducer.DSHeThongRap);
-  let DSCumRap = useSelector(state => state.QuanLyRapPhimReducer.DSCumRap);
-  let lichChieuPhim = useSelector(state => state.QuanLyPhimReducer.lichChieuPhim);
-  let [DSRap,setDSRap] = useState([]);
-  
+  let DSHeThongRap = useSelector(
+    (state) => state.QuanLyRapPhimReducer.DSHeThongRap
+  );
+  let DSCumRap = useSelector((state) => state.QuanLyRapPhimReducer.DSCumRap);
+  let lichChieuPhim = useSelector(
+    (state) => state.QuanLyPhimReducer.lichChieuPhim
+  );
+  let [DSRap, setDSRap] = useState([]);
+
   const initial = () => {
     let fetchedData = [];
-    quanLyPhimService.layDanhSachPhimPhantrang(changePage, 10, groupID).then((res) =>{
-      res.data.items.forEach(({ ...rest }, i) => {
-        fetchedData = [
-          ...fetchedData,
-          {
-            key: i + 1,
-            STT: changePage === 1 ? i + 1 : i + 1 + (changePage - 1) * 10,
-            ...rest,
-            hinhAnh: (
-              <img
-                src={{ ...rest }.hinhAnh}
-                width="50px"
-                height="50px"
-                alt={{ ...rest }.tenPhim}
-              />
-            ),
-          },
-        ];
+    quanLyPhimService.layDanhSachPhimPhantrang(changePage, 10, groupID).then((res) => {
+        res.data.items.forEach(({ ...rest }, i) => {
+          fetchedData = [
+            ...fetchedData,
+            {
+              key: i + 1,
+              STT: changePage === 1 ? i + 1 : i + 1 + (changePage - 1) * 10,
+              ...rest,
+              hinhAnh: (
+                <img
+                  src={{ ...rest }.hinhAnh}
+                  width="50px"
+                  height="50px"
+                  alt={{ ...rest }.tenPhim}
+                />
+              ),
+            },
+          ];
+        });
+        setTotalData(res.data.totalCount);
+        setDataTable(fetchedData);
+        called = false;
+      })
+      .catch(() => {
+        setDataTable([]);
       });
-      setTotalData(res.data.totalCount);
-      setDataTable(fetchedData);
-      called = false;
-    }).catch(error=>{
-      console.log(error)
-      setDataTable([]);
-    })
+      
+    if(DSHeThongRap.length === 0){
+      dispatch(LayThongTinCinema());
 
-    dispatch(LayThongTinCinema());
-    setDSRap(DSCumRap[0]?.danhSachRap);
+      if(!DSCumRap){
+        setDSRap(DSCumRap[0].danhSachRap);
+      }
+    }
   };
 
   useEffect(initial, [ignored, groupID]);
+
+  const layThongTinLichChieu = async (maPhim,infoMovie) =>{
+    setLoading(true);
+    await dispatch(LayThongTinPhim(maPhim));
+    form.setFieldsValue({infoMovie});
+    setLoading(false);
+    setShowModal(true);
+  }
 
   const handlePage = (nextPage) => {
     if (called) {
@@ -213,95 +233,161 @@ export const AdminMovie = () => {
     let newData = [];
     let index = 0;
 
-    quanLyPhimService.layDanhSachPhimPhantrang(nextPage, 10, groupID).then((res) =>{
-      res.data.items.forEach(({ ...rest }, i) => {
-        index++;
-        newData = [
-          ...newData,
-          {
-            key: index,
-            STT: nextPage === 1 ? i + 1 : i + 1 + (nextPage - 1) * 10,
-            ...rest,
-            hinhAnh: (
-              <img
-                src={{ ...rest }.hinhAnh}
-                width="50px"
-                height="50px"
-                alt={{ ...rest }.tenPhim}
-              />
-            ),
-          },
-        ];
+    quanLyPhimService
+      .layDanhSachPhimPhantrang(nextPage, 10, groupID)
+      .then((res) => {
+        res.data.items.forEach(({ ...rest }, i) => {
+          index++;
+          newData = [
+            ...newData,
+            {
+              key: index,
+              STT: nextPage === 1 ? i + 1 : i + 1 + (nextPage - 1) * 10,
+              ...rest,
+              hinhAnh: (
+                <img
+                  src={{ ...rest }.hinhAnh}
+                  width="50px"
+                  height="50px"
+                  alt={{ ...rest }.tenPhim}
+                />
+              ),
+            },
+          ];
+        });
+        setDataTable(newData);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      setDataTable(newData);
-    }).catch(err=>{
-      console.log(err);
-    })
   };
 
-  const openNotificationWithIcon = (type,des) => {
+  const openNotificationWithIcon = (type, des) => {
     notification[type]({
-      message: 'Thông Báo',
-      description:
-        des,
+      message: "Thông Báo",
+      description: des,
     });
   };
 
   const handleOk = () => {
-   
     let formValues = form.getFieldValue();
     let createdValues = {
       ...formValues,
-      ngayChieuGioChieu: formValues['ngayChieuGioChieu'].format('DD-MM-YYYY HH:mm:ss'),
-      maPhim: maPhim
+      ngayChieuGioChieu: formValues["ngayChieuGioChieu"].format(
+        "DD-MM-YYYY HH:mm:ss"
+      ),
     };
 
-    quanLyPhimService.TaoLichChieu(createdValues).then(res =>{
-      openNotificationWithIcon('success',res.data);
-    }).catch(errors=>{
-      openNotificationWithIcon('error',`Error: ${errors.response.status}. ${errors.response.data}`);
-    })
+    quanLyPhimService
+      .TaoLichChieu(createdValues)
+      .then((res) => {
+        openNotificationWithIcon("success", res.data);
+      })
+      .catch((errors) => {
+        openNotificationWithIcon(
+          "error",
+          `Error: ${errors.response.status}. ${errors.response.data}`
+        );
+      });
   };
 
   const handleDelete = (maPhim) => {
-    quanLyPhimService.XoaPhim(maPhim).then((res) => {
-      forceUpdate();
-      message.success("Delete Successfully!");
-    })
-    .catch((err) => {
-      message.error("Delete Failed!");
-    });
+    quanLyPhimService
+      .XoaPhim(maPhim)
+      .then((res) => {
+        forceUpdate();
+        openNotificationWithIcon('success',res.data)
+      })
+      .catch((err) => {
+        openNotificationWithIcon('error',err.response.data)
+      });
   };
 
   return (
     <>
       <NavLink to="/admin/useradmin/formmovie">Add Movie</NavLink>
-      <Input onPressEnter={(e) => setGroupID("GP" + e.target.value)} addonBefore="GP" defaultValue="01" />
-      <Table pagination={{position: ["bottomCenter"], total: totalData, onChange: handlePage, showSizeChanger: false,current: changePage}} columns={columns} dataSource={dataTable}/>
-      {
-        loading ? <Loader type="Circles" color="#2BAD60" className="loading" height="50%" width="50%" /> : <></> 
-      } 
-      <Modal width="auto" style={{padding:"0 5%",top: 20}} className="customModal" title="Tạo lịch chiếu" visible={showModal} onOk={handleOk} onCancel={() => {setShowModal(false);}}>
-        <Form form={form} labelAlign="left" {...formItemLayout} >
-          <Select defaultValue={DSHeThongRap[0]?.tenHeThongRap} style={{marginRight:"10px",width:"20%"}} placeholder="Chọn hệ thống rạp..." onChange={(value) =>{
-            dispatch(handleSetDSCumRap(value));
-          }}>
-            {DSHeThongRap?.map((item,index) =>{
-              return <Option key={index} value={item.maHeThongRap}>{item.tenHeThongRap}</Option>
+      <Input
+        onPressEnter={(e) => setGroupID("GP" + e.target.value)}
+        addonBefore="GP"
+        defaultValue="01"
+      />
+      <Table
+        pagination={{
+          position: ["bottomCenter"],
+          total: totalData,
+          onChange: handlePage,
+          showSizeChanger: false,
+          current: changePage,
+        }}
+        columns={columns}
+        dataSource={dataTable}
+      />
+      {loading ? (
+        <Loader
+          type="Circles"
+          color="#2BAD60"
+          className="loading"
+          height="50%"
+          width="50%"
+        />
+      ) : (
+        <></>
+      )}
+      <Modal
+        width="auto"
+        style={{ padding: "0 5%", top: 20 }}
+        className="customModal"
+        title="Tạo lịch chiếu"
+        visible={showModal}
+        onOk={handleOk}
+        onCancel={() => {
+          setShowModal(false);
+        }}
+      >
+        <Form form={form} labelAlign="left" {...formItemLayout}>
+          <Select
+            defaultValue={DSHeThongRap[0]?.maHeThongRap}
+            style={{ marginRight: "10px", width: "20%" }}
+            placeholder="Chọn hệ thống rạp..."
+            onChange={(value) => {
+              dispatch(handleSetDSCumRap(value));
+            }}
+          >
+            {DSHeThongRap?.map((item, index) => {
+              return (
+                <Option key={index} value={item.maHeThongRap}>
+                  {item.tenHeThongRap}
+                </Option>
+              );
             })}
           </Select>
-          <Select defaultValue={DSCumRap[0]?.tenCumRap} style={{marginRight:"10px",width:"35%"}} placeholder="Chọn cụm rạp..." onChange={(value) => {
-            const DSTemp = DSCumRap.find(item => item.maCumRap === value);
-            setDSRap(DSTemp.danhSachRap);
-          }} >
-            {DSCumRap?.map((item,index) =>{
-              return <Option key={index} value={item.maCumRap}>{item.tenCumRap}</Option>
+          <Select
+            style={{ marginRight: "10px", width: "35%" }}
+            placeholder="Chọn cụm rạp..."
+            onChange={(value) => {
+              const DSTemp = DSCumRap.find((item) => item.maCumRap === value);
+              setDSRap(DSTemp.danhSachRap);
+            }}
+          >
+            {DSCumRap?.map((item, index) => {
+              return (
+                <Option key={index} value={item.maCumRap}>
+                  {item.tenCumRap}
+                </Option>
+              );
             })}
           </Select>
-          <Form.Item name="maRap" style={{display:"inline-block",width:"15%"}}  >
+          <Form.Item
+            name="maRap"
+            style={{ display: "inline-block", width: "15%" }}
+          >
             <Select placeholder="Chọn rạp...">
-              {DSRap?.map((item,index) =>{
-                return <Option key={index} value={item.maRap}>{item.tenRap}</Option>
+              {DSRap?.map((item, index) => {
+                return (
+                  <Option key={index} value={item.maRap}>
+                    {item.tenRap}
+                  </Option>
+                );
               })}
             </Select>
           </Form.Item>
@@ -309,10 +395,149 @@ export const AdminMovie = () => {
             <DatePicker showTime format="DD-MM-YYYY HH:mm:ss" />
           </Form.Item>
           <Form.Item label="Giá vé" initialValue="75000" name="giaVe">
-            <Input type="number" allowClear/>
+            <Input type="number" allowClear />
           </Form.Item>
         </Form>
-        <Table columns={columnsLichChieu} rowKey="STT" pagination={false} scroll={{ y: 240 }} dataSource={ lichChieuPhim } />  
+        <Table
+          columns={columnsLichChieu}
+          rowKey="STT"
+          pagination={false}
+          scroll={{ y: 240 }}
+          dataSource={lichChieuPhim}
+        />
+      </Modal>
+      <Modal
+        width="auto"
+        style={{ padding: "0 5%", top: 20 }}
+        className="customModal1"
+        title="Thông tin phim"
+        visible={updatedForm}
+        onOk={handleOk}
+        onCancel={() => {
+          setupdatedForm(false);
+        }}
+      >
+        <Form
+          labelAlign="left"
+          size="large"
+          form={form}
+          {...formItemLayout}
+          name="register"
+        >
+          <Form.Item
+            name="maPhim"
+            label="Mã Phim"
+            rules={[{ required: true, message: "Please input your mã phim" }]}
+            hasFeedback
+          >
+            <Input allowClear />
+          </Form.Item>
+          <Form.Item
+            name="tenPhim"
+            label="Movies'name"
+            rules={[
+              {
+                required: true,
+                message: "Please input your movies'name!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input allowClear />
+          </Form.Item>
+          <Form.Item
+            name="biDanh"
+            label="Aliases"
+            rules={[
+              {
+                required: true,
+                message: "Please input aliases",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input allowClear />
+          </Form.Item>
+
+          <Form.Item
+            name="trailer"
+            label="Trailer"
+            rules={[
+              {
+                required: true,
+                message: "Please input trailer!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input allowClear />
+          </Form.Item>
+          <Form.Item
+            name="hinhAnh"
+            label="Image"
+            rules={[
+              {
+                required: true,
+                message: "Please input your images' link!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input allowClear />
+          </Form.Item>
+          <Form.Item
+            name="maNhom"
+            label="IDs' group"
+            rules={[
+              {
+                required: true,
+                message: "Please input your IDs' group!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input allowClear />
+          </Form.Item>
+          <Form.Item
+            name="moTa"
+            label="Description"
+            rules={[
+              {
+                required: true,
+                message: "Please input your Description!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input.TextArea allowClear />
+          </Form.Item>
+          <Form.Item
+            name="ngayKhoiChieu"
+            label="Launch date"
+            rules={[
+              {
+                required: true,
+                message: "Please input your launch date!",
+              },
+            ]}
+            hasFeedback
+          >
+            <DatePicker showTime format="DD-MM-YYYY HH:mm:ss" />
+          </Form.Item>
+          <Form.Item
+            name="danhGia"
+            label="Evaluate"
+            rules={[{ required: true, message: "Please input your Evaluate!" }]}
+            hasFeedback
+          >
+            <InputNumber min={1} max={10} />
+          </Form.Item>
+          <Form.Item>
+            <Button  type="primary" htmlType="submit">
+              Save
+            </Button>
+          </Form.Item>
+        </Form>
       </Modal>
     </>
   );

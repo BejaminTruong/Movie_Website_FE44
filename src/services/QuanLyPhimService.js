@@ -53,9 +53,9 @@ export class QuanLyPhimService{
         });
     }
 
-    ThemPhimUploadHinh = (adUploadHinh) =>{
+    upLoadHinhAnhPhim = (adUploadHinh) =>{
         return axios({
-            url: `${domain}api/QuanLyPhim/ThemPhimUploadHinh`,
+            url: `${domain}/api/QuanLyPhim/UploadHinhAnhPhim`,
             method: "POST",
             data: adUploadHinh,
             headers:{
@@ -66,7 +66,7 @@ export class QuanLyPhimService{
 
     XoaPhim = (maPhim) =>{
         return axios({
-            url: `${domain}api/QuanLyPhim/XoaPhim?MaPhim=${maPhim}`,
+            url: `${domain}/api/QuanLyPhim/XoaPhim?MaPhim=${maPhim}`,
             method:"DELETE",
             headers:{
                 Authorization: `Bearer ${JSON.parse(localStorage.getItem(accessToken))}`,
