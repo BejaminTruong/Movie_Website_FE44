@@ -2,9 +2,11 @@ import React from "react";
 import moment from "moment";
 import { useSelector } from "react-redux";
 import "./DetailInformation.scss";
-// import "animate.css";
+
 import "animate.css";
+
 export const DetailInformation = () => {
+
   let chiTietPhim = useSelector((state) => state.QuanLyPhimReducer.chiTietPhim);
   
   return (
@@ -14,7 +16,7 @@ export const DetailInformation = () => {
           <li>
             <span>Ngày công chiếu</span>
             <span>
-              {moment(chiTietPhim.ngayKhoiChieu).format("DD.MM.yyyy")}
+              {moment(chiTietPhim.ngayKhoiChieu).format("dddd, DD.MM.yyyy")}
             </span>
           </li>
           <li>

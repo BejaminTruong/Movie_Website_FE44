@@ -8,6 +8,8 @@ import { useParams } from "react-router-dom";
 
 import "./BookingTicket.scss";
 
+const headRow = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+
 export const BookingTicket = () => {
   const dispatch = useDispatch();
   const time = useRef();
@@ -39,11 +41,7 @@ export const BookingTicket = () => {
     document.querySelector("footer").style.display = "none";
 
     dispatch(LayChiTietPhongVe(maLichChieu, handleLoading));
-
-    if(flag){
-      thoiGianGiuGhe();
-    }
-
+    
     return () => {
       dispatch(handleReset());
     };
@@ -91,8 +89,6 @@ export const BookingTicket = () => {
         des,
     });
   };
-
-  const headRow = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
   const rendertextRow = () => {
   
