@@ -12,7 +12,7 @@ import { BookingTicket } from "pages/BookingTicket/BookingTicket";
 import "animate.css";
 import "antd/dist/antd.css";
 import { AddUser } from "./pages/Admin/AddUser/AddUser";
-import { AdminMovie } from "./pages/AdminMovie/AdminMovie";
+import { AdminMovie } from "./pages/Admin/AdminMovie/AdminMovie";
 function App() {
   return (
     <BrowserRouter>
