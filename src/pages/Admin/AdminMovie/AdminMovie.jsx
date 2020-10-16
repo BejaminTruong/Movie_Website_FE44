@@ -1,5 +1,5 @@
 import { blue, red, green } from "@ant-design/colors";
-import {Button,Input,Space,Table,Form,Modal,Select,DatePicker,notification,InputNumber} from "antd";
+import {Button,Input,Space,Table,Form,Modal,Select,DatePicker,notification,InputNumber,Upload} from "antd";
 import Loader from "react-loader-spinner";
 import React, { useEffect, useReducer, useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -7,10 +7,9 @@ import { DeleteFilled, EditFilled, DiffOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { LayThongTinPhim } from "../../../redux/actions/QuanLyPhimAction";
 import { quanLyPhimService } from "../../../services/QuanLyPhimService";
-import {
-  handleSetDSCumRap,
-  LayThongTinCinema,
-} from "../../../redux/actions/QuanLyRapPhimAction";
+import {handleSetDSCumRap,LayThongTinCinema,} from "../../../redux/actions/QuanLyRapPhimAction";
+import moment from "moment";
+import { isInteger } from "lodash";
 
 import "./AdminMovie.scss";
 
@@ -34,12 +33,16 @@ export const AdminMovie = () => {
   const [showModal, setShowModal] = useState(false);
   const [updatedForm, setupdatedForm] = useState(false);
   const [form] = Form.useForm();
-  const [dataTable, setDataTable] = useState([]);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
   const [changePage, setChangePage] = useState(1);
   const [groupID, setGroupID] = useState("GP01");
-  const [totalData, setTotalData] = useState(0);
+  const [data, setData] = useState({dataTable: [], totalData: 0});
   const [loading, setLoading] = useState(false);
+  const [fileList, setFileList] = useState([]);
+
+  const onChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
 
   const columns = [
     {
@@ -102,12 +105,21 @@ export const AdminMovie = () => {
           <Button
             style={{ backgroundColor: blue[6], color: "white" }}
             onClick={() => {  
-              form.setFieldsValue({
+              setFileList([{
+                uid: '-1',
+                name: '',
+                status: 'done',
+                url: `${record.hinhAnh.props.src}`,
+              },])
+              form.setFieldsValue({            
                 maPhim: record.maPhim,
                 tenPhim: record.tenPhim,
+                biDanh: record.biDanh,
+                trailer: record.trailer,  
                 maNhom: record.maNhom,
                 hinhAnh: record.hinhAnh.props.src,
                 moTa: record.moTa,
+                ngayKhoiChieu: moment(record.ngayKhoiChieu,"YYYY/MM/DD"),
               });
               setupdatedForm(true);
             }}
@@ -194,15 +206,15 @@ export const AdminMovie = () => {
                   alt={{ ...rest }.tenPhim}
                 />
               ),
+              ngayKhoiChieu: moment({ ...rest }.ngayKhoiChieu).format('DD/MM/yyyy')
             },
           ];
         });
-        setTotalData(res.data.totalCount);
-        setDataTable(fetchedData);
+        setData({dataTable: fetchedData, totalData: res.data.totalCount});
         called = false;
       })
       .catch(() => {
-        setDataTable([]);
+        setData({...data,dataTable: []});
       });
       
     if(DSHeThongRap.length === 0){
@@ -252,10 +264,11 @@ export const AdminMovie = () => {
                   alt={{ ...rest }.tenPhim}
                 />
               ),
+              ngayKhoiChieu: moment({ ...rest }.ngayKhoiChieu).format('DD/MM/yyyy')
             },
           ];
         });
-        setDataTable(newData);
+        setData({...data,dataTable: newData});
       })
       .catch((err) => {
         console.log(err);
@@ -292,20 +305,47 @@ export const AdminMovie = () => {
   };
 
   const handleDelete = (maPhim) => {
-    quanLyPhimService
-      .XoaPhim(maPhim)
-      .then((res) => {
+    quanLyPhimService.XoaPhim(maPhim).then((res) => {
         forceUpdate();
         openNotificationWithIcon('success',res.data)
       })
       .catch((err) => {
-        openNotificationWithIcon('error',err.response.data)
+        console.log(err)
+      });
+  };
+
+  const onFinish = (values) => {
+    const formValue = {
+      ...values,
+      ngayKhoiChieu: values["ngayKhoiChieu"].format("DD/MM/YYYY"),
+      hinhAnh: fileList[0].name,
+      trailer: values["trailer"] ? values["trailer"] : "",
+    };
+
+    quanLyPhimService
+      .CapNhatPhim(formValue)
+      .then((res) => {
+        let frm = new FormData();
+        frm.append("File", fileList[0].originFileObj, fileList[0].name);
+        frm.append("tenphim", values["tenPhim"]);
+        frm.append("manhom", values["maNhom"]);
+        quanLyPhimService
+          .upLoadHinhAnhPhim(frm)
+          .then((res) => {
+            openNotificationWithIcon("success", `Add movie successfully!`);
+          })
+          .catch((error) => {
+            openNotificationWithIcon("error", error.response.data);
+          });
+      })
+      .catch((error) => {
+        openNotificationWithIcon("error", error.response.data);
       });
   };
 
   return (
     <>
-      <NavLink to="/admin/useradmin/formmovie">Add Movie</NavLink>
+      <NavLink to="/admin/movieadmin/formmovie">Add Movie</NavLink>
       <Input
         onPressEnter={(e) => setGroupID("GP" + e.target.value)}
         addonBefore="GP"
@@ -314,25 +354,16 @@ export const AdminMovie = () => {
       <Table
         pagination={{
           position: ["bottomCenter"],
-          total: totalData,
+          total: data.totalData,
           onChange: handlePage,
           showSizeChanger: false,
           current: changePage,
         }}
         columns={columns}
-        dataSource={dataTable}
+        dataSource={data.dataTable}
       />
       {loading ? (
-        <Loader
-          type="Circles"
-          color="#2BAD60"
-          className="loading"
-          height="50%"
-          width="50%"
-        />
-      ) : (
-        <></>
-      )}
+        <Loader type="Circles" color="#2BAD60" className="loading" height="50%" width="50%" />) : (<></>)}
       <Modal
         width="auto"
         style={{ padding: "0 5%", top: 20 }}
@@ -412,26 +443,12 @@ export const AdminMovie = () => {
         className="customModal1"
         title="Thông tin phim"
         visible={updatedForm}
-        onOk={handleOk}
         onCancel={() => {
           setupdatedForm(false);
         }}
+        footer={false}
       >
-        <Form
-          labelAlign="left"
-          size="large"
-          form={form}
-          {...formItemLayout}
-          name="register"
-        >
-          <Form.Item
-            name="maPhim"
-            label="Mã Phim"
-            rules={[{ required: true, message: "Please input your mã phim" }]}
-            hasFeedback
-          >
-            <Input allowClear />
-          </Form.Item>
+        <Form labelAlign="left" size="middle" form={form} {...formItemLayout} onFinish={onFinish} name="register">
           <Form.Item
             name="tenPhim"
             label="Movies'name"
@@ -466,19 +483,6 @@ export const AdminMovie = () => {
               {
                 required: true,
                 message: "Please input trailer!",
-              },
-            ]}
-            hasFeedback
-          >
-            <Input allowClear />
-          </Form.Item>
-          <Form.Item
-            name="hinhAnh"
-            label="Image"
-            rules={[
-              {
-                required: true,
-                message: "Please input your images' link!",
               },
             ]}
             hasFeedback
@@ -522,15 +526,47 @@ export const AdminMovie = () => {
             ]}
             hasFeedback
           >
-            <DatePicker showTime format="DD-MM-YYYY HH:mm:ss" />
+            <DatePicker showToday format="DD-MM-YYYY" />
           </Form.Item>
           <Form.Item
             name="danhGia"
+            initialValue={1}
             label="Evaluate"
-            rules={[{ required: true, message: "Please input your Evaluate!" }]}
+            rules={[
+              { required: true, message: "Please input your Evaluate !" },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || isInteger(value)) {
+                    return Promise.resolve();
+                  }
+
+                  return Promise.reject("Evaluate is not a valid integer!");
+                },
+              }),
+            ]}
             hasFeedback
           >
-            <InputNumber min={1} max={10} />
+            <InputNumber min={0} max={10} allowClear />
+          </Form.Item>
+          <Form.Item
+            name="hinhAnh"
+            label="Images"
+            rules={[
+              {
+                required: true,
+                message: "Please input your image!",
+              },
+            ]}
+            hasFeedback
+          >
+            <Upload
+              listType="picture-card"
+              fileList={fileList}
+              onChange={onChange}
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            >
+              {fileList.length < 1 && "+ Upload"}
+            </Upload>
           </Form.Item>
           <Form.Item>
             <Button  type="primary" htmlType="submit">

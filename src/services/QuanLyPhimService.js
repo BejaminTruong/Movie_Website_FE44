@@ -74,16 +74,6 @@ export class QuanLyPhimService{
         })
     }
 
-    CapNhatPhimUpLoad = () =>{
-        return axios({
-            url: `${domain}/api/QuanLyPhim/CapNhatPhimUpload`,
-            method: "POST",
-            headers:{
-                Authorization: `Bearer ${JSON.parse(localStorage.getItem(accessToken))}`,
-            }
-        })
-    } 
-
     CapNhatPhim = (adCapNhatPhim) => {
         return axios({
             url: `${domain}api/QuanLyPhim/CapNhatPhim`,
