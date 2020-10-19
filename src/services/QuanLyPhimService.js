@@ -76,7 +76,7 @@ export class QuanLyPhimService{
 
     CapNhatPhim = (adCapNhatPhim) => {
         return axios({
-            url: `${domain}api/QuanLyPhim/CapNhatPhim`,
+            url: `${domain}/api/QuanLyPhim/CapNhatPhim`,
             method:"POST",
             data: adCapNhatPhim,
             headers:{

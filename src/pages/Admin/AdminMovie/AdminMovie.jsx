@@ -9,7 +9,7 @@ import { LayThongTinPhim } from "../../../redux/actions/QuanLyPhimAction";
 import { quanLyPhimService } from "../../../services/QuanLyPhimService";
 import {handleSetDSCumRap,LayThongTinCinema,} from "../../../redux/actions/QuanLyRapPhimAction";
 import moment from "moment";
-import { isInteger } from "lodash";
+import { isInteger} from "lodash";
 
 import "./AdminMovie.scss";
 
@@ -33,6 +33,7 @@ export const AdminMovie = () => {
   const [showModal, setShowModal] = useState(false);
   const [updatedForm, setupdatedForm] = useState(false);
   const [form] = Form.useForm();
+  const [formUpdate] = Form.useForm();
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
   const [changePage, setChangePage] = useState(1);
   const [groupID, setGroupID] = useState("GP01");
@@ -105,13 +106,7 @@ export const AdminMovie = () => {
           <Button
             style={{ backgroundColor: blue[6], color: "white" }}
             onClick={() => {  
-              setFileList([{
-                uid: '-1',
-                name: '',
-                status: 'done',
-                url: `${record.hinhAnh.props.src}`,
-              },])
-              form.setFieldsValue({            
+              formUpdate.setFieldsValue({            
                 maPhim: record.maPhim,
                 tenPhim: record.tenPhim,
                 biDanh: record.biDanh,
@@ -120,6 +115,7 @@ export const AdminMovie = () => {
                 hinhAnh: record.hinhAnh.props.src,
                 moTa: record.moTa,
                 ngayKhoiChieu: moment(record.ngayKhoiChieu,"YYYY/MM/DD"),
+                danhGia: record.danhGia,
               });
               setupdatedForm(true);
             }}
@@ -314,27 +310,27 @@ export const AdminMovie = () => {
       });
   };
 
-  const onFinish = (values) => {
+  const hanhdleUpdate = (values) => {
     const formValue = {
       ...values,
       ngayKhoiChieu: values["ngayKhoiChieu"].format("DD/MM/YYYY"),
-      hinhAnh: fileList[0].name,
+      hinhAnh: values["hinhAnh"].file.name,
       trailer: values["trailer"] ? values["trailer"] : "",
     };
-
-    quanLyPhimService
-      .CapNhatPhim(formValue)
-      .then((res) => {
+    quanLyPhimService.CapNhatPhim(formValue).then((res) => {
         let frm = new FormData();
-        frm.append("File", fileList[0].originFileObj, fileList[0].name);
+        frm.append("File", values["hinhAnh"].file.originFileObj, values["hinhAnh"].file.name);
         frm.append("tenphim", values["tenPhim"]);
         frm.append("manhom", values["maNhom"]);
-        quanLyPhimService
-          .upLoadHinhAnhPhim(frm)
-          .then((res) => {
-            openNotificationWithIcon("success", `Add movie successfully!`);
+        quanLyPhimService.upLoadHinhAnhPhim(frm).then((res) => {
+            openNotificationWithIcon("success", `Update movie successfully!`);
+            setupdatedForm(!updatedForm);
+            setFileList([]);
+            handlePage(changePage);
           })
           .catch((error) => {
+            setFileList([]);
+            handlePage(changePage);
             openNotificationWithIcon("error", error.response.data);
           });
       })
@@ -448,7 +444,10 @@ export const AdminMovie = () => {
         }}
         footer={false}
       >
-        <Form labelAlign="left" size="middle" form={form} {...formItemLayout} onFinish={onFinish} name="register">
+        <Form labelAlign="left" size="middle" form={formUpdate} {...formItemLayout} onFinish={hanhdleUpdate} name="register">
+          <Form.Item name="maPhim">
+            <Input type="hidden" />
+          </Form.Item>
           <Form.Item
             name="tenPhim"
             label="Movies'name"
