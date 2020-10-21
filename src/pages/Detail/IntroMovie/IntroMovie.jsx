@@ -1,25 +1,51 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import moment from "moment";
 import Scrollchor from 'react-scrollchor';
 import {Trailer} from 'components/Trailer/Trailer';
 import {Breadcrumb} from "antd";
 import {HomeOutlined} from "@ant-design/icons";
 import { useSelector } from 'react-redux';
-import "./IntroMovie.scss"
 import { isEmpty } from 'lodash';
+import { useHistory } from 'react-router-dom';
+
+import "./IntroMovie.scss";
 
 export const IntroMovie = (props) => {
     
     let chiTietPhim = useSelector(state => state.QuanLyPhimReducer.chiTietPhim);
+    const progressBarRef = useRef(); 
+    const pathName = useHistory().location.pathname;
     
-    return (<>
-        <div className="intro__movie">              
+    var i = 0;
+    const move = (end) =>{
+        if(!end){
+            return;
+        }
+        if (i === 0) {
+            i = 1;
+            var elem = progressBarRef.current;
+            var width = 1;
+            var id = setInterval(frame, 10);
+            function frame() {
+                if (width >= end * 10) {
+                    clearInterval(id);
+                    i = 0;
+                } else {
+                    width++;
+                    elem.style.strokeDashoffset = `calc(440 - (440 * ${width}) / 100)`;
+                }
+            }
+        }
+    }
+
+    return (
+        <div className="intro__movie" onLoad={() => move(chiTietPhim.danhGia)} >              
             <div className="pageheader">
                 <Breadcrumb>
                     <Breadcrumb.Item href="/home">
                         <HomeOutlined />
                     </Breadcrumb.Item>
-                    <Breadcrumb.Item href={`${props.pathName}`}>
+                    <Breadcrumb.Item href={`${pathName}`}>
                         {chiTietPhim.tenPhim}
                     </Breadcrumb.Item>
                 </Breadcrumb>
@@ -45,7 +71,7 @@ export const IntroMovie = (props) => {
                             <div className="percent">
                                 <svg>
                                     <circle cx="70" cy="70" r="70"></circle>
-                                    <circle id="progressBar" cx="70" cy="70" r="70" ></circle>
+                                    <circle ref={progressBarRef}  cx="70" cy="70" r="70" ></circle>
                                 </svg>
                                 <div className="number">
                                     <h2>{chiTietPhim.danhGia}</h2>
@@ -56,6 +82,5 @@ export const IntroMovie = (props) => {
                 </div>
             </div>
         </div>
-    </>
     )
 }

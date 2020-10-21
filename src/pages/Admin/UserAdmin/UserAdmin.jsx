@@ -142,6 +142,7 @@ export const UserAdmin = () => {
       });
   }
   useEffect(initial, [ignored, groupID]);
+  
   const handlePage = (nextPage) => {
     if (called) {
       setChangePage(nextPage);

@@ -12,8 +12,6 @@ export default (state = initialState,action) => {
         return { ...state, DSHeThongRap: action.DSHeThongRap, DSCumRap: action.DSCumRap, DSLichChieu: action.DSLichChieu }
     case Update_Thong_Tin_Cum_Rap_Lich_Chieu:
         return {...state, DSCumRap: action.DSCumRap, DSLichChieu: action.DSLichChieu}
-    case "ERROR":
-        return;
     default:
         return state
     }

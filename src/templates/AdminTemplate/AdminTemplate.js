@@ -7,7 +7,6 @@ import {
   MenuFoldOutlined,
   UserOutlined,
   VideoCameraOutlined,
-  UploadOutlined,
 } from "@ant-design/icons";
 import "./AdminTemplate.scss";
 const { Header, Sider, Content } = Layout;

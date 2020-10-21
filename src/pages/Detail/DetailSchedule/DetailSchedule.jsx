@@ -20,7 +20,6 @@ export const DetailSchedule = () => {
 
   const usLogin = useSelector(state => state.QuanLyNguoiDungReducer.nguoiDung);
 
-
   let [maHeThongRap, setMaHeThongRap] = useState(CinemaID);
 
   const renderHeThongRap = () => {
