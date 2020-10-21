@@ -18,7 +18,7 @@ function App() {
   return (
     <BrowserRouter>
       <Route exact>
-        <AdminTemplate exact path="/admin/useradmin/formmovie" Component={FormMovie}/>
+        <AdminTemplate exact path="/admin/movieadmin/formmovie" Component={FormMovie}/>
         <AdminTemplate exact path="/admin/movieadmin" Component={AdminMovie} />
         <AdminTemplate exact path="/admin/useradmin/adduser" Component={AddUser}/>
         <AdminTemplate exact path="/admin/useradmin" Component={UserAdmin} />
