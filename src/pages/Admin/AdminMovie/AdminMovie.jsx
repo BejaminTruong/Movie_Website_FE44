@@ -227,7 +227,7 @@ export const AdminMovie = () => {
   const layThongTinLichChieu = async (maPhim,infoMovie) =>{
     setLoading(true);
     await dispatch(LayThongTinPhim(maPhim));
-    form.setFieldsValue({infoMovie});
+    form.setFieldsValue(infoMovie);
     setLoading(false);
     setShowModal(true);
   }
@@ -286,10 +286,11 @@ export const AdminMovie = () => {
         "DD-MM-YYYY HH:mm:ss"
       ),
     };
-
+    
     quanLyPhimService
       .TaoLichChieu(createdValues)
       .then((res) => {
+        dispatch(LayThongTinPhim(formValues.maPhim));
         openNotificationWithIcon("success", res.data);
       })
       .catch((errors) => {
