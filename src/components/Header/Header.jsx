@@ -58,13 +58,13 @@ export const Header = () => {
           justify="space-between"
           align="middle"
         >
-          <Col span={6}>
+          <Col xs={18} sm={8} xl={6}>
             <NavLink to="/home">
               <img className="header__logo" src={logo} alt="logo" />
               <img className="header__img" src={movie_name} alt="brand" />
             </NavLink>
           </Col>
-          <Col span={18} style={{ paddingLeft: "50px", position: "unset" }}>
+          <Col xs={6} sm={16} xl={18} style={{ paddingLeft: "50px", position: "unset" }}>
             <div
               style={{
                 display: innerWidth > 992 ? "none" : "",

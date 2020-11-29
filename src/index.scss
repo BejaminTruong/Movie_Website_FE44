@@ -1,16 +1,10 @@
-#root{
-    height: 100%;
-    width: 100%;
-}
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
-
+#root{
+  overflow: hidden;
+}
 body{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family:'Roboto',Helvetica, Arial, sans-serif;
-  overflow-x: hidden;
-}
-html{
-  overflow: hidden;
 }

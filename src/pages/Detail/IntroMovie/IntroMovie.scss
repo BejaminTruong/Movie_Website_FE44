@@ -30,7 +30,12 @@
     & img {
       width: 25%;
       display: block;
-      height: 500px;
+      @media screen and (max-width: 768px) {
+        height: 270px;
+      }
+      @media screen and (max-width: 426px) {
+        height: 200px;
+      }
       // margin-right: 50px;
       filter: drop-shadow(0 0 0.85rem white);
     }
@@ -91,6 +96,40 @@
           transition: all linear 0.3s;
         }
       }
+      @media screen and (max-width: 1025px) {
+        .btn__intro__movie,
+        .btn__booking {
+          font-size: 16px;
+        }
+      }
+      @media screen and (max-width: 768px) {
+        .btn__intro__movie,
+        .btn__booking {
+          font-size: 14px;
+          padding: 10px 10px;
+        }
+        p {
+          font-size: 18px;
+          letter-spacing: unset;
+        }
+      }
+      @media screen and (max-width: 426px) {
+        .btn__intro__movie{
+          margin-bottom: 10px;
+        }
+        .btn__intro__movie,
+        .btn__booking {
+          width: 70px;
+          font-size: 10px;
+          padding: 5px 5px;
+        }
+        p {
+          font-size: 10px;
+        }
+        h3{
+          font-size: 20px;
+        }
+      }
     }
   }
 }
@@ -139,6 +178,15 @@
         margin: 0;
       }
     }
+    @media screen and (max-width: 426px) {
+      width: 80px;
+      height: 80px;
+      .number {
+        h2 {
+          font-size: 3rem;
+        }
+      }
+    }
   }
 
   & svg {
@@ -160,6 +208,18 @@
         stroke: #f7c40f;
         stroke-dasharray: 440;
         stroke-dashoffset: calc(440 - (440 * 1) / 100);
+      }
+    }
+    @media screen and (max-width: 426px) {
+      width: 80px;
+      height: 80px;
+      circle {
+        cx: 35;
+        cy: 35;
+        r: 35;
+        &:nth-child(2) {
+          stroke-dasharray: 330;
+        }
       }
     }
   }

@@ -155,27 +155,27 @@ export const Account = () => {
               <Col
                 xl={{ span: 6, offset: 7 }}
                 sm={{ span: 8, offset: 4 }}
-                xs={{ span: 12, offset: 2 }}
+                xs={{ span: 24, offset: 6 }}
               >
                 Email: {userInfo.email}
               </Col>
-              <Col xl={{ span: 4, offset: 2 }} sm={{ span: 8, offset: 4 }}>
+              <Col xl={{ span: 4, offset: 2 }} sm={{ span: 8, offset: 4 }} md={{offset: 2}} xs={{span:24, offset: 6}}>
                 UserName: {userInfo.taiKhoan}
               </Col>
               <Col
                 xl={{ span: 6, offset: 7 }}
                 sm={{ span: 8, offset: 4 }}
-                xs={{ span: 12, offset: 2 }}
+                xs={{ span: 24, offset: 6 }}
               >
                 Full Name: {userInfo.hoTen}
               </Col>
-              <Col xl={{ span: 4 }} sm={{ span: 8, offset: 2 }}>
+              <Col xl={{ span: 4 }} sm={{ span: 8, offset: 2 }} xs={{span:24, offset: 6}}>
                 Password: {userInfo.matKhau}
               </Col>
               <Col
                 xl={{ span: 6, offset: 7 }}
                 sm={{ span: 4, offset: 4 }}
-                xs={{ span: 10, offset: 2 }}
+                xs={{ span: 24, offset: 6 }}
               >
                 Phone: {userInfo.soDT}
               </Col>

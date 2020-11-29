@@ -1,37 +1,62 @@
 /*==================== DETAIL INFORMATION ========================*/
 
-.detail_movie_info{
-    width: 80%;
-    padding: 20px;
-    margin: 50px auto 0;
-    display: flex;
-    flex-direction: row;
-    height: 880px;
-    & .movie_info{
+.detail_movie_info {
+  width: 80%;
+  padding: 20px;
+  margin: 50px auto 0;
+  display: flex;
+  //   flex-direction: row;
+  //   height: 880px;
+  & .movie_info {
+    width: 50%;
+    color: #fff;
+    & li {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 100px 10px 0;
+      & span {
         width: 50%;
-        color: #fff;
-        & li{
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 100px 10px 0;
-            & span{
-                width: 50%;
-                font-size: 18px;
-                font-weight: 400;
-            }
-        }
-
-        & p:nth-child(1){
-            padding-top: 10px;
-            font-size: 18px;
-            font-weight: 500;
-        }
-
-        & p:nth-child(2){
-            font-size: 14px;
-            font-weight: 300;
-            letter-spacing: 1px;
-            text-align: justify;
-        }
+        font-size: 18px;
+        font-weight: 400;
+      }
     }
+
+    & p:nth-child(1) {
+      padding-top: 10px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    & p:nth-child(2) {
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 1px;
+      text-align: justify;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    padding: 0;
+    .movie_info {
+      ul {
+        padding-left: 0;
+        li {
+          span {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 426px) {
+    flex-direction: column;
+    .movie_info {
+      width: 100%;
+      text-align: center;
+      ul{
+          li{
+              padding: 10px 0px;
+          }
+      }
+    }
+  }
 }

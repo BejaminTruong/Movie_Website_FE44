@@ -62,7 +62,7 @@ export const Tab = () => {
         spaceBetween={20}
         slidesPerColumn={2}
         slidesPerColumnFill="row"
-        breakpoints={{992:{ slidesPerView:4,spaceBetween:20},768:{ slidesPerView:3,spaceBetween:20},576:{ slidesPerView:2,spaceBetween:20}}}
+        breakpoints={{992:{ slidesPerView:4,spaceBetween:20},768:{ slidesPerView:3,spaceBetween:20},320:{ slidesPerView:1}}}
         tag="div"
         navigation
         lazy
@@ -78,7 +78,7 @@ export const Tab = () => {
         <Tabs
           defaultActiveKey="1"
           type="card"
-          size="large"
+          
           tabPosition="top"
           tabBarStyle={{ fontWeight: 700, padding: "10px 0" }}
           tabBarGutter={10}

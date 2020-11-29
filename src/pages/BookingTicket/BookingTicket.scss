@@ -4,7 +4,7 @@ $size1: 135px;
 .booking__ticket {
   display: flex;
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
   & .booking__ticket__img {
     width: 3%;
     background-size: cover;
@@ -32,23 +32,23 @@ $size1: 135px;
     &.item--2 {
       width: 32%;
       padding: 2% 2%;
-      border: 2px solid rgba(0,0,0,0.25);
+      border: 2px solid rgba(0, 0, 0, 0.25);
       position: relative;
 
-      & .btn__thanhtoan{
+      & .btn__thanhtoan {
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
         padding: 15px 5px;
-        background-color: #AFAFAF;
+        background-color: #afafaf;
 
         font-weight: 600;
-        font-size:20px;
+        font-size: 20px;
         color: #fff;
         cursor: pointer;
-        
-        &:focus{
+
+        &:focus {
           outline: none;
         }
       }
@@ -60,16 +60,16 @@ $size1: 135px;
       justify-content: space-between;
       align-items: center;
 
-      & .content__left{
+      & .content__left {
         font-size: 16px;
         font-weight: 600;
 
-        & p:nth-child(1){
-          color: #44C020;
+        & p:nth-child(1) {
+          color: #44c020;
         }
       }
 
-      & .content__right{
+      & .content__right {
         font-size: 16px;
         font-weight: 600;
       }
@@ -106,65 +106,65 @@ $size1: 135px;
       }
     }
 
-    & .item--1__rowchair{
+    & .item--1__rowchair {
       margin-top: 50px;
       position: relative;
       display: flex;
       width: 80%;
       margin: 100px auto 0;
 
-      & > div{
+      & > div {
         display: flex;
         flex-wrap: wrap;
       }
 
-      & .half__circle{
+      & .half__circle {
         position: absolute;
         top: 50%;
         left: 50%;
-        border: 3px solid red; 
+        border: 3px solid red;
         width: $size1 * 2;
         height: $size1;
-        transform: translate(-50%,-35%);
+        transform: translate(-50%, -35%);
         border-bottom-left-radius: $size1 * 2;
-        border-bottom-right-radius: $size1 * 2;  
+        border-bottom-right-radius: $size1 * 2;
         z-index: -1;
 
-        &::after{
-          content: '';
+        &::after {
+          content: "";
           position: absolute;
           top: 10%;
           left: 50%;
-          border: 1px dashed red;   
+          border: 1px dashed red;
           width: $size * 2;
           height: $size;
-          transform: translate(-50%,-20%);
+          transform: translate(-50%, -20%);
           border-bottom-left-radius: $size * 2;
-          border-bottom-right-radius: $size * 2; 
-          opacity: 0.5; 
+          border-bottom-right-radius: $size * 2;
+          opacity: 0.5;
         }
       }
     }
 
-    & .item--1__infoChair{
+    & .item--1__infoChair {
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
       margin-top: 30px;
 
-      & span{
+      & span {
         width: 20%;
         height: 20px;
-        font-weight:600;
-        display:flex;
+        font-weight: 600;
+        display: flex;
         align-items: center;
 
-        & span{
-          height:26px;
+        & span {
+          height: 26px;
           cursor: default;
-          
-          & p{
+
+          & p {
             transform: translateY(-2px);
             width: 100%;
           }
@@ -175,30 +175,31 @@ $size1: 135px;
 }
 
 .close-x {
-  & .ant-modal-close-x{
+  & .ant-modal-close-x {
     display: none !important;
   }
 }
 
-.headRow{
-  width:5%;
+.headRow {
+  width: 5%;
   display: flex;
   flex-direction: column;
   font-weight: 700;
   font-size: 18px;
 }
 
-.ghe{
+.ghe {
   margin: 5px 3px;
   width: 5%;
   height: 5.5%;
   display: inline-block;
   text-align: center;
   padding: 0 1px;
+  border: 5px solid;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
   border-top: none !important;
-  & p{
+  & p {
     width: 100%;
     margin: 0;
     transform: translateY(-3px);
@@ -214,58 +215,147 @@ $size1: 135px;
     overflow: hidden;
   }
 
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 
-  &:focus{
+  &:focus {
     outline: none;
   }
 }
 
-.gheVip{
-  border: 5px solid  rgb(207, 138, 10);
+.gheVip {
+  // border: 5px solid  rgb(207, 138, 10);
+  border-color: rgb(207, 138, 10);
   border-top: none;
-
-  & p{
-    background-color: rgb(207, 138, 10) ;
+  & p {
+    background-color: rgb(207, 138, 10);
   }
 }
 
-.gheThuong{
-  border: 5px solid  rgba(0,0,0,0.65);
+.gheThuong {
+  // border: 5px solid  rgba(0,0,0,0.65);
+  border-color: rgba(0, 0, 0, 0.65);
   border-top: none;
 
-  & p{
-    background-color: rgba(0,0,0,0.65);
+  & p {
+    background-color: rgba(0, 0, 0, 0.65);
   }
 }
 
-.gheDaDat{
-  border: 5px solid red;
+.gheDaDat {
+  // border: 5px solid red;
+  border-color: red;
   border-top: none;
   opacity: 0.55;
   cursor: default !important;
 
-  & p{
+  & p {
     background-color: red;
   }
 }
 
-.gheDangDat{
-  border: 5px solid rgb(4, 138, 4);
-  & p{
-    background-color:rgb(4, 138, 4);
+.gheDangDat {
+  // border: 5px solid rgb(4, 138, 4);
+  border-color: rgb(4, 138, 4);
+  & p {
+    background-color: rgb(4, 138, 4);
     text-indent: 0;
     white-space: nowrap;
     overflow: hidden;
   }
 }
 
-#time{
+#time {
   margin: 0;
   font-size: 25px;
   color: red;
   font-weight: 600;
 }
-
+@media screen and (max-width: 768px){
+  .ghe {
+    padding: 0 0.5px;
+    width: 3.5%;
+    height: 3.5%;
+    border-width: 3.5px;
+    margin: 4px;
+    p {
+      height: 14px;
+      transform: translateY(-2px);
+    }
+  }
+}
+@media screen and (max-width: 426px) {
+  .booking__ticket {
+    flex-direction: column;
+    overflow-y: unset;
+    .booking__ticket__img {
+      display: none;
+    }
+    &__item {
+      &.item--1,
+      &.item--2 {
+        width: 100%;
+      }
+      .btn__thanhtoan {
+        position: unset !important;
+      }
+      .item--1__infoChair {
+        font-size: 13px;
+        span {
+          span {
+            height: 18px;
+          }
+        }
+      }
+    }
+  }
+  .ghe {
+    width: 2%;
+    height: 4%;
+    border-width: 3px;
+    margin: 4.5px;
+    p {
+      display: none;
+    }
+  }
+  .headRow {
+    p {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+  }
+}
+@media screen and (max-width: 376px) {
+  .booking__ticket{
+    &__item{
+      .item--1__infoChair {
+        font-size: 10px;
+        span {
+          span {
+            height: 16px;
+          }
+        }
+      }
+    }
+  }
+  .ghe {
+    margin: 6px 3.5px;
+  }
+  .headRow {
+    p {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+  }
+}
+@media screen and (max-width: 320px) {
+  .ghe {
+    margin: 5px 2.5px;
+  }
+  .headRow {
+    p {
+      margin-bottom: 8px;
+    }
+  }
+}

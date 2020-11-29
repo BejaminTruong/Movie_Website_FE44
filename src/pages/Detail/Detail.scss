@@ -36,4 +36,10 @@
     height: 100%;
     z-index: -1;
   }
+  @media screen and (max-width: 426px){
+    padding: 10px 50px 50px;
+  }
+  @media screen and (max-width: 320px){
+    padding: 10px 20px 50px;
+  }
 }

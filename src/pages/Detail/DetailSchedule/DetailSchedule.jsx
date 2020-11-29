@@ -124,12 +124,12 @@ export const DetailSchedule = () => {
   return (
     <div className="detail__cinema animate__animated animate__fadeIn">
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-        <Col span={6}>
-          <Space direction="vertical" size="large" style={{ width: "100%" }}>
+        <Col lg={24} xl={6}>
+          <Space direction="vertical" size="large">
             {renderHeThongRap()}
           </Space>
         </Col>
-        <Col span={18}>{renderLichChieu()}</Col>
+        <Col lg={24} xl={18}>{renderLichChieu()}</Col>
       </Row>
     </div>
   );

@@ -26,6 +26,9 @@
     @media screen and (max-width: 992px){
       font-size: 14px !important;
     }
+    @media screen and (max-width: 320px) {
+      font-size: 10px !important;
+    }
   }
 
   & .ant-tabs-tab-active {

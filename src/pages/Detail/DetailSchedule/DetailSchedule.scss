@@ -23,6 +23,11 @@
       filter: drop-shadow(0 0 0.75rem yellow);
     }
   }
+  @media screen and (max-width: 426px){
+    span{
+      font-size: 18px;
+    }
+  }
 }
 .detail__cinema {
   padding: 20px;
@@ -31,54 +36,73 @@
   width: 80%;
   height: 880px;
   margin: 50px auto 0;
-
-  & .ant-space-item {
-    & .cinema__logo {
-      display: flex;
+  .ant-space {
+    width: 100%;
+    @media screen and (max-width: 1025px) {
+      overflow: scroll;
       flex-direction: row;
-      justify-content: space-around;
-      padding: 15px 5px;
-      position: relative;
-      cursor: pointer;
-      opacity: 0.5;
+    }
+    & .ant-space-item {
+      & .cinema__logo {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 15px 5px;
+        position: relative;
+        cursor: pointer;
+        opacity: 0.5;
 
-      & img {
-        width: 40%;
-      }
+        & img {
+          width: 40%;
+        }
 
-      & .cinema__name {
-        width: 60%;
-        padding: 0 20px;
-        & p {
-          color: #fff;
-          margin: 0;
-          font-size: 18px;
-          font-weight: 700;
-          text-transform: uppercase;
+        & .cinema__name {
+          width: 60%;
+          padding: 0 20px;
+          & p {
+            color: #fff;
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+          }
+        }
+
+        &::after {
+          position: absolute;
+          bottom: 0;
+          content: "";
+          display: block;
+          width: 100%;
+          border: 0.5px solid #ffffffb3;
+        }
+
+        &:hover {
+          opacity: 1 !important;
+          transition: all linear 0.3s;
+        }
+
+        &.active {
+          filter: drop-shadow(0 0 0.75rem white);
+          background-color: rgba(0, 0, 0, 0.55);
+        }
+
+        @media screen and (max-width: 1025px) {
+          img{
+            width: 50px;
+            max-width: 50px;
+          }
+          .cinema__name{
+            padding: 0 10px;
+            p{
+              font-size: 10px;
+            }
+          }
         }
       }
-
-      &::after {
-        position: absolute;
-        bottom: 0;
-        content: "";
-        display: block;
-        width: 100%;
-        border: 0.5px solid #ffffffb3;
-      }
-
-      &:hover {
-        opacity: 1 !important;
-        transition: all linear 0.3s;
-      }
-
-      &.active {
-        filter: drop-shadow(0 0 0.75rem white);
-        background-color: rgba(0, 0, 0, 0.55);
-      }
-
-      @media screen and (max-width: 1200px) {
-        width: 50%;
+      @media screen and (max-width: 1025px){
+        height: 80px;
+        max-height: 80px;
       }
     }
   }
